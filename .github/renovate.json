@@ -1,0 +1,36 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["github>SonarSource/renovate-config:languages-team"],
+  "configMigration": true,
+  "enabledManagers": ["github-actions", "maven"],
+  "dockerfile": {
+    "enabled": true
+  },
+  "ignorePaths": [
+    "its/sources/**",
+    "its/plugin/projects/**"
+  ],
+  "packageRules": [
+    {
+      "matchManagers": ["github-actions"],
+      "pinDigests": false,
+      "groupName": "all github actions",
+      "groupSlug": "all-github-actions"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["pin", "rollback"],
+      "enabled": false
+    },
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchCurrentVersion": "!/^0/"
+    },
+    {
+      "matchPackageNames": ["org.sonarsource.flex:flex-its"],
+      "enabled": false
+    }
+  ],
+  "autoApprove": true,
+  "rebaseWhen": "never"
+}
