@@ -7,7 +7,7 @@ switch (myVariable) {
   case 1:
     foo();
     break;
-  case 2:  // Both 'doSomething()' and 'doSomethingElse()' will be executed. Is it on purpose ?
+  case 2:  /* Both 'doSomething()' and 'doSomethingElse()' will be executed. Is it on purpose ? */
     doSomething();
   default:
     doSomethingElse();
@@ -32,17 +32,17 @@ switch (myVariable) {
 <p>This rule is relaxed in the following cases:</p>
 <pre>
 switch (myVariable) {
-  case 0: // Empty case used to specify the same behavior for a group of cases.
+  case 0: /* Empty case used to specify the same behavior for a group of cases. */
   case 1:
     doSomething();
     break;
-  case 2: // Use of return statement
+  case 2: /* Use of return statement */
     return;
-  case 3: // Use of throw statement
-    throw new IllegalStateException();
-  case 4: // Use of continue statement
+  case 3: /* Use of exit/abort instead of throw */
+    exit(1);
+  case 4: /* Use of continue statement */
     continue;
-  default: // For the last case, use of break statement is optional
+  default: /* For the last case, use of break statement is optional */
     doSomethingElse();
 }
 </pre>
@@ -50,4 +50,3 @@ switch (myVariable) {
 <ul>
   <li> CWE - <a href="https://cwe.mitre.org/data/definitions/484">CWE-484 - Omitted Break Statement in Switch</a> </li>
 </ul>
-

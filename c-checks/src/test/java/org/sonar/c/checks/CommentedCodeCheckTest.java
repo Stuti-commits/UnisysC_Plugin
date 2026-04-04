@@ -26,7 +26,7 @@ public class CommentedCodeCheckTest {
   public void test() {
     CommentedCodeCheck check = new CommentedCodeCheck();
 
-    CVerifier.verify(new File("src/test/resources/checks/CommentedCode.as"), check);
+    CVerifier.verify(new File("src/test/resources/checks/CommentedCode.c"), check);
   }
 
 }
