@@ -18,7 +18,6 @@ package org.sonar.c.checks;
 
 import java.io.File;
 import org.junit.jupiter.api.Test;
-import org.sonar.c.checks.OctalValueCheck;
 
 public class OctalValueCheckTest {
 
@@ -26,6 +25,6 @@ public class OctalValueCheckTest {
 
   @Test
   public void test(){
-    CVerifier.verify(new File("src/test/resources/checks/OctalValue.as"), check);
+    CVerifier.verify(new File("src/test/resources/checks/OctalValue.ccc_m"), check);
   }
 }

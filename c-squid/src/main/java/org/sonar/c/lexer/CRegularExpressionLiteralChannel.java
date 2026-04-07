@@ -82,12 +82,12 @@ public class CRegularExpressionLiteralChannel extends Channel<Lexer> {
     ";",
     // TODO Godin: next line was commented-out in order to support XML
     // , "<" // <, <<, << ditto binary operand
-    // !=, !==, %=, &&=, &=, *=, +=, -=, /=, <<=, <=, =, ==, ===, >=, >>=, >>>=,
+    // !=, !==, %=, &&=, &=, *=, +=, -=, /=, <<=, <=, =, ==,  >=, >>=, 
     // ^=, |=, ||=
     // All are binary operands (assignment ops or comparisons) whose right
     // operand cannot start with a division operator
     "=",
-    // >, >>, >>> ditto binary operand
+    // >, >>,  ditto binary operand
     ">",
     // ? expression in ?: cannot start with a division operator
     "?",

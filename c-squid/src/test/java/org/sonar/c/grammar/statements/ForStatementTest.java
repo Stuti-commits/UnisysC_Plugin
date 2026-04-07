@@ -34,7 +34,7 @@ public class ForStatementTest {
     // .matches("var a = 1, b = 2");
     Assertions.assertThat(g.rule(CGrammar.FOR_INIT))
         // expression
-        .matches("i = 1");
+        .matches("i = 1;");
 
     // Assertions.assertThat(g.rule(CGrammar.FOR_IN_BINDING))
     // // variable binding

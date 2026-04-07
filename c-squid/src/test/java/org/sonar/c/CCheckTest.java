@@ -22,10 +22,6 @@ import java.io.File;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import org.sonar.c.CCheck;
-import org.sonar.c.CGrammar;
-import org.sonar.c.CVisitorContext;
-import org.sonar.c.Issue;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
@@ -84,6 +80,6 @@ public class CCheckTest {
   }
 
   private CVisitorContext context() {
-    return TestVisitorContext.create(new File("src/test/resources/org/sonar/c/ccheck.as"));
+    return TestVisitorContext.create(new File("src/test/resources/org/sonar/c/ccheck.ccc_m"));
   }
 }

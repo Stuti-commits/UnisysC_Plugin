@@ -29,7 +29,6 @@ import static org.sonar.c.api.CKeyword.AUTO;
 import static org.sonar.c.api.CKeyword.BREAK;
 import static org.sonar.c.api.CKeyword.CASE;
 import static org.sonar.c.api.CKeyword.CATCH;
-import static org.sonar.c.api.CKeyword.CLASS;
 import static org.sonar.c.api.CKeyword.CONST;
 import static org.sonar.c.api.CKeyword.CONTINUE;
 import static org.sonar.c.api.CKeyword.DEFAULT;
@@ -58,7 +57,6 @@ import static org.sonar.c.api.CKeyword.IS;
 import static org.sonar.c.api.CKeyword.NAMESPACE;
 import static org.sonar.c.api.CKeyword.NEW;
 import static org.sonar.c.api.CKeyword.NULL;
-import static org.sonar.c.api.CKeyword.PACKAGE;
 import static org.sonar.c.api.CKeyword.PRIVATE;
 import static org.sonar.c.api.CKeyword.PROTECTED;
 import static org.sonar.c.api.CKeyword.PUBLIC;
@@ -93,7 +91,6 @@ import static org.sonar.c.api.CKeyword.SHORT;
 import static org.sonar.c.api.CKeyword.EXTERN;
 import static org.sonar.c.api.CPunctuator.AND;
 import static org.sonar.c.api.CPunctuator.ANDAND;
-import static org.sonar.c.api.CPunctuator.ANDAND_EQU;
 import static org.sonar.c.api.CPunctuator.AND_EQU;
 import static org.sonar.c.api.CPunctuator.AT_SIGN;
 import static org.sonar.c.api.CPunctuator.COLON;
@@ -125,7 +122,6 @@ import static org.sonar.c.api.CPunctuator.NOTEQUAL1;
 import static org.sonar.c.api.CPunctuator.NOTEQUAL2;
 import static org.sonar.c.api.CPunctuator.OR;
 import static org.sonar.c.api.CPunctuator.OROR;
-import static org.sonar.c.api.CPunctuator.OROR_EQU;
 import static org.sonar.c.api.CPunctuator.OR_EQU;
 import static org.sonar.c.api.CPunctuator.PLUS;
 import static org.sonar.c.api.CPunctuator.PLUS_EQU;
@@ -145,7 +141,6 @@ import static org.sonar.c.api.CPunctuator.STAR_EQU;
 import static org.sonar.c.api.CPunctuator.TILD;
 import static org.sonar.c.api.CPunctuator.TRIPLE_DOTS;
 import static org.sonar.c.api.CPunctuator.XOR;
-import static org.sonar.c.api.CPunctuator.XORXOR_EQU;
 import static org.sonar.c.api.CPunctuator.XOR_EQU;
 
 import java.util.List;
@@ -235,7 +230,6 @@ public enum CGrammar implements GrammarRuleKey {
     CONDITIONAL_EXPR_NO_IN,
     POSTFIX_EXPR,
     COMPOUND_ASSIGNMENT,
-    LOGICAL_ASSIGNMENT,
     SUPER_EXPR,
     GENERIC_SELECTION,
     GENERIC_ASSOC_LIST,
@@ -360,9 +354,6 @@ public enum CGrammar implements GrammarRuleKey {
     // Interface
     INTERFACE_DEF,
     EXTENDS_LIST,
-    // Package
-    PACKAGE_DEF,
-    PACKAGE_NAME,
     // Namespace
     NAMESPACE_DEF,
     NAMESPACE_BINDING,
@@ -663,8 +654,7 @@ public enum CGrammar implements GrammarRuleKey {
                 ));
         b.rule(COMPOUND_ASSIGNMENT).is(b.firstOf(STAR_EQU, DIV_EQU, MOD_EQU, PLUS_EQU, MINUS_EQU, SL_EQU, SR_EQU,
                 SR_EQU2, AND_EQU, XOR_EQU, OR_EQU));
-        b.rule(LOGICAL_ASSIGNMENT).is(b.firstOf(ANDAND_EQU, XORXOR_EQU, OROR_EQU));
-
+        
         // Super expression
         b.rule(SUPER_EXPR).is(b.firstOf(
                 b.sequence(SUPER, ARGUMENTS),
@@ -1086,7 +1076,6 @@ public enum CGrammar implements GrammarRuleKey {
         b.rule(ANNOTABLE_DIRECTIVE).is(b.firstOf(
                 VARIABLE_DECLARATION_STATEMENT,
                 FUNCTION_DEF,
-                CLASS_DEF,
                 INTERFACE_DEF,
                 NAMESPACE_DEF));
 
@@ -1234,7 +1223,6 @@ public enum CGrammar implements GrammarRuleKey {
 
         b.rule(RESULT_TYPE).is(COLON, b.firstOf(VOID, TYPE_EXPR));
 
-        b.rule(CLASS_DEF).is(CLASS, CLASS_NAME, b.optional(INHERITENCE), BLOCK);
         b.rule(CLASS_NAME).is(CLASS_IDENTIFIERS);
         b.rule(CLASS_IDENTIFIERS).is(IDENTIFIER, b.zeroOrMore(b.sequence(DOT, IDENTIFIER)));
         b.rule(INHERITENCE).is(b.firstOf(
@@ -1254,21 +1242,12 @@ public enum CGrammar implements GrammarRuleKey {
         b.rule(NAMESPACE_BINDING).is(IDENTIFIER, b.optional(NAMESPACE_INITIALISATION));
         b.rule(NAMESPACE_INITIALISATION).is(EQUAL1, ASSIGNMENT_EXPR);
 
-        /*
-         * b.rule(PROGRAM).is(
-         * b.firstOf(
-         * b.sequence(PACKAGE_DEF, PROGRAM),
-         * DIRECTIVES),
-         * SPACING,
-         * b.token(GenericTokenType.EOF, b.endOfInput()));
-         */
-
-b.rule(PROGRAM).is(
-      b.zeroOrMore(INCLUDE_DIRECTIVE),
-      b.zeroOrMore(FUNCTION_DEF),
-      SPACING,
-      b.token(GenericTokenType.EOF, b.endOfInput())
-    );
+        b.rule(PROGRAM).is(
+                b.zeroOrMore(INCLUDE_DIRECTIVE),
+                b.zeroOrMore(FUNCTION_DEF),
+                SPACING,
+                b.token(GenericTokenType.EOF, b.endOfInput())
+        );
     }
 
     private static void xml(LexerlessGrammarBuilder b) {

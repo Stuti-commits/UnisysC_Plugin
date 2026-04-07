@@ -17,7 +17,6 @@
 package org.sonar.c.api;
 
 import org.junit.jupiter.api.Test;
-import org.sonar.c.api.CTokenType;
 
 import static org.fest.assertions.Assertions.assertThat;
 

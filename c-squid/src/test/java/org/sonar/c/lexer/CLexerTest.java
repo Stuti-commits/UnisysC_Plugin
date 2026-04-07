@@ -20,11 +20,9 @@ import com.sonar.sslr.api.GenericTokenType;
 import com.sonar.sslr.impl.Lexer;
 import com.sonar.sslr.impl.channel.BomCharacterChannel;
 import java.nio.charset.StandardCharsets;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.sonar.c.api.CTokenType;
-import org.sonar.c.lexer.CLexer;
 
 import static com.sonar.sslr.test.lexer.LexerMatchers.hasComment;
 import static com.sonar.sslr.test.lexer.LexerMatchers.hasToken;
@@ -40,13 +38,12 @@ public class CLexerTest {
     lexer = CLexer.create(StandardCharsets.UTF_8);
   }
 
-  @Disabled
   @Test
   public void regular_expression_literal() throws Exception {
     assertThat("simple", lexer.lex("/a/"), hasToken("/a/", CTokenType.REGULAR_EXPRESSION_LITERAL));
     assertThat("flags", lexer.lex("/a/g"), hasToken("/a/g", CTokenType.REGULAR_EXPRESSION_LITERAL));
     assertThat("escaped slash", lexer.lex("/\\/a/"), hasToken("/\\/a/", CTokenType.REGULAR_EXPRESSION_LITERAL));
-    assertThat("ambiguation", lexer.lex("1 / a == 1 / b"), hasTokens("1", "/", "a", "==", "1", "/", "b", "EOF"));
+    assertThat("ambiguation", lexer.lex("1 / a == 1 / b"), hasTokens("1", "/", "a", "=", "=", "1", "/", "b", "EOF"));
   }
 
   @Test
@@ -91,8 +88,7 @@ public class CLexerTest {
   }
 
   @Test
-  public void identifier() {
-    assertThat(lexer.lex("$"), hasToken("$", GenericTokenType.IDENTIFIER));
+  public void identifier() { //$ is not allowed in Unisys C Identifiers.
     assertThat(lexer.lex("_"), hasToken("_", GenericTokenType.IDENTIFIER));
     assertThat(lexer.lex("identifier"), hasToken("identifier", GenericTokenType.IDENTIFIER));
   }

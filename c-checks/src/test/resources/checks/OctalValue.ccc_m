@@ -1,0 +1,2 @@
+int myNumber = 8;   // OK
+int myNumber1 = 010; // Noncompliant {{Use decimal rather than octal values.}}

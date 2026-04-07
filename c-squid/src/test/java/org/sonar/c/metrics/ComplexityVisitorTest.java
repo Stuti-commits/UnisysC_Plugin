@@ -20,7 +20,6 @@ import com.sonar.sslr.impl.Parser;
 import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.Test;
 import org.sonar.c.CGrammar;
-import org.sonar.c.metrics.ComplexityVisitor;
 import org.sonar.c.parser.CParser;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
@@ -67,11 +66,9 @@ public class ComplexityVisitorTest {
 
   @Test
   public void nested_function_definition() {
-    // Nested functions not standard in C, skipping
-    // assertThat(complexity("int f() { int nested() { x = a && b; }
-    // }\")).isEqualTo(3);
-    // assertThat(functionComplexity("int f() { int nested() { x = a && b; }
-    // }\")).isEqualTo(1);
+    //Nested functions not standard in C, skipping
+    //assertThat(complexity("int f() { int nested() { x = a && b; }}")).isEqualTo(3);
+    //assertThat(functionComplexity("int f() { int nested() { x = a && b; }}")).isEqualTo(1);
     assertThat(functionComplexity("int f() { x = a && b; }")).isEqualTo(1);
   }
 

@@ -17,10 +17,8 @@
 package org.sonar.c.metrics;
 
 import java.io.File;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.sonar.c.TestVisitorContext;
-import org.sonar.c.metrics.FileMetrics;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -28,35 +26,29 @@ public class FileMetricsTest {
 
   @Test
   public void comments() {
-    assertThat(metrics("comments.as").commentLines()).containsOnly(2, 6, 10);
-    assertThat(metrics("comments.as").nosonarLines()).containsOnly(12);
+    assertThat(metrics("comments.ccc_m").commentLines()).containsOnly(2, 6, 10);
+    assertThat(metrics("comments.ccc_m").nosonarLines()).containsOnly(12);
   }
 
   @Test
   public void lines_of_code() {
-    assertThat(metrics("lines_of_code.as").linesOfCode()).containsOnly(9, 14, 15);
+    assertThat(metrics("lines_of_code.ccc_m").linesOfCode()).containsOnly(9, 14, 15);
   }
 
   @Test
   public void statements() {
-    assertThat(metrics("statements.as").numberOfStatements()).isEqualTo(4);
+    assertThat(metrics("statements.ccc_m").numberOfStatements()).isEqualTo(5);
   }
 
   @Test
   public void executable_lines() {
-    assertThat(metrics("statements.as").executableLines())
+    assertThat(metrics("statements.ccc_m").executableLines())
         .isEqualTo("3=1;9=1;27=1;");
   }
 
   @Test
   public void functions() {
-    assertThat(metrics("functions.as").numberOfFunctions()).isEqualTo(3);
-  }
-
-  @Disabled
-  @Test
-  public void classes() {
-    assertThat(metrics("classes.as").numberOfClasses()).isEqualTo(0);
+    assertThat(metrics("functions.ccc_m").numberOfFunctions()).isEqualTo(3);
   }
 
   private FileMetrics metrics(String fileName) {

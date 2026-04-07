@@ -51,8 +51,8 @@ public class FunctionNameCheck extends CCheck {
   @Override
   public List<AstNodeType> subscribedTo() {
     return Arrays.asList(
-      CGrammar.FUNCTION_DEF,
-      CGrammar.CLASS_DEF);
+      CGrammar.FUNCTION_DEF
+      );
   }
 
   @Override

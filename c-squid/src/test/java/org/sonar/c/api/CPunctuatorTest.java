@@ -17,7 +17,6 @@
 package org.sonar.c.api;
 
 import org.junit.jupiter.api.Test;
-import org.sonar.c.api.CPunctuator;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -25,7 +24,7 @@ public class CPunctuatorTest {
 
   @Test
   public void test() {
-    assertThat(CPunctuator.values().length).isEqualTo(57);
+    assertThat(CPunctuator.values().length).isEqualTo(54);
   }
 
 }

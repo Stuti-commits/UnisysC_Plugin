@@ -19,7 +19,6 @@ package org.sonar.plugins.c;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.sonar.c.checks.CheckList;
-import org.sonar.plugins.c.CProfile;
 import org.sonar.plugins.c.core.C;
 
 import static org.assertj.core.api.Assertions.assertThat;

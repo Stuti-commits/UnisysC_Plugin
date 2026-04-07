@@ -28,14 +28,6 @@ public class PostfixExpressionTest {
   @Test
   public void postfixExpression() {
     Assertions.assertThat(g.rule(CGrammar.POSTFIX_EXPR))
-      .matches("new a()")
-      .matches("new a")
-
-      .matches("super().f.c.a")
-      .matches("super.field")
-      .matches("super().field")
-      .matches("super()")
-      .matches("super")
 
       .matches("a ().a")
 
@@ -43,8 +35,7 @@ public class PostfixExpressionTest {
       .notMatches("a\n++")
 
       .matches("a--")
-      .notMatches("a\n--")
+      .notMatches("a\n--");
 
-      .matches("a..n..z");
   }
 }

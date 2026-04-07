@@ -43,9 +43,7 @@ public class EmptyNestedBlockCheck extends CCheck {
 
   private static boolean isNested(AstNode blockNode) {
     return !blockNode.getParent().is(
-      CGrammar.CLASS_DEF,
-      CGrammar.INTERFACE_DEF,
-      CGrammar.PACKAGE_DEF,
+      CGrammar.FUNCTION_DEF,
       CGrammar.FUNCTION_COMMON);
   }
 

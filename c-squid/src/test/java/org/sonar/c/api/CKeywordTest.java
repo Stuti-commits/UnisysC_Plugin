@@ -17,7 +17,6 @@
 package org.sonar.c.api;
 
 import org.junit.jupiter.api.Test;
-import org.sonar.c.api.CKeyword;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -25,9 +24,8 @@ public class CKeywordTest {
 
   @Test
   public void test() {
-    assertThat(CKeyword.values().length).isEqualTo(77
+    assertThat(CKeyword.values().length).isEqualTo(75); //this will vary after removing flex keywords from Ckeyword file
 
-    );
     assertThat(CKeyword.keywordValues().length).isEqualTo(CKeyword.values().length);
   }
 

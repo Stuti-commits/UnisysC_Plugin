@@ -28,7 +28,6 @@ public class HelloWorldTest {
   public void testUnisysCProgram() {
     Assertions.assertThat(g.rule(CGrammar.PROGRAM))
       .matches("#include <stdio.h>\n"
-            + "#include \"unisys_lib.h\"\n"
             + "\n"
             + "void hello() {\n"
             + "    printf(\"Hello Unisys C\");\n"

@@ -85,7 +85,6 @@ FlexVerifier.verify(new File("src/test/resources/checks/MyCheck.as"), new MyChec
 
 The grammar in `FlexGrammar.java` defines all ActionScript 3 constructs. Key entry points:
 - `PROGRAM` - Root rule
-- `CLASS_DEF`, `INTERFACE_DEF` - Type definitions
 - `FUNCTION_DEF` - Function declarations
 - `STATEMENT` - All statement types
 - `ASSIGNMENT_EXPR` - Expression hierarchy root

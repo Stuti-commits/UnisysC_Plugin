@@ -16,7 +16,6 @@
  */
 package org.sonar.c.grammar.definitions;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.sonar.c.CGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
@@ -46,39 +45,6 @@ public class GlobalDefinitionTest {
         .matches("int x;")
         .matches("int x, y;");
   }
-
-  // @Test
-  // public void packageDefinition() {
-  // Assertions.assertThat(g.rule(CGrammar.PACKAGE_DEF))
-  // .matches("package p {}")
-  // .matches("package parent.child { }")
-  // .matches("package p{}")
-  // .matches("package samples\n" +
-  // "{\n" +
-  // " public class SampleCode\n" +
-  // " {\n" +
-  // " public var sampleGreeting:String;\n" +
-  // " public function sampleFunction()\n" +
-  // " {\n" +
-  // " trace(sampleGreeting + \" from sampleFunction()\");\n" +
-  // " }\n" +
-  // " }\n" +
-  // "}")
-  // .matches("package flash.xml\n" +
-  // "{\n" +
-  // " class XMLDocument {}\n" +
-  // " class XMLNode {}\n" +
-  // " class XMLSocket {}\n" +
-  // "}");
-  // }
-
-  // @Test
-  // public void namespaceDefinition() {
-  // Assertions.assertThat(g.rule(CGrammar.NAMESPACE_DEF))
-  // .matches("namespace NS1")
-  // .matches("namespace NS2= NS1")
-  // .matches("namespace NS3 = \"http://www.macromedia.com/flash/2005\"");
-  // }
 
   @Test
   public void regexp() {

@@ -36,13 +36,9 @@ public class AssignmentExpressionTest {
         .matches("a -= 1")
         .matches("a <<= 1")
         .matches("a >>= 1")
-        // .matches("a >>>= 1")
         .matches("a &= 1")
         .matches("a ^= 1")
         .matches("a |= 1");
-    // .matches("a &&= 1")
-    // .matches("a ^^= 1")
-    // .matches("a ||= 1");
   }
 
 }

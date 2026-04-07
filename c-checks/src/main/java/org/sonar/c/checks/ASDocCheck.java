@@ -82,7 +82,7 @@ public class ASDocCheck extends CCheck {
 
   @Override
   public List<AstNodeType> subscribedTo() {
-    return Collections.singletonList(CGrammar.CLASS_DEF);
+    return Collections.singletonList(CGrammar.FUNCTION_DEF);
   }
 
   @Override
