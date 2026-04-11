@@ -100,12 +100,12 @@ class ConditionalStructure {
   static boolean isOnelinerStatement(AstNode statement) {
     AstNode compoundStatement = statement.getFirstChild(CGrammar.COMPOUND_STATEMENT);
     if (compoundStatement != null) {
-      AstNode blockItemList = compoundStatement.getFirstChild(CGrammar.BLOCK_ITEM_LIST);
-      if (blockItemList == null) {
+      AstNode statementList = compoundStatement.getFirstChild(CGrammar.STATEMENT_LIST);
+      if (statementList == null) {
         return true;
       }
-      List<AstNode> blockItems = blockItemList.getChildren(CGrammar.BLOCK_ITEM);
-      return isOnelinerStatements(blockItems);
+      List<AstNode> statements = statementList.getChildren(CGrammar.STATEMENT);
+      return isOnelinerStatements(statements);
     }
     return isOnelinerNonCompound(statement);
   }
@@ -164,20 +164,17 @@ static ConditionalStructure switchStatement(AstNode node) {
         return new ConditionalStructure(node, branches, false);
     }
 
-    AstNode blockItemList = compoundStatement.getFirstChild(CGrammar.BLOCK_ITEM_LIST);
-    if (blockItemList == null) {
+    AstNode statementList = compoundStatement.getFirstChild(CGrammar.STATEMENT_LIST);
+    if (statementList == null) {
         return new ConditionalStructure(node, branches, false);
     }
 
-    List<AstNode> allBlockItems = blockItemList.getChildren(CGrammar.BLOCK_ITEM);
+    List<AstNode> statements = statementList.getChildren(CGrammar.STATEMENT);
 
     AstNode currentLabel = null;
     List<AstNode> currentContent = new ArrayList<>();
 
-    for (AstNode blockItem : allBlockItems) {
-        AstNode statement = blockItem.getFirstChild(CGrammar.STATEMENT);
-        if (statement == null) continue;
-
+    for (AstNode statement : statements) {
         AstNode labeledStatement = statement.getFirstChild(CGrammar.LABELED_STATEMENT);
 
         if (labeledStatement != null &&
