@@ -42,8 +42,10 @@ public class EmptyNestedBlockCheck extends CCheck {
   }
 
   private static boolean isEmpty(AstNode blockNode) {
-    AstNode blockItemList = blockNode.getFirstChild(CGrammar.BLOCK_ITEM_LIST);
-    return blockItemList == null || !blockItemList.hasChildren();
+    AstNode declarationList = blockNode.getFirstChild(CGrammar.DECLARATION_LIST);
+    AstNode statementList = blockNode.getFirstChild(CGrammar.STATEMENT_LIST);
+    return (declarationList == null || !declarationList.hasChildren())
+      && (statementList == null || !statementList.hasChildren());
   }
 
   private static boolean isNested(AstNode blockNode) {
