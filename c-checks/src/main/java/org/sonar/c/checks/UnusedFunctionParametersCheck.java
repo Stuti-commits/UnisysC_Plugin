@@ -79,7 +79,7 @@ public class UnusedFunctionParametersCheck extends CCheck {
   @Override
   public List<AstNodeType> subscribedTo() {
     List<AstNodeType> types = new ArrayList<>();
-    types.add(CGrammar.POSTFIX_EXPR);
+    types.add(CGrammar.POSTFIX_EXPRESSION);
     types.add(CGrammar.PARAMETERS);
     types.add(CGrammar.CLASS_DEF);
     Collections.addAll(types, FUNCTION_NODES);
@@ -103,10 +103,10 @@ public class UnusedFunctionParametersCheck extends CCheck {
     } else if (currentScope != null && astNode.is(CGrammar.PARAMETERS) && astNode.getParent().is(CGrammar.FUNCTION_SIGNATURE)) {
       declareInCurrentScope(Function.getParametersIdentifiers(currentScope.functionDec));
 
-    } else if (currentScope != null && astNode.is(CGrammar.POSTFIX_EXPR)) {
+    } else if (currentScope != null && astNode.is(CGrammar.POSTFIX_EXPRESSION)) {
       AstNode postfixExprChild = astNode.getFirstChild();
       // check if it is not a call to function with same name than the parameter
-      if (postfixExprChild.is(CGrammar.PRIMARY_EXPR) && postfixExprChild.getNextAstNode().isNot(CGrammar.ARGUMENTS)) {
+      if (postfixExprChild.is(CGrammar.PRIMARY_EXPRESSION) && postfixExprChild.getNextAstNode().isNot(CGrammar.ARGUMENTS)) {
         currentScope.use(getPrimaryExpressionStringValue(postfixExprChild));
       }
     }

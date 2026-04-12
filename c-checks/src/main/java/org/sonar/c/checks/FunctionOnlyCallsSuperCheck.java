@@ -77,7 +77,7 @@ public class FunctionOnlyCallsSuperCheck extends CCheck {
   }
 
   private static boolean isSuperExpression(AstNode listExpression) {
-    AstNode postfixExpr = listExpression.getFirstChild(CGrammar.ASSIGNMENT_EXPR).getFirstChild(CGrammar.POSTFIX_EXPR);
+    AstNode postfixExpr = listExpression.getFirstChild(CGrammar.ASSIGNMENT_EXPRESSION).getFirstChild(CGrammar.POSTFIX_EXPRESSION);
 
     return postfixExpr != null && postfixExpr.getFirstChild(CGrammar.SUPER_EXPR) != null;
   }

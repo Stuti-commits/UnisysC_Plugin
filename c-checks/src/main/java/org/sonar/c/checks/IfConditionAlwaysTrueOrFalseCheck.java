@@ -41,8 +41,8 @@ public class IfConditionAlwaysTrueOrFalseCheck extends CCheck {
     if (conditionalExpr.getChildren().size() == 1) {
 
       AstNode condition = conditionalExpr.getFirstChild().getFirstChild();
-      if ((condition.is(CGrammar.POSTFIX_EXPR)
-        && condition.getFirstChild().is(CGrammar.PRIMARY_EXPR)
+      if ((condition.is(CGrammar.POSTFIX_EXPRESSION)
+        && condition.getFirstChild().is(CGrammar.PRIMARY_EXPRESSION)
         && condition.getFirstChild().getFirstChild().is(CKeyword.TRUE))
         || condition.getFirstChild().getFirstChild().is(CKeyword.FALSE)) {
 
