@@ -1,5 +1,7 @@
-void test() {
-  struct C { /* Noncompliant {{Refactor this struct so it has no more than 5 fields, rather than the 6 it currently has.}} */
+void test()
+{
+  struct C
+  { /* Noncompliant {{Refactor this struct so it has no more than 5 fields, rather than the 6 it currently has.}} */
     int a;
     int b;
     int c;
@@ -8,7 +10,8 @@ void test() {
     int f;
   };
 
-  struct D {
+  struct D
+  {
     int a;
     int b;
   };
