@@ -26,13 +26,13 @@ public class FieldNameCheckTest {
 
   @Test
   public void defaults(){
-    CVerifier.verify(new File("src/test/resources/checks/FieldName.c"), check);
+    CVerifier.verify(new File("src/test/resources/checks/FieldName.ccc_m"), check);
   }
 
   @Test
   public void custom() {
     check.format = "[a-z][a-zA-Z]+";
 
-    CVerifier.verify(new File("src/test/resources/checks/FieldName-custom.c"), check);
+    CVerifier.verify(new File("src/test/resources/checks/FieldName-custom.ccc_m"), check);
   }
 }

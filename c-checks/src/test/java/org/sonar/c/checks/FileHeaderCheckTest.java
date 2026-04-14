@@ -21,9 +21,9 @@ import org.junit.jupiter.api.Test;
 import org.sonar.c.checks.FileHeaderCheck;
 
 public class FileHeaderCheckTest {
-  private static final File FILE1 = new File("src/test/resources/checks/headercheck/file1.c");
-  private static final File FILE2 = new File("src/test/resources/checks/headercheck/file2.c");
-  private static final File FILE3 = new File("src/test/resources/checks/headercheck/file3.c");
+  private static final File FILE1 = new File("src/test/resources/checks/headercheck/file1.ccc_m");
+  private static final File FILE2 = new File("src/test/resources/checks/headercheck/file2.ccc_m");
+  private static final File FILE3 = new File("src/test/resources/checks/headercheck/file3.ccc_m");
 
   @Test
   public void plain_text_header() {

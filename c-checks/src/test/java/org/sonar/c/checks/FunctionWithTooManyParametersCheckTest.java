@@ -26,13 +26,13 @@ public class FunctionWithTooManyParametersCheckTest {
 
   @Test
   public void defaults() {
-    CVerifier.verify(new File("src/test/resources/checks/FunctionWithTooManyParameters.c"), check);
+    CVerifier.verify(new File("src/test/resources/checks/FunctionWithTooManyParameters.ccc_m"), check);
   }
 
   @Test
   public void custom() {
     check.max = 4;
-    CVerifier.verify(new File("src/test/resources/checks/FunctionWithTooManyParameters-custom.c"), check);
+    CVerifier.verify(new File("src/test/resources/checks/FunctionWithTooManyParameters-custom.ccc_m"), check);
   }
 
 }
