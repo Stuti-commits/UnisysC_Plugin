@@ -1,4 +1,7 @@
 void test_function() {
+  int x, y;
+  x=0;
+  y=1;
   if (x == y); // OK
   if (x != y); // OK
 
