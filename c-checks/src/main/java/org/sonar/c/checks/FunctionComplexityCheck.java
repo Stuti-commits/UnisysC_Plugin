@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -32,10 +32,8 @@ public class FunctionComplexityCheck extends CCheck {
 
   private static final int DEFAULT_MAXIMUM_FUNCTION_COMPLEXITY_THRESHOLD = 10;
 
-  @RuleProperty(
-    key = "maximumFunctionComplexityThreshold",
-    description = "The maximum authorized complexity.",
-    defaultValue = "" + DEFAULT_MAXIMUM_FUNCTION_COMPLEXITY_THRESHOLD)
+  @RuleProperty(key = "maximumFunctionComplexityThreshold", description = "The maximum authorized complexity.", defaultValue = ""
+      + DEFAULT_MAXIMUM_FUNCTION_COMPLEXITY_THRESHOLD)
   private int maximumFunctionComplexityThreshold = DEFAULT_MAXIMUM_FUNCTION_COMPLEXITY_THRESHOLD;
 
   @Override
@@ -47,8 +45,9 @@ public class FunctionComplexityCheck extends CCheck {
   public void visitNode(AstNode node) {
     int functionComplexity = ComplexityVisitor.functionComplexity(node);
     if (functionComplexity > maximumFunctionComplexityThreshold) {
-      String message = String.format("Function has a complexity of %s which is greater than %s authorized.", functionComplexity, maximumFunctionComplexityThreshold);
-      addIssueWithCost(message, node, (double)functionComplexity - maximumFunctionComplexityThreshold);
+      String message = String.format("Function has a complexity of %s which is greater than %s authorized.",
+          functionComplexity, maximumFunctionComplexityThreshold);
+      addIssueWithCost(message, node, (double) functionComplexity - maximumFunctionComplexityThreshold);
     }
   }
 

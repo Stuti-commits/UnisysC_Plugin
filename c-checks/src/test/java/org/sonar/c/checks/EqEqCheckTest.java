@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -23,7 +23,8 @@ public class EqEqCheckTest {
 
   private EqEqCheck check = new EqEqCheck();
 
-  @Test public void test() {
+  @Test
+  public void test() {
     CVerifier.verify(new File("src/test/resources/checks/EqEq.ccc_m"), check);
   }
 }

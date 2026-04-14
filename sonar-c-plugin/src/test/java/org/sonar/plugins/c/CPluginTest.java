@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -31,7 +31,8 @@ public class CPluginTest {
 
   @Test
   public void testGetExtensions() throws Exception {
-    SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarQube(Version.create(7, 9), SonarQubeSide.SCANNER, SonarEdition.DEVELOPER);
+    SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarQube(Version.create(7, 9), SonarQubeSide.SCANNER,
+        SonarEdition.DEVELOPER);
     Plugin.Context context = new Plugin.Context(sonarRuntime);
     new CPlugin().define(context);
     assertThat(context.getExtensions()).isNotEmpty();

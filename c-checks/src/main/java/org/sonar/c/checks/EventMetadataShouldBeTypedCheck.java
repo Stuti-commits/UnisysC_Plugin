@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -42,7 +42,8 @@ public class EventMetadataShouldBeTypedCheck extends CCheck {
       Map<String, String> properties = MetadataTag.getTagPropertiesMap(astNode);
 
       if (properties != null && !properties.containsKey("type")) {
-        addIssue(MessageFormat.format("The {0} event type is missing in this metadata tag", properties.get("name")), astNode);
+        addIssue(MessageFormat.format("The {0} event type is missing in this metadata tag", properties.get("name")),
+            astNode);
       }
     }
 

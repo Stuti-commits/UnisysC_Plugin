@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -83,7 +83,8 @@ public class CTokensVisitor extends CVisitor {
         }
       } else if (!tokenType.equals(GenericTokenType.EOF)) {
         TokenLocation tokenLocation = new TokenLocation(token);
-        cpdTokens.addToken(tokenLocation.startLine(), tokenLocation.startCharacter(), tokenLocation.endLine(), tokenLocation.endCharacter(), getTokenImage(token));
+        cpdTokens.addToken(tokenLocation.startLine(), tokenLocation.startCharacter(), tokenLocation.endLine(),
+            tokenLocation.endCharacter(), getTokenImage(token));
       }
       if (tokenType.equals(CTokenType.NUMERIC_LITERAL)) {
         highlight(highlighting, token, TypeOfText.CONSTANT);
@@ -112,7 +113,8 @@ public class CTokensVisitor extends CVisitor {
 
   private static void highlight(NewHighlighting highlighting, Token token, TypeOfText typeOfText) {
     TokenLocation tokenLocation = new TokenLocation(token);
-    highlighting.highlight(tokenLocation.startLine(), tokenLocation.startCharacter(), tokenLocation.endLine(), tokenLocation.endCharacter(), typeOfText);
+    highlighting.highlight(tokenLocation.startLine(), tokenLocation.startCharacter(), tokenLocation.endLine(),
+        tokenLocation.endCharacter(), typeOfText);
   }
 
 }

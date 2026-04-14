@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -31,10 +31,7 @@ import org.sonar.check.RuleProperty;
 public class FunctionWithTooManyParametersCheck extends CCheck {
 
   private static final int DEFAULT = 7;
-  @RuleProperty(
-    key = "max",
-    description = "Maximum authorized number of parameters",
-    defaultValue = "" + DEFAULT)
+  @RuleProperty(key = "max", description = "Maximum authorized number of parameters", defaultValue = "" + DEFAULT)
   int max = DEFAULT;
 
   @Override
@@ -47,8 +44,10 @@ public class FunctionWithTooManyParametersCheck extends CCheck {
     int nbParameters = astNode.getChildren(CGrammar.PARAMETER, CGrammar.REST_PARAMETERS).size();
     if (nbParameters > max) {
       addIssue(
-        MessageFormat.format("This function has {0,number,integer} parameters, which is greater than the {1,number,integer} authorized.", nbParameters, max),
-        astNode);
+          MessageFormat.format(
+              "This function has {0,number,integer} parameters, which is greater than the {1,number,integer} authorized.",
+              nbParameters, max),
+          astNode);
     }
   }
 

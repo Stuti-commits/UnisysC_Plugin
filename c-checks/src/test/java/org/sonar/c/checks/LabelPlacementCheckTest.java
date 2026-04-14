@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -23,6 +23,7 @@ import org.sonar.c.checks.LabelPlacementCheck;
 public class LabelPlacementCheckTest {
 
   private LabelPlacementCheck check = new LabelPlacementCheck();
+
   @Test
   public void test() {
     CVerifier.verify(new File("src/test/resources/checks/LabelPlacement.ccc_m"), check);

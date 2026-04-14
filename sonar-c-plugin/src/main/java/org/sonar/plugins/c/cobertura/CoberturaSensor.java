@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -34,9 +34,9 @@ public class CoberturaSensor implements Sensor {
   @Override
   public void describe(SensorDescriptor descriptor) {
     descriptor
-      .name("Flex Cobertura")
-      .onlyOnFileType(InputFile.Type.MAIN)
-      .onlyOnLanguage(C.KEY);
+        .name("Flex Cobertura")
+        .onlyOnFileType(InputFile.Type.MAIN)
+        .onlyOnLanguage(C.KEY);
   }
 
   @Override
@@ -44,7 +44,7 @@ public class CoberturaSensor implements Sensor {
     String[] reportPaths = context.config().getStringArray(CPlugin.COBERTURA_REPORT_PATHS);
 
     if (reportPaths.length > 0) {
-      for(String reportPath: reportPaths) {
+      for (String reportPath : reportPaths) {
         File xmlFile = getIOFile(context.fileSystem(), reportPath);
 
         if (xmlFile.exists()) {
@@ -61,7 +61,8 @@ public class CoberturaSensor implements Sensor {
 
   /**
    * Returns a java.io.File for the given path.
-   * If path is not absolute, returns a File with module base directory as parent path.
+   * If path is not absolute, returns a File with module base directory as parent
+   * path.
    */
   private static File getIOFile(FileSystem fileSystem, String path) {
     File file = new File(path);

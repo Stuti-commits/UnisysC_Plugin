@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -26,7 +26,8 @@ public class FunctionNameCheckTest {
 
   @Test
   public void defaultFormat() {
-    CVerifier.verify(new File("src/test/resources/checks/FunctionName.ccc_m"), check);;
+    CVerifier.verify(new File("src/test/resources/checks/FunctionName.ccc_m"), check);
+    ;
   }
 
   @Test

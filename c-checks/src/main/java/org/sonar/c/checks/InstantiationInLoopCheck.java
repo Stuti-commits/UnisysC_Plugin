@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -33,11 +33,10 @@ import org.sonar.sslr.grammar.GrammarRuleKey;
 @Rule(key = "S1952")
 public class InstantiationInLoopCheck extends CCheck {
 
-
   private static final GrammarRuleKey[] ITERATION_NODES = {
-    CGrammar.DO_STATEMENT,
-    CGrammar.WHILE_STATEMENT,
-    CGrammar.FOR_STATEMENT};
+      CGrammar.DO_STATEMENT,
+      CGrammar.WHILE_STATEMENT,
+      CGrammar.FOR_STATEMENT };
 
   private int loopLevel = 0;
 
@@ -45,9 +44,9 @@ public class InstantiationInLoopCheck extends CCheck {
   public List<AstNodeType> subscribedTo() {
     List<AstNodeType> types = new ArrayList<>();
     Collections.addAll(types,
-      CGrammar.FULL_NEW_EXPR,
-      CGrammar.SHORT_NEW_EXPR,
-      CGrammar.OBJECT_INITIALISER);
+        CGrammar.FULL_NEW_EXPR,
+        CGrammar.SHORT_NEW_EXPR,
+        CGrammar.OBJECT_INITIALISER);
     Collections.addAll(types, ITERATION_NODES);
     return types;
   }
@@ -63,7 +62,8 @@ public class InstantiationInLoopCheck extends CCheck {
       loopLevel++;
 
     } else if (loopLevel > 0 && !isNestedNewExpression(astNode)) {
-      addIssue(MessageFormat.format("Move the instantiation of this \"{0}\" outside the loop.", getClassName(astNode)), astNode);
+      addIssue(MessageFormat.format("Move the instantiation of this \"{0}\" outside the loop.", getClassName(astNode)),
+          astNode);
     }
   }
 
@@ -93,7 +93,6 @@ public class InstantiationInLoopCheck extends CCheck {
 
     return builder.toString();
   }
-
 
   @Override
   public void leaveNode(AstNode astNode) {

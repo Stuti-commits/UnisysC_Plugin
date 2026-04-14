@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -31,14 +31,13 @@ import org.sonar.api.batch.sensor.internal.DefaultSensorDescriptor;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
 import org.sonar.api.testfixtures.log.LogTesterJUnit5;
 import org.sonar.plugins.c.CPlugin;
-import org.sonar.plugins.c.cobertura.CoberturaSensor;
 import org.sonar.plugins.c.core.C;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CoberturaSensorTest {
 
-  private static final String TEST_DIR = "src/test/resources/org/sonar/plugins/flex/cobertura/";
+  private static final String TEST_DIR = "src/test/resources/org/sonar/plugins/c/cobertura/";
 
   private CoberturaSensor sensor;
   private SensorContextTester tester;
@@ -59,12 +58,13 @@ public class CoberturaSensorTest {
     tester.settings().setProperty(CPlugin.COBERTURA_REPORT_PATHS, "coverage.xml");
     sensor.execute(tester);
 
-    String componentKey = "key:src/example/File.as";
-    Integer[] expectedConditions = {2, null, null, null, null, null, null, null, null, null};
-    Integer[] expectedCoveredConditions = {1, null, null, null, null, null, null, null, null, null};
-    Integer[] expectedHits = {0, null, null, null, null, null, 0, null, null, null};
+    String componentKey = "key:src/example/File.ccc_m";
+    Integer[] expectedConditions = { 2, null, null, null, null, null, null, null, null, null };
+    Integer[] expectedCoveredConditions = { 1, null, null, null, null, null, null, null, null, null };
+    Integer[] expectedHits = { 0, null, null, null, null, null, 0, null, null, null };
     for (int line = 1; line <= expectedConditions.length; line++) {
-      assertThat(tester.coveredConditions(componentKey, line)).as("line " + line).isEqualTo(expectedCoveredConditions[line - 1]);
+      assertThat(tester.coveredConditions(componentKey, line)).as("line " + line)
+          .isEqualTo(expectedCoveredConditions[line - 1]);
       assertThat(tester.conditions(componentKey, line)).as("line " + line).isEqualTo(expectedConditions[line - 1]);
       assertThat(tester.lineHits(componentKey, line)).as("line " + line).isEqualTo(expectedHits[line - 1]);
     }
@@ -84,15 +84,16 @@ public class CoberturaSensorTest {
   public void noReport() {
     sensor.execute(tester);
 
-    assertThat(logTester.logs()).containsOnly("No Cobertura report provided (see 'sonar.flex.cobertura.reportPaths' property)");
+    assertThat(logTester.logs())
+        .containsOnly("No Cobertura report provided (see 'sonar.flex.cobertura.reportPaths' property)");
   }
 
   @Test
   public void testDescriptor() {
     DefaultSensorDescriptor descriptor = new DefaultSensorDescriptor();
     sensor.describe(descriptor);
-    assertThat(descriptor.name()).isEqualTo("Flex Cobertura");
-    assertThat(descriptor.languages()).containsOnly("flex");
+    assertThat(descriptor.name()).isEqualTo("Unisys C Cobertura");
+    assertThat(descriptor.languages()).containsOnly("unisys_c");
   }
 
   @Test
@@ -106,12 +107,13 @@ public class CoberturaSensorTest {
   }
 
   private void setUpInputFile() throws IOException {
-    String content = new String(Files.readAllBytes(Paths.get(TEST_DIR, "src/example/File.as")), StandardCharsets.UTF_8);
-    DefaultInputFile inputFile = TestInputFileBuilder.create("key", "src/example/File.as")
-      .setLanguage(C.KEY)
-      .setType(InputFile.Type.MAIN)
-      .initMetadata(content)
-      .build();
+    String content = new String(Files.readAllBytes(Paths.get(TEST_DIR, "src/example/File.ccc_m")),
+        StandardCharsets.UTF_8);
+    DefaultInputFile inputFile = TestInputFileBuilder.create("key", "src/example/File.ccc_m")
+        .setLanguage(C.KEY)
+        .setType(InputFile.Type.MAIN)
+        .initMetadata(content)
+        .build();
 
     tester.fileSystem().add(inputFile);
   }

@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -38,21 +38,21 @@ public class ComplexityVisitor extends CVisitor {
   @Override
   public List<AstNodeType> subscribedTo() {
     return Arrays.asList(
-      // Entry points
-      CGrammar.FUNCTION_DEF,
-      CGrammar.FUNCTION_EXPR,
+        // Entry points
+        CGrammar.FUNCTION_DEF,
+        CGrammar.FUNCTION_EXPR,
 
-      // Branching nodes
-      CGrammar.IF_STATEMENT,
-      CGrammar.FOR_STATEMENT,
-      CGrammar.WHILE_STATEMENT,
-      CGrammar.DO_STATEMENT,
-      CKeyword.CASE,
+        // Branching nodes
+        CGrammar.IF_STATEMENT,
+        CGrammar.FOR_STATEMENT,
+        CGrammar.WHILE_STATEMENT,
+        CGrammar.DO_STATEMENT,
+        CKeyword.CASE,
 
-      // Expressions
-      CPunctuator.QUERY,
-      CGrammar.LOGICAL_AND_OPERATOR,
-      CGrammar.LOGICAL_OR_OPERATOR);
+        // Expressions
+        CPunctuator.QUERY,
+        CGrammar.LOGICAL_AND_OPERATOR,
+        CGrammar.LOGICAL_OR_OPERATOR);
   }
 
   @Override

@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -19,7 +19,6 @@ package org.sonar.c.checks;
 import java.io.File;
 import org.junit.jupiter.api.Test;
 import org.sonar.c.checks.PublicConstNotStaticCheck;
-
 
 public class PublicConstNotStaticCheckTest {
 

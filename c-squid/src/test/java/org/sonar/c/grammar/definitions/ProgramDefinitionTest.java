@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -28,9 +28,8 @@ public class ProgramDefinitionTest {
   @Test
   public void test() {
     Assertions.assertThat(g.rule(CGrammar.PROGRAM))
-      .matches("#include <stdio.h> int main() { return 0; }")
-      .matches("int foo() { } int main() { foo(); return 0; }");
+        .matches("#include <stdio.h> int main() { return 0; }")
+        .matches("int foo() { } int main() { foo(); return 0; }");
   }
-
 
 }

@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -28,8 +28,8 @@ public class ClassIdentifierTest {
   @Test
   public void classWithStaticAtribute() {
     Assertions.assertThat(g.rule(CGrammar.CLASS_IDENTIFIERS))
-      .matches("a")
-      .matches("a.b.c");
+        .matches("a")
+        .matches("a.b.c");
 
   }
 }

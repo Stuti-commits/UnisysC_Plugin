@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -28,7 +28,7 @@ public class HexadecimalTest {
   @Test
   public void test() {
     Assertions.assertThat(g.rule(CGrammar.HEXADECIMAL))
-      .matches("0x01aF");
+        .matches("0x01aF");
 
   }
 

@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -42,8 +42,9 @@ public class ConstructorNotLightweightCheck extends CCheck {
 
     if (constructorDef != null && containsBranch(constructorDef)) {
       addIssue(
-        MessageFormat.format("Extract the content of this \"{0}\" constructor into a dedicated function", Function.getName(constructorDef)),
-        constructorDef);
+          MessageFormat.format("Extract the content of this \"{0}\" constructor into a dedicated function",
+              Function.getName(constructorDef)),
+          constructorDef);
     }
   }
 
@@ -64,8 +65,8 @@ public class ConstructorNotLightweightCheck extends CCheck {
   private static boolean isBranch(AstNode directive) {
     AstNode astNode = directive.getFirstChild();
     return astNode.is(CGrammar.STATEMENT)
-      && astNode.getFirstChild().is(
-      CGrammar.ITERATION_STATEMENT);
+        && astNode.getFirstChild().is(
+            CGrammar.ITERATION_STATEMENT);
   }
 
 }

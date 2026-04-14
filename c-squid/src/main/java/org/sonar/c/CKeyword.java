@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -104,8 +104,10 @@ public enum CKeyword implements GrammarRuleKey {
   INCLUDE(true),
   DYNAMIC(true),
   FINAL(true),
-  // "native" strangely appears in both the "keywords" and "syntactic keywords" lists of the language spec
-  // It seems that "native" is accepted as a valid identifier by the compiler and should be considered as a "syntactic keyword"
+  // "native" strangely appears in both the "keywords" and "syntactic keywords"
+  // lists of the language spec
+  // It seems that "native" is accepted as a valid identifier by the compiler and
+  // should be considered as a "syntactic keyword"
   NATIVE(true),
   OVERRIDE(true),
   STATIC(true),
@@ -133,8 +135,8 @@ public enum CKeyword implements GrammarRuleKey {
 
   public static List<CKeyword> keywords() {
     return Collections.unmodifiableList(Arrays.stream(values())
-      .filter(CKeyword -> !CKeyword.syntactic)
-      .collect(Collectors.toList()));
+        .filter(CKeyword -> !CKeyword.syntactic)
+        .collect(Collectors.toList()));
   }
 
   public String getValue() {

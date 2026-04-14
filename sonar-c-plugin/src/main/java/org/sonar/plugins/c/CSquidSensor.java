@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -68,26 +68,27 @@ public class CSquidSensor implements Sensor {
   private final Checks<CCheck> checks;
   private final FileLinesContextFactory fileLinesContextFactory;
 
-  public CSquidSensor(SonarRuntime sonarRuntime, CheckFactory checkFactory, FileLinesContextFactory fileLinesContextFactory) {
+  public CSquidSensor(SonarRuntime sonarRuntime, CheckFactory checkFactory,
+      FileLinesContextFactory fileLinesContextFactory) {
     this.sonarRuntime = sonarRuntime;
     this.checks = checkFactory
-      .<CCheck>create(CheckList.REPOSITORY_KEY)
-      .addAnnotatedChecks(CheckList.getChecks());
+        .<CCheck>create(CheckList.REPOSITORY_KEY)
+        .addAnnotatedChecks(CheckList.getChecks());
     this.fileLinesContextFactory = fileLinesContextFactory;
   }
 
   @Override
   public void describe(SensorDescriptor descriptor) {
     descriptor
-      .name("C")
-      .onlyOnFileType(InputFile.Type.MAIN)
-      .onlyOnLanguage(C.KEY);
+        .name("C")
+        .onlyOnFileType(InputFile.Type.MAIN)
+        .onlyOnLanguage(C.KEY);
     processesFilesIndependently(descriptor);
   }
 
   private void processesFilesIndependently(SensorDescriptor descriptor) {
     if ((sonarRuntime.getProduct() == SonarProduct.SONARLINT)
-      || !sonarRuntime.getApiVersion().isGreaterThanOrEqual(Version.create(9, 3))) {
+        || !sonarRuntime.getApiVersion().isGreaterThanOrEqual(Version.create(9, 3))) {
       return;
     }
     try {
@@ -104,14 +105,15 @@ public class CSquidSensor implements Sensor {
     FilePredicates predicates = fileSystem.predicates();
 
     FilePredicate filePredicate = predicates.and(
-      predicates.hasType(InputFile.Type.MAIN),
-      predicates.hasLanguage(C.KEY),
-      inputFile -> !inputFile.uri().getPath().endsWith("mxml"));
+        predicates.hasType(InputFile.Type.MAIN),
+        predicates.hasLanguage(C.KEY),
+        inputFile -> !inputFile.uri().getPath().endsWith("mxml"));
 
     List<InputFile> inputFiles = new ArrayList<>();
     fileSystem.inputFiles(filePredicate).forEach(inputFiles::add);
 
-    ProgressReport progressReport = new ProgressReport("Report about progress of the Unisys C analyzer", TimeUnit.SECONDS.toMillis(10));
+    ProgressReport progressReport = new ProgressReport("Report about progress of the Unisys C analyzer",
+        TimeUnit.SECONDS.toMillis(10));
     List<String> filenames = inputFiles.stream().map(InputFile::toString).collect(Collectors.toList());
     progressReport.start(filenames);
 
@@ -150,17 +152,17 @@ public class CSquidSensor implements Sensor {
   }
 
   private void saveIssues(SensorContext context, CCheck check, List<Issue> issues, InputFile inputFile) {
-    for (Issue flexIssue : issues) {
+    for (Issue cIssue : issues) {
       RuleKey ruleKey = checks.ruleKey(check);
       NewIssue issue = context.newIssue();
       NewIssueLocation location = issue.newLocation()
-        .on(inputFile)
-        .message(flexIssue.message());
-      Integer line = flexIssue.line();
+          .on(inputFile)
+          .message(cIssue.message());
+      Integer line = cIssue.line();
       if (line != null) {
         location.at(inputFile.selectLine(line));
       }
-      Double cost = flexIssue.cost();
+      Double cost = cIssue.cost();
       if (cost != null) {
         issue.gap(cost);
       }
@@ -175,7 +177,8 @@ public class CSquidSensor implements Sensor {
     saveMeasure(context, inputFile, CoreMetrics.CLASSES, metrics.numberOfClasses());
     saveMeasure(context, inputFile, CoreMetrics.FUNCTIONS, metrics.numberOfFunctions());
     saveMeasure(context, inputFile, CoreMetrics.STATEMENTS, metrics.numberOfStatements());
-    context.<String>newMeasure().on(inputFile).forMetric(CoreMetrics.EXECUTABLE_LINES_DATA).withValue(metrics.executableLines()).save();
+    context.<String>newMeasure().on(inputFile).forMetric(CoreMetrics.EXECUTABLE_LINES_DATA)
+        .withValue(metrics.executableLines()).save();
 
     FileLinesContext fileLinesContext = fileLinesContextFactory.createFor(inputFile);
     metrics.linesOfCode().forEach(line -> fileLinesContext.setIntValue(CoreMetrics.NCLOC_DATA_KEY, line, 1));
@@ -188,10 +191,10 @@ public class CSquidSensor implements Sensor {
 
   private static void saveMeasure(SensorContext context, InputFile inputFile, Metric<Integer> metric, int value) {
     context.<Integer>newMeasure()
-      .on(inputFile)
-      .forMetric(metric)
-      .withValue(value)
-      .save();
+        .on(inputFile)
+        .forMetric(metric)
+        .withValue(value)
+        .save();
   }
 
 }

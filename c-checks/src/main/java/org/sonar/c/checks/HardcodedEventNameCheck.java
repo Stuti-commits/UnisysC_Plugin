@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -79,7 +79,8 @@ public class HardcodedEventNameCheck extends CCheck {
     currentState = TRANSITIONS[currentState.ordinal()][getSymbol(token.getValue()).ordinal()];
 
     if (currentState == State.FOUND_ISSUE) {
-      addIssue(MessageFormat.format("The event name {0} should be defined in a constant variable.", token.getValue()), token);
+      addIssue(MessageFormat.format("The event name {0} should be defined in a constant variable.", token.getValue()),
+          token);
       currentState = State.EXPECTING_ADD_EVENT;
     }
   }

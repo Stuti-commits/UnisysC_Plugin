@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -76,14 +76,13 @@ public class UnusedPrivateFieldCheck extends CCheck {
     }
   }
 
-
   private Deque<ClassState> classStack = new ArrayDeque<>();
 
   @Override
   public List<AstNodeType> subscribedTo() {
     return Arrays.asList(
-      CGrammar.CLASS_DEF,
-      CGrammar.QUALIFIED_IDENTIFIER);
+        CGrammar.CLASS_DEF,
+        CGrammar.QUALIFIED_IDENTIFIER);
   }
 
   @Override
@@ -110,7 +109,8 @@ public class UnusedPrivateFieldCheck extends CCheck {
   private void reportUnusedPrivateField() {
     for (Map.Entry<String, PrivateField> entry : classStack.pop().privateFields.entrySet()) {
       if (entry.getValue().usages == 0) {
-        addIssue(MessageFormat.format("Remove this unused ''{0}'' private field", entry.getKey()), entry.getValue().declaration);
+        addIssue(MessageFormat.format("Remove this unused ''{0}'' private field", entry.getKey()),
+            entry.getValue().declaration);
       }
     }
   }

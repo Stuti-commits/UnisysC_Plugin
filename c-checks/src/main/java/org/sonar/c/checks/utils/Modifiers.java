@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -39,7 +39,8 @@ public final class Modifiers {
         if (attribute.getFirstChild().is(CGrammar.RESERVED_NAMESPACE)) {
           modifiersSet.add(attribute.getFirstChild(CGrammar.RESERVED_NAMESPACE).getFirstChild().getType());
 
-        } else if (attribute.getFirstChild().is(CGrammar.ATTRIBUTE_EXPR) && attribute.getFirstChild().getNumberOfChildren() == 1) {
+        } else if (attribute.getFirstChild().is(CGrammar.ATTRIBUTE_EXPR)
+            && attribute.getFirstChild().getNumberOfChildren() == 1) {
           modifiersSet.add(attribute.getFirstChild().getFirstChild(CGrammar.IDENTIFIER).getFirstChild().getType());
         }
       }
@@ -49,7 +50,8 @@ public final class Modifiers {
 
   public static boolean isNonPublic(Set<AstNodeType> modifiers) {
     for (AstNodeType modifier : modifiers) {
-      if (modifier.equals(CKeyword.INTERNAL) || modifier.equals(CKeyword.PROTECTED) || modifier.equals(CKeyword.PRIVATE)) {
+      if (modifier.equals(CKeyword.INTERNAL) || modifier.equals(CKeyword.PROTECTED)
+          || modifier.equals(CKeyword.PRIVATE)) {
         return true;
       }
     }

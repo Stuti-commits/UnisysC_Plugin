@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -76,7 +76,6 @@ public class ExactSettingsSetToFalseCheck extends CCheck {
     currentState = State.EXPECTING_SECURITY;
   }
 
-
   @Override
   public void visitToken(Token token) {
     currentState = TRANSITIONS[currentState.ordinal()][getSymbol(token.getOriginalValue()).ordinal()];
@@ -86,7 +85,6 @@ public class ExactSettingsSetToFalseCheck extends CCheck {
       currentState = State.EXPECTING_SECURITY;
     }
   }
-
 
   private static Symbol getSymbol(String value) {
     Symbol result = Symbol.OTHER;

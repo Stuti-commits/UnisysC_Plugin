@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -33,17 +33,14 @@ public class TooManyLinesInFunctionCheck extends CCheck {
 
   private static final int DEFAULT = 100;
 
-  @RuleProperty(
-    key = "max",
-    description = "Maximum authorized lines in a function",
-    defaultValue = "" + DEFAULT)
+  @RuleProperty(key = "max", description = "Maximum authorized lines in a function", defaultValue = "" + DEFAULT)
   int max = DEFAULT;
 
   @Override
   public List<AstNodeType> subscribedTo() {
     return Arrays.asList(
-      CGrammar.FUNCTION_DEF,
-      CGrammar.FUNCTION_EXPR);
+        CGrammar.FUNCTION_DEF,
+        CGrammar.FUNCTION_EXPR);
   }
 
   @Override
@@ -53,8 +50,10 @@ public class TooManyLinesInFunctionCheck extends CCheck {
     int nbLines = linesVisitor.linesOfCode().size();
     if (nbLines > max) {
       addIssue(
-        MessageFormat.format("This function has {0} lines of code, which is greater than the {1} lines authorized. Split it into smaller functions.", nbLines, max),
-        astNode);
+          MessageFormat.format(
+              "This function has {0} lines of code, which is greater than the {1} lines authorized. Split it into smaller functions.",
+              nbLines, max),
+          astNode);
     }
   }
 }

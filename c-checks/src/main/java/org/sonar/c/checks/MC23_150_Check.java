@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -148,8 +148,8 @@ public class MC23_150_Check extends CCheck {
 
     /**
      * CONTROL_STATEMENT → SWITCH ( EXPRESSION ) STATEMENT
-    * Conservative: requires a COMPOUND_STATEMENT body where
-    * all statements that are reachable end in a JUMP_STATEMENT(return).
+     * Conservative: requires a COMPOUND_STATEMENT body where
+     * all statements that are reachable end in a JUMP_STATEMENT(return).
      */
     private static boolean switchAlwaysReturns(AstNode selectionStmt) {
         AstNode bodyStmt = selectionStmt.getFirstChild(CGrammar.STATEMENT);

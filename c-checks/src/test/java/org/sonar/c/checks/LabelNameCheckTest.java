@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -25,11 +25,13 @@ import org.sonar.c.checks.LabelNameCheck;
 public class LabelNameCheckTest {
 
   private LabelNameCheck check = new LabelNameCheck();
+
   @Ignore
   @Test
   public void defaults() {
     CVerifier.verify(new File("src/test/resources/checks/LabelName.ccc_m"), check);
   }
+
   @Ignore
   @Test
   public void custom() {

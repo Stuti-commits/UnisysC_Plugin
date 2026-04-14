@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -20,7 +20,8 @@ import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.TokenType;
 
 /**
- * Below is a list of ActionScript 3 syntactic keywords, that can be used as identifiers, but that have special meaning in certain contexts:
+ * Below is a list of ActionScript 3 syntactic keywords, that can be used as
+ * identifiers, but that have special meaning in certain contexts:
  * each
  * get
  * set
@@ -33,9 +34,10 @@ import com.sonar.sslr.api.TokenType;
  * static
  */
 public enum CKeyword implements TokenType {
-  // "as" is not a keyword in ActionScript 2, so we treat it as syntactic keyword to permit usage as identifier - see SONARPLUGINS-2072
+  // "as" is not a keyword in ActionScript 2, so we treat it as syntactic keyword
+  // to permit usage as identifier - see SONARPLUGINS-2072
   // AS("as"),
-  
+
   ASM("asm"),
   AUTO("auto"),
   BREAK("break"),
