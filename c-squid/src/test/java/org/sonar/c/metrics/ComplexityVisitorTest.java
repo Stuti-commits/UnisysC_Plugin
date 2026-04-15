@@ -20,7 +20,6 @@ import com.sonar.sslr.impl.Parser;
 import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.Test;
 import org.sonar.c.CGrammar;
-import org.sonar.c.metrics.ComplexityVisitor;
 import org.sonar.c.parser.CParser;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
@@ -47,17 +46,22 @@ public class ComplexityVisitorTest {
 
   @Test
   public void if_statement() {
-    assertThat(functionComplexity("int main() { if (x) { a = 1; } return 0; }")).isEqualTo(1);
+    assertThat(functionComplexity("int main() { if (x) { a = 1; } return 0; }")).isEqualTo(2);
   }
 
   @Test
   public void while_statement() {
-    assertThat(functionComplexity("int main() { while(x) { a = 1; } return 0; }")).isEqualTo(1);
+    assertThat(functionComplexity("int main() { while(x) { a = 1; } return 0; }")).isEqualTo(2);
   }
 
   @Test
   public void for_statement() {
-    assertThat(functionComplexity("int main() { for (i = 1; i < x; i++) {} return 0; }")).isEqualTo(1);
+    assertThat(functionComplexity("int main() { for (i = 1; i < x; i++) {} return 0; }")).isEqualTo(2);
+  }
+
+  @Test
+  public void ternary_operator() {
+    assertThat(functionComplexity("int main() { int x = a ? b : c; }")).isEqualTo(2);
   }
 
   @Test
@@ -66,13 +70,8 @@ public class ComplexityVisitorTest {
   }
 
   @Test
-  public void nested_function_definition() {
-    // Nested functions not standard in C, skipping
-    // assertThat(complexity("int f() { int nested() { x = a && b; }
-    // }\")).isEqualTo(3);
-    // assertThat(functionComplexity("int f() { int nested() { x = a && b; }
-    // }\")).isEqualTo(1);
-    assertThat(functionComplexity("int f() { x = a && b; }")).isEqualTo(1);
+  public void nested_logic_check() {
+    assertThat(functionComplexity("int f() { if(x) { while(y) {} } }")).isEqualTo(3);
   }
 
   private int complexity(String source) {
@@ -82,5 +81,4 @@ public class ComplexityVisitorTest {
   private int functionComplexity(String source) {
     return ComplexityVisitor.functionComplexity(parser.parse(source).getFirstDescendant(CGrammar.FUNCTION_DEF));
   }
-
 }
