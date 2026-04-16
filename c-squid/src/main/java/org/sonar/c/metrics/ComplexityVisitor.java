@@ -20,49 +20,88 @@ import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import java.util.Arrays;
 import java.util.List;
+import javax.annotation.Nullable;
 
 import org.sonar.c.CGrammar;
 import org.sonar.c.CVisitor;
+import org.sonar.c.CKeyword;
 import org.sonar.c.CPunctuator;
 
 public class ComplexityVisitor extends CVisitor {
 
-  private int complexity = 0;
+  private int complexity;
+
+  public int getComplexity() {
+    return complexity;
+  }
 
   @Override
   public List<AstNodeType> subscribedTo() {
     return Arrays.asList(
+        // Entry points
         CGrammar.FUNCTION_DEF,
-        CGrammar.CONTROL_STATEMENT,
+
+        // Branching nodes
         CGrammar.ITERATION_STATEMENT,
-        CGrammar.CASE_LABEL,
+        CGrammar.CONTROL_STATEMENT,
+        CKeyword.CASE,
+
+        // Expressions
         CPunctuator.QUERY,
-        CGrammar.LOGICAL_AND_EXPRESSION,
-        CGrammar.LOGICAL_OR_EXPRESSION
-    );
+        CPunctuator.ANDAND,
+        CPunctuator.OROR);
   }
 
   @Override
-  public void visitNode(AstNode node) {
-    // Every function def, branching statement, or logical operator adds 1.
+  public void visitFile(@Nullable AstNode node) {
+    complexity = 0;
+  }
+
+  @Override
+  public void visitNode(AstNode astNode) {
     complexity++;
   }
 
-  /**
-   * Used for generic complexity of any node/tree (Used in complexity() test)
-   */
   public static int complexity(AstNode root) {
     ComplexityVisitor visitor = new ComplexityVisitor();
     visitor.scanNode(root);
     return visitor.complexity;
   }
 
-  /**
-   * Specifically used for checking complexity within a function's scope.
-   */
   public static int functionComplexity(AstNode functionDef) {
-    ComplexityVisitor visitor = new ComplexityVisitor();
+    ComplexityVisitor visitor = new FunctionComplexityVisitor(functionDef);
     visitor.scanNode(functionDef);
     return visitor.complexity;
+  }
+
+  private static class FunctionComplexityVisitor extends ComplexityVisitor {
+
+    private final AstNode functionDef;
+    private int nestingLevel = 0;
+
+    public FunctionComplexityVisitor(AstNode functionDef) {
+      this.functionDef = functionDef;
+    }
+
+    @Override
+    public void visitNode(AstNode astNode) {
+      if (isNestedFunction(astNode)) {
+        nestingLevel++;
+      }
+      if (nestingLevel == 0) {
+        super.visitNode(astNode);
+      }
+    }
+
+    @Override
+    public void leaveNode(AstNode node) {
+      if (isNestedFunction(node)) {
+        nestingLevel--;
+      }
+    }
+
+    private boolean isNestedFunction(AstNode astNode) {
+      return astNode.is(CGrammar.FUNCTION_DEF) && astNode != functionDef;
+    }
   }
 }

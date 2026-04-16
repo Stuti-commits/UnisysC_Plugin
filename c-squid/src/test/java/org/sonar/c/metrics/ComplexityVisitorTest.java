@@ -36,7 +36,7 @@ public class ComplexityVisitorTest {
 
   @Test
   public void and_operator() {
-    assertThat(functionComplexity("int main() { a == x && y; return 0; }")).isEqualTo(1);
+    assertThat(functionComplexity("int main() { a == x && y; return 0; }")).isEqualTo(2);
   }
 
   @Test
