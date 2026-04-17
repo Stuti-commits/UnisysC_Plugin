@@ -101,10 +101,9 @@ public class CSquidSensorTest {
     assertThat(tester.measure(componentKey, CoreMetrics.STATEMENTS).value()).isEqualTo(4);
     assertThat(tester.measure(componentKey, CoreMetrics.FUNCTIONS).value()).isEqualTo(3);
     assertThat(tester.measure(componentKey, CoreMetrics.COMPLEXITY).value()).isEqualTo(3);
-    assertThat(tester.measure(componentKey, CoreMetrics.EXECUTABLE_LINES_DATA).value()).isEqualTo("4=1;9=1;10=1;16=1");
+    assertThat(tester.measure(componentKey, CoreMetrics.EXECUTABLE_LINES_DATA).value()).isEqualTo("4=1;9=1;10=1;16=1;");
 
     assertThat(tester.cpdTokens(componentKey)).hasSize(15);
-
   }
 
   private DefaultInputFile inputFile(String fileName) throws IOException {

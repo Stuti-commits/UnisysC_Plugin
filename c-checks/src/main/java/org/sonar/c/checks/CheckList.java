@@ -80,6 +80,7 @@ public final class CheckList {
         PrivateStaticConstLoggerCheck.class,
         FunctionNameCheck.class,
         SemicolonCheck.class,
+        ClassComplexityCheck.class,
         ObjectTypeUseCheck.class,
         ManagedEventTagWithEventCheck.class,
         ConstructorCallsDispatchEventCheck.class,

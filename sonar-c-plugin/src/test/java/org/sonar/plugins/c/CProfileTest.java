@@ -44,6 +44,7 @@ public class CProfileTest {
     assertThat(activeRules.size()).isGreaterThan(40);
     assertThat(activeRules).extracting(BuiltInActiveRule::ruleKey)
         .contains("S1871")
+        .contains("S101")
         .doesNotContain("S1469")
         .doesNotContain("S1176");
   }

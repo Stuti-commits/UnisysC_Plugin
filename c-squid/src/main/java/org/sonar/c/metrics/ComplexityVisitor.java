@@ -42,8 +42,8 @@ public class ComplexityVisitor extends CVisitor {
         CGrammar.FUNCTION_DEF,
 
         // Branching nodes
-        CGrammar.ITERATION_STATEMENT,
         CGrammar.CONTROL_STATEMENT,
+        CGrammar.ITERATION_STATEMENT,
         CKeyword.CASE,
 
         // Expressions

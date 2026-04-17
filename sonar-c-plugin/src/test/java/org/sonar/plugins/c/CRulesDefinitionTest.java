@@ -41,7 +41,7 @@ public class CRulesDefinitionTest {
     assertThat(repository.language()).isEqualTo("unisys_c");
     assertThat(repository.rules()).hasSize(CheckList.getChecks().size());
 
-    Rule functionComplexityRule = repository.rule("FunctionComplexity");
+    Rule functionComplexityRule = repository.rule("S1541");
     assertThat(functionComplexityRule).isNotNull();
     assertThat(functionComplexityRule.name()).isEqualTo("Cyclomatic Complexity of functions should not be too high");
 
@@ -53,6 +53,6 @@ public class CRulesDefinitionTest {
 
     assertThat(repository.rules().stream().filter(Rule::template))
         .extracting(Rule::key)
-        .containsOnly("XPath", "CommentRegularExpression");
+        .containsOnly("XPath", "S5639");
   }
 }

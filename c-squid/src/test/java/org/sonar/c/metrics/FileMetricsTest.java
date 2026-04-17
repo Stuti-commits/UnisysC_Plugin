@@ -39,13 +39,13 @@ public class FileMetricsTest {
 
   @Test
   public void statements() {
-    assertThat(metrics("statements.as").numberOfStatements()).isEqualTo(4);
+    assertThat(metrics("statements.as").numberOfStatements()).isEqualTo(9);
   }
 
   @Test
   public void executable_lines() {
     assertThat(metrics("statements.as").executableLines())
-        .isEqualTo("3=1;9=1;27=1;");
+        .isEqualTo("3=1;6=1;10=1;14=1;22=1;24=1;27=1;29=1;");
   }
 
   @Test

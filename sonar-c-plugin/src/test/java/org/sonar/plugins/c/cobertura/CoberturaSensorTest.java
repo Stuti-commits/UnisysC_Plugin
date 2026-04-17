@@ -85,7 +85,7 @@ public class CoberturaSensorTest {
     sensor.execute(tester);
 
     assertThat(logTester.logs())
-        .containsOnly("No Cobertura report provided (see 'sonar.flex.cobertura.reportPaths' property)");
+        .containsOnly("No Cobertura report provided (see 'sonar.c.cobertura.reportPaths' property)");
   }
 
   @Test
