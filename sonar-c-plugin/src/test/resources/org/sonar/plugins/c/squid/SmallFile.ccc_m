@@ -1,7 +1,5 @@
-
 #include <stdio.h>                                                      
-void main()         
-
+void main()                                                             
 {                                                                       
   foo();                                                                
 }                                                                       
@@ -18,4 +16,4 @@ void oustsie_class() {
   flag = 0; //false                                                     
   if (flag == 0) {                                                      
   }                                                                     
-}   
+}

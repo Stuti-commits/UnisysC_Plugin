@@ -47,10 +47,12 @@ public class ComplexityVisitorTest {
   @Test
   public void if_statement() {
     assertThat(functionComplexity("int main() { if (x) { a = 1; } return 0; }")).isEqualTo(2);
+    assertThat(functionComplexity("int main() { if (x) { a = 1; } return 0; }")).isEqualTo(2);
   }
 
   @Test
   public void while_statement() {
+    assertThat(functionComplexity("int main() { while(x) { a = 1; } return 0; }")).isEqualTo(2);
     assertThat(functionComplexity("int main() { while(x) { a = 1; } return 0; }")).isEqualTo(2);
   }
 
@@ -62,6 +64,7 @@ public class ComplexityVisitorTest {
   @Test
   public void ternary_operator() {
     assertThat(functionComplexity("int main() { int x = a ? b : c; }")).isEqualTo(2);
+    assertThat(functionComplexity("int main() { for (i = 1; i < x; i++) {} return 0; }")).isEqualTo(2);
   }
 
   @Test
