@@ -1,5 +1,5 @@
 /*
- * SonarQube Unisys C Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -23,7 +23,7 @@ import org.junit.Test;
 
 public class IfElseIfHasElseCheckTest {
     private IfElseIfHasElseCheck check = new IfElseIfHasElseCheck();
-    
+
     @Test
     public void test() {
         CVerifier.verify(new File("src/test/resources/checks/IfElseIfHasElse.ccc_m"), check);

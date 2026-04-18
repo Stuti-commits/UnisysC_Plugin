@@ -1,5 +1,5 @@
 /*
- * SonarQube Unisys C Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -28,8 +28,8 @@ import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 
 @Rule(key = "M23_146")
-public class MultipleVariableDeclarationCheck extends CCheck{
-    
+public class MultipleVariableDeclarationCheck extends CCheck {
+
     @Override
     public List<AstNodeType> subscribedTo() {
         return Collections.singletonList(CGrammar.INIT_DECLARATOR_LIST);

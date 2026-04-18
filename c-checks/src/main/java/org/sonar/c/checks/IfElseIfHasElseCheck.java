@@ -1,5 +1,5 @@
 /*
- * SonarQube Unisys C Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -50,7 +50,8 @@ public class IfElseIfHasElseCheck extends CCheck {
     }
 
     private void checkNestedIf(AstNode node) {
-        AstNode nestedIf = node.is(CGrammar.CONTROL_STATEMENT) ? node : node.getFirstDescendant(CGrammar.CONTROL_STATEMENT);
+        AstNode nestedIf = node.is(CGrammar.CONTROL_STATEMENT) ? node
+                : node.getFirstDescendant(CGrammar.CONTROL_STATEMENT);
 
         if (nestedIf != null) {
             if (nestedIf.getFirstChild(CKeyword.ELSE) == null) {
@@ -62,5 +63,5 @@ public class IfElseIfHasElseCheck extends CCheck {
     private boolean isIfStmt(AstNode node) {
         return node.hasDescendant(CKeyword.IF);
     }
-    
+
 }

@@ -35,7 +35,7 @@ public final class CheckList {
         LineLengthCheck.class,
         ControlFlowStmtDepthCheck.class,
         XPathCheck.class,
-        FunctionComplexityCheck.class,
+        CyclomaticComplexityCheck.class,
         OneStatementPerLineCheck.class,
         CommentedCodeCheck.class,
         SwitchWithoutDefaultCheck.class,

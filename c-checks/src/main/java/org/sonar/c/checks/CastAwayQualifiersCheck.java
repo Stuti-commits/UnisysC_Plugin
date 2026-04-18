@@ -1,5 +1,5 @@
 /*
- * SonarQube Unisys C Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -41,9 +41,8 @@ public class CastAwayQualifiersCheck extends CCheck {
   @Override
   public List<AstNodeType> subscribedTo() {
     return Arrays.asList(
-        CGrammar.INIT_DECLARATOR, 
-        CGrammar.CAST_EXPRESSION
-    );
+        CGrammar.INIT_DECLARATOR,
+        CGrammar.CAST_EXPRESSION);
   }
 
   @Override
@@ -59,8 +58,10 @@ public class CastAwayQualifiersCheck extends CCheck {
     AstNode declaration = initDeclarator.getParent().getParent();
     Set<AstNodeType> qualifiers = new HashSet<>();
 
-    if (declaration.hasDescendant(CKeyword.CONST)) qualifiers.add(CKeyword.CONST);
-    if (declaration.hasDescendant(CKeyword.VOLATILE)) qualifiers.add(CKeyword.VOLATILE);
+    if (declaration.hasDescendant(CKeyword.CONST))
+      qualifiers.add(CKeyword.CONST);
+    if (declaration.hasDescendant(CKeyword.VOLATILE))
+      qualifiers.add(CKeyword.VOLATILE);
 
     AstNode identifier = initDeclarator.getFirstDescendant(CGrammar.IDENTIFIER);
     if (identifier != null) {

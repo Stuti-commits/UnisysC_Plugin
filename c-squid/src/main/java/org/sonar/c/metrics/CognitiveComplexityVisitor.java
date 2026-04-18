@@ -1,5 +1,5 @@
 /*
- * SonarQube Unisys C Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -39,11 +39,10 @@ public class CognitiveComplexityVisitor extends CVisitor {
     @Override
     public List<AstNodeType> subscribedTo() {
         return Arrays.asList(
-            CGrammar.FUNCTION_DEF,
-            CGrammar.ITERATION_STATEMENT,
-            CGrammar.CONTROL_STATEMENT,
-            CGrammar.COMPOUND_STATEMENT
-        );
+                CGrammar.FUNCTION_DEF,
+                CGrammar.ITERATION_STATEMENT,
+                CGrammar.CONTROL_STATEMENT,
+                CGrammar.COMPOUND_STATEMENT);
     }
 
     @Override
@@ -69,9 +68,8 @@ public class CognitiveComplexityVisitor extends CVisitor {
 
     private boolean isBranch(AstNode node) {
         return node.is(
-            CGrammar.ITERATION_STATEMENT,
-            CGrammar.CONTROL_STATEMENT
-        );
+                CGrammar.ITERATION_STATEMENT,
+                CGrammar.CONTROL_STATEMENT);
     }
 
     public static int complexity(AstNode root) {

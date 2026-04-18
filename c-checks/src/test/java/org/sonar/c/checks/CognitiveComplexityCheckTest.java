@@ -1,5 +1,5 @@
 /*
- * SonarQube Unisys C Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -22,7 +22,7 @@ import java.io.File;
 import org.junit.Test;
 
 public class CognitiveComplexityCheckTest {
-    
+
     @Test
     public void test() {
         CognitiveComplexityCheck check = new CognitiveComplexityCheck();

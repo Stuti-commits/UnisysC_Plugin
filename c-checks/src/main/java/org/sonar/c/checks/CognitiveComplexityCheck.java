@@ -1,5 +1,5 @@
 /*
- * SonarQube Unisys C Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -31,14 +31,11 @@ import com.sonar.sslr.api.AstNodeType;
 
 @Rule(key = "S3776")
 public class CognitiveComplexityCheck extends CCheck {
-    
+
     private static final int DEFAULT_MAX = 15;
 
-    @RuleProperty(
-        key = "threshold",
-        description = "The maximum authorized cognitive complexity.",
-        defaultValue = "" + DEFAULT_MAX
-    )
+    @RuleProperty(key = "threshold", description = "The maximum authorized cognitive complexity.", defaultValue = ""
+            + DEFAULT_MAX)
     private int threshold = DEFAULT_MAX;
 
     @Override
@@ -51,7 +48,7 @@ public class CognitiveComplexityCheck extends CCheck {
         int functionComplexity = CognitiveComplexityVisitor.complexity(node);
         if (functionComplexity > threshold) {
             String message = String.format("Function has a complexity of %s which is greater than %s authorized.",
-            functionComplexity, threshold);
+                    functionComplexity, threshold);
             addIssueWithCost(message, node, (double) functionComplexity - threshold);
         }
     }

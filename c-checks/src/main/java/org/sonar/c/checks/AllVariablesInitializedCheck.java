@@ -1,5 +1,5 @@
 /*
- * SonarQube Unisys C Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -28,7 +28,7 @@ import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 
 @Rule(key = "M23_321")
-public class AllVariablesInitializedCheck extends CCheck{
+public class AllVariablesInitializedCheck extends CCheck {
 
     @Override
     public List<AstNodeType> subscribedTo() {

@@ -1,5 +1,5 @@
 /*
- * SonarQube Unisys C Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -30,7 +30,7 @@ import com.sonar.sslr.api.AstNodeType;
 
 @Rule(key = "M23_403")
 public class GotoStatementCheck extends CCheck {
-    
+
     @Override
     public List<AstNodeType> subscribedTo() {
         return Collections.singletonList(CGrammar.JUMP_STATEMENT);

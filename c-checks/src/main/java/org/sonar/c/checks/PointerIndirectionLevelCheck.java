@@ -1,5 +1,5 @@
 /*
- * SonarQube Unisys C Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -48,14 +48,12 @@ public class PointerIndirectionLevelCheck extends CCheck {
         int starCount = pointerNode.getChildren(CPunctuator.STAR).size();
         if (starCount > MAX_POINTER_LEVELS) {
             addIssue(
-                String.format(
-                    "Pointer '%s' has %d levels of indirection; maximum allowed is %d.",
-                    getDeclaratorName(pointerNode),
-                    starCount,
-                    MAX_POINTER_LEVELS
-                ),
-                pointerNode
-            );
+                    String.format(
+                            "Pointer '%s' has %d levels of indirection; maximum allowed is %d.",
+                            getDeclaratorName(pointerNode),
+                            starCount,
+                            MAX_POINTER_LEVELS),
+                    pointerNode);
         }
     }
 

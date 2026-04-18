@@ -1,5 +1,5 @@
 /*
- * SonarQube Unisys C Plugin
+ * SonarQube Flex Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -87,7 +87,6 @@ public class CognitiveComplexityVisitorTest {
 
     private int functionComplexity(String source) {
         return CognitiveComplexityVisitor.functionComplexity(
-            parser.parse(source).getFirstDescendant(CGrammar.FUNCTION_DEF)
-        );
+                parser.parse(source).getFirstDescendant(CGrammar.FUNCTION_DEF));
     }
 }
