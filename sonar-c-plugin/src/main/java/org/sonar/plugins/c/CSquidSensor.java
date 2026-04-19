@@ -1,5 +1,5 @@
 /*
- * SonarQube Flex Plugin
+ * SonarQube Unisys C Plugin
  * Copyright (C) 2010-2025 SonarSource Sàrl
  * mailto:info AT sonarsource DOT com
  *
@@ -150,17 +150,17 @@ public class CSquidSensor implements Sensor {
   }
 
   private void saveIssues(SensorContext context, CCheck check, List<Issue> issues, InputFile inputFile) {
-    for (Issue flexIssue : issues) {
+    for (Issue cIssue : issues) {
       RuleKey ruleKey = checks.ruleKey(check);
       NewIssue issue = context.newIssue();
       NewIssueLocation location = issue.newLocation()
         .on(inputFile)
-        .message(flexIssue.message());
-      Integer line = flexIssue.line();
+        .message(cIssue.message());
+      Integer line = cIssue.line();
       if (line != null) {
         location.at(inputFile.selectLine(line));
       }
-      Double cost = flexIssue.cost();
+      Double cost = cIssue.cost();
       if (cost != null) {
         issue.gap(cost);
       }
