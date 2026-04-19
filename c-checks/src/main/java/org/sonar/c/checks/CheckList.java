@@ -68,7 +68,6 @@ public final class CheckList {
       ArrayFieldElementTypeCheck.class,
       StarUseForDomainCheck.class,
       StarUseForLocalConnectionCheck.class,
-      ExactSettingsSetToFalseCheck.class,
       PrivateStaticConstLoggerCheck.class,
       FunctionNameCheck.class,
       SemicolonCheck.class,

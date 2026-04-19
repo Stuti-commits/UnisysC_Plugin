@@ -43,13 +43,10 @@ public class IfConditionAlwaysTrueOrFalseCheck extends CCheck {
       AstNode condition = conditionalExpr.getFirstChild().getFirstChild();
       if ((condition.is(CGrammar.POSTFIX_EXPR)
         && condition.getFirstChild().is(CGrammar.PRIMARY_EXPR)
-        && condition.getFirstChild().getFirstChild().is(CKeyword.TRUE))
-        || condition.getFirstChild().getFirstChild().is(CKeyword.FALSE)) {
-
+        && !condition.getFirstChild().getFirstChild().getTokenValue().equals("0")
+        || condition.getFirstChild().getFirstChild().getTokenValue().equals("0"))) {
         addIssue("Remove this if statement.", astNode);
       }
-
-
     }
   }
 

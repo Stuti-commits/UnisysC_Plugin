@@ -32,7 +32,6 @@ import static org.sonar.c.api.CKeyword.CONTINUE;
 import static org.sonar.c.api.CKeyword.DEFAULT;
 import static org.sonar.c.api.CKeyword.DO;
 import static org.sonar.c.api.CKeyword.ELSE;
-import static org.sonar.c.api.CKeyword.FALSE;
 import static org.sonar.c.api.CKeyword.FOR;
 
 import static org.sonar.c.api.CKeyword.GOTO;
@@ -43,9 +42,7 @@ import static org.sonar.c.api.CKeyword.REGISTER;
 import static org.sonar.c.api.CKeyword.RETURN;
 import static org.sonar.c.api.CKeyword.STATIC;
 import static org.sonar.c.api.CKeyword.SWITCH;
-import static org.sonar.c.api.CKeyword.TRUE;
 import static org.sonar.c.api.CKeyword.TYPEDEF;
-import static org.sonar.c.api.CKeyword.VAR;
 import static org.sonar.c.api.CKeyword.VOID;
 import static org.sonar.c.api.CKeyword.VOLATILE;
 import static org.sonar.c.api.CKeyword.WHILE;
@@ -494,8 +491,6 @@ public enum CGrammar implements GrammarRuleKey {
         b.rule(QUALIFIED_IDENTIFIER).is(NON_ATTRIBUTE_QUALIFIED_IDENTIFIER);
 
         b.rule(PRIMARY_EXPR).is(b.firstOf(
-                TRUE,
-                FALSE,
                 GENERIC_SELECTION,
                 HEXADECIMAL,
                 NUMBER,
@@ -997,7 +992,7 @@ public enum CGrammar implements GrammarRuleKey {
         b.rule(VARIABLE_DEF).is(b.optional(TYPE_QUALIFIER), TYPE_SPECIFIER, VARIABLE_BINDING_LIST, EOS);
         b.rule(VARIABLE_DEF_NO_IN).is(VARIABLE_DEF_KIND, VARIABLE_BINDING_LIST_NO_IN);
 
-        b.rule(VARIABLE_DEF_KIND).is(b.firstOf(VAR, CONST));
+        b.rule(VARIABLE_DEF_KIND).is(CONST);
 
         b.rule(VARIABLE_BINDING_LIST).is(VARIABLE_BINDING, b.zeroOrMore(COMMA, VARIABLE_BINDING));
         b.rule(VARIABLE_BINDING_LIST_NO_IN).is(VARIABLE_BINDING_NO_IN, b.zeroOrMore(COMMA, VARIABLE_BINDING_NO_IN));

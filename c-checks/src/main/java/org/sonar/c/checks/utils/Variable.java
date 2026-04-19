@@ -47,7 +47,7 @@ public final class Variable {
         return variableDecStmt
           .getFirstChild(CGrammar.VARIABLE_DEF)
           .getFirstChild(CGrammar.VARIABLE_DEF_KIND)
-          .getFirstChild().is(CKeyword.VAR);
+          .getFirstChild().is(CKeyword.CONST);
       }
     }
     return false;

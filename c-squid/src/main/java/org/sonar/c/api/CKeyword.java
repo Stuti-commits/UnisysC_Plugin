@@ -40,11 +40,10 @@ public enum CKeyword implements GrammarRuleKey {
   EXTERN,
   __FAR, 
   FLOAT, 
-  FALSE,  //revisit
   FOR,
   GOTO,
   IF,
-  INCLUDE(true),
+  INCLUDE,
   INLINE,
   INT,
   LONG,
@@ -58,7 +57,6 @@ public enum CKeyword implements GrammarRuleKey {
   STATIC,
   STRUCT,
   SWITCH,
-  TRUE,  //REVISIT
   TYPEDEF,
   UNION,
   UNSIGNED,
@@ -67,7 +65,6 @@ public enum CKeyword implements GrammarRuleKey {
   VOID,
   VOLATILE,
   WHILE,
-  VAR, //REVISIT
   ;
 
   private final boolean syntactic;

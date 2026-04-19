@@ -74,8 +74,6 @@ public class XPathCheck extends CCheck {
         if (object instanceof AstNode) {
           AstNode astNode = (AstNode) object;
           addIssueAtLine(message, astNode.getTokenLine());
-        } else if (Boolean.TRUE.equals(object)) {
-          addFileIssue(message);
         }
       }
     }

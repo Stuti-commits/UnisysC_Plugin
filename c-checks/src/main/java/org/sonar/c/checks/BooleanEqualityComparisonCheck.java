@@ -44,6 +44,7 @@ public class BooleanEqualityComparisonCheck extends CCheck {
   private static boolean hasBooleanLiteralOperand(AstNode astNode) {
     return astNode.is(CGrammar.POSTFIX_EXPR)
       && astNode.getFirstChild().is(CGrammar.PRIMARY_EXPR)
-      && astNode.getFirstChild().getFirstChild().is(CKeyword.TRUE, CKeyword.FALSE);
+      && (astNode.getFirstChild().getFirstChild().getTokenValue().equals("0") 
+      || !astNode.getFirstChild().getFirstChild().getTokenValue().equals("0")) ;
   }
 }
