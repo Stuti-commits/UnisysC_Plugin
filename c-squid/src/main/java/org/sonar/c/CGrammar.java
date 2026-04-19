@@ -104,7 +104,6 @@ import static org.sonar.c.api.CPunctuator.DOUBLE_MINUS;
 import static org.sonar.c.api.CPunctuator.DOUBLE_PLUS;
 import static org.sonar.c.api.CPunctuator.EQUAL1;
 import static org.sonar.c.api.CPunctuator.EQUAL2;
-import static org.sonar.c.api.CPunctuator.EQUAL3;
 import static org.sonar.c.api.CPunctuator.GE;
 import static org.sonar.c.api.CPunctuator.GT;
 import static org.sonar.c.api.CPunctuator.HASH;
@@ -119,7 +118,6 @@ import static org.sonar.c.api.CPunctuator.MOD;
 import static org.sonar.c.api.CPunctuator.MOD_EQU;
 import static org.sonar.c.api.CPunctuator.NOT;
 import static org.sonar.c.api.CPunctuator.NOTEQUAL1;
-import static org.sonar.c.api.CPunctuator.NOTEQUAL2;
 import static org.sonar.c.api.CPunctuator.OR;
 import static org.sonar.c.api.CPunctuator.OROR;
 import static org.sonar.c.api.CPunctuator.OR_EQU;
@@ -133,9 +131,7 @@ import static org.sonar.c.api.CPunctuator.SEMICOLON;
 import static org.sonar.c.api.CPunctuator.SL;
 import static org.sonar.c.api.CPunctuator.SL_EQU;
 import static org.sonar.c.api.CPunctuator.SR;
-import static org.sonar.c.api.CPunctuator.SR2;
 import static org.sonar.c.api.CPunctuator.SR_EQU;
-import static org.sonar.c.api.CPunctuator.SR_EQU2;
 import static org.sonar.c.api.CPunctuator.STAR;
 import static org.sonar.c.api.CPunctuator.STAR_EQU;
 import static org.sonar.c.api.CPunctuator.TILD;
@@ -653,7 +649,7 @@ public enum CGrammar implements GrammarRuleKey {
                         OR_EQU
                 ));
         b.rule(COMPOUND_ASSIGNMENT).is(b.firstOf(STAR_EQU, DIV_EQU, MOD_EQU, PLUS_EQU, MINUS_EQU, SL_EQU, SR_EQU,
-                SR_EQU2, AND_EQU, XOR_EQU, OR_EQU));
+                 AND_EQU, XOR_EQU, OR_EQU));
         
         // Super expression
         b.rule(SUPER_EXPR).is(b.firstOf(
@@ -780,8 +776,8 @@ public enum CGrammar implements GrammarRuleKey {
         b.rule(ADDITIVE_OPERATOR).is(b.firstOf(PLUS, MINUS, /* Action Script 2: */ word(b, "add")));
         b.rule(SHIFT_EXPR).is(ADDITIVE_EXPR, b.zeroOrMore(b.firstOf(
                 b.sequence(SL, ADDITIVE_EXPR),
-                b.sequence(SR, ADDITIVE_EXPR),
-                b.sequence(SR2, ADDITIVE_EXPR)))).skipIfOneChild();
+                b.sequence(SR, ADDITIVE_EXPR)
+                ))).skipIfOneChild();
 
         b.rule(RELATIONAL_EXPR).is(SHIFT_EXPR, b.zeroOrMore(b.firstOf(
                 b.sequence(LT, SHIFT_EXPR),
@@ -803,8 +799,6 @@ public enum CGrammar implements GrammarRuleKey {
         b.rule(EQUALITY_EXPR_NO_IN).is(RELATIONAL_EXPR_NO_IN, b.zeroOrMore(EQUALITY_OPERATOR, RELATIONAL_EXPR_NO_IN))
                 .skipIfOneChild();
         b.rule(EQUALITY_OPERATOR).is(b.firstOf(
-                NOTEQUAL2,
-                EQUAL3,
                 EQUAL2,
                 NOTEQUAL1,
                 /* ActionScript 2: */
