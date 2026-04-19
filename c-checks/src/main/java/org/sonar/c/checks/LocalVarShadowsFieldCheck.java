@@ -90,7 +90,7 @@ public class LocalVarShadowsFieldCheck extends CCheck {
   public void visitNode(AstNode node) {
     if (node.is(CGrammar.CLASS_DEF)) {
       classStack.push(new ClassState(node));
-    } else if (isClassFunctionNotConstructor(node) && !isAccessor(node) && !isStatic(node)) {
+    } else if (isClassFunctionNotConstructor(node) && !isStatic(node)) {
       functionNestedLevel++;
     } else if (!classStack.isEmpty() && functionNestedLevel > 0 && node.is(CGrammar.VARIABLE_DECLARATION_STATEMENT)) {
       checkVariableNames(node);
@@ -104,12 +104,6 @@ public class LocalVarShadowsFieldCheck extends CCheck {
 
   private static boolean isStatic(AstNode functionDef) {
     return Modifiers.getModifiers(functionDef.getParent().getPreviousAstNode()).contains(CKeyword.STATIC);
-  }
-
-  private static boolean isAccessor(AstNode functionDef) {
-    String functionName = Function.getName(functionDef);
-    return Function.isAccessor(functionDef)
-      || (functionName.length() > 2 && "set".equals(functionName.substring(0, 3)));
   }
 
   private void checkVariableNames(AstNode varDeclStatement) {

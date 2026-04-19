@@ -37,20 +37,16 @@ public class FileMetrics {
     AstNode rootTree = context.rootTree();
     Objects.requireNonNull(rootTree, "Cannot compute metrics without a root tree");
     List<AstNode> statements = rootTree.getDescendants(
-      CGrammar.DEFAULT_XML_NAMESPACE_DIRECTIVE,
       CGrammar.VARIABLE_DECLARATION_STATEMENT,
       CGrammar.EXPRESSION_STATEMENT,
       CGrammar.IF_STATEMENT,
       CGrammar.FOR_STATEMENT,
       CGrammar.WHILE_STATEMENT,
       CGrammar.DO_STATEMENT,
-      CGrammar.WITH_STATEMENT,
       CGrammar.SWITCH_STATEMENT,
       CGrammar.BREAK_STATEMENT,
       CGrammar.CONTINUE_STATEMENT,
       CGrammar.RETURN_STATEMENT,
-      CGrammar.THROW_STATEMENT,
-      CGrammar.TRY_STATEMENT,
       CGrammar.EMPTY_STATEMENT);
 
     Set<Integer> alreadyMarked = new HashSet<>();
@@ -64,8 +60,8 @@ public class FileMetrics {
     executableLines = sb.toString();
 
     numberOfStatements = statements.size();
-    numberOfClasses = rootTree.getDescendants(CGrammar.CLASS_DEF, CGrammar.INTERFACE_DEF).size();
-    numberOfFunctions = rootTree.getDescendants(CGrammar.FUNCTION_DEF, CGrammar.FUNCTION_EXPR).size();
+    numberOfClasses = rootTree.getDescendants(CGrammar.CLASS_DEF).size();
+    numberOfFunctions = rootTree.getDescendants(CGrammar.FUNCTION_DEF).size();
     fileLinesVisitor.scanFile(context);
   }
 

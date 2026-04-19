@@ -33,12 +33,6 @@ public class Function {
     return functionDef.getFirstChild(CGrammar.FUNCTION_NAME).getFirstChild(CGrammar.IDENTIFIER).getTokenValue();
   }
 
-  public static boolean isAccessor(AstNode functionDef) {
-    Preconditions.checkState(functionDef.is(CGrammar.FUNCTION_DEF));
-    return functionDef.getFirstChild(CGrammar.FUNCTION_NAME).getFirstChild(CKeyword.GET, CKeyword.SET) != null;
-  }
-
-
   public static boolean isEmptyConstructor(AstNode functionDef, String className) {
     Preconditions.checkState(functionDef.is(CGrammar.FUNCTION_DEF));
     AstNode functionBlock = functionDef.getFirstChild(CGrammar.FUNCTION_COMMON).getFirstChild(CGrammar.BLOCK);
@@ -55,7 +49,7 @@ public class Function {
 
 
   public static List<AstNode> getParametersIdentifiers(AstNode functionDef) {
-    Preconditions.checkState(functionDef.is(CGrammar.FUNCTION_DEF, CGrammar.FUNCTION_EXPR));
+    Preconditions.checkState(functionDef.is(CGrammar.FUNCTION_DEF));
     List<AstNode> paramIdentifier = new ArrayList<>();
     AstNode parameters = functionDef
       .getFirstChild(CGrammar.FUNCTION_COMMON)
@@ -81,7 +75,7 @@ public class Function {
       for (AstNode attribute : attributesNode.getChildren()) {
         if (attribute.getFirstChild().is(CGrammar.ATTRIBUTE_EXPR)
           && attribute.getFirstChild().getNumberOfChildren() == 1
-          && attribute.getFirstChild().getFirstChild(CGrammar.IDENTIFIER).getTokenValue().equals(CKeyword.OVERRIDE.getValue())) {
+          ) {
           return true;
         }
       }

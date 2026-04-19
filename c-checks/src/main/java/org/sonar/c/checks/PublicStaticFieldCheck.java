@@ -45,7 +45,7 @@ public class PublicStaticFieldCheck extends CCheck {
       if (Variable.isVariable(directive)) {
         Set<AstNodeType> varModifiers = Modifiers.getModifiers(directive.getFirstChild(CGrammar.ATTRIBUTES));
 
-        if (varModifiers.contains(CKeyword.PUBLIC) && varModifiers.contains(CKeyword.STATIC)) {
+        if (varModifiers.contains(CKeyword.STATIC)) {
           addIssue("Make this \"public static\" field const", directive);
         }
       }

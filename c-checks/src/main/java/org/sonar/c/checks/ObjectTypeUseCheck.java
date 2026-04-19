@@ -65,10 +65,7 @@ public class ObjectTypeUseCheck extends CCheck {
           return postfixExprChild.getFirstChild().is(CGrammar.OBJECT_INITIALISER);
 
           // Check for instantiation of Object, e.g new Object()
-        } else if (postfixExprChild.is(CGrammar.FULL_NEW_EXPR, CGrammar.SHORT_NEW_EXPR)) {
-          AstNode subExpr = postfixExprChild.getFirstChild(CGrammar.FULL_NEW_SUB_EXPR, CGrammar.SHORT_NEW_SUB_EXPR);
-          return subExpr != null && OBJECT_TYPE.equals(subExpr.getTokenValue());
-        }
+        } 
       }
     }
     return false;

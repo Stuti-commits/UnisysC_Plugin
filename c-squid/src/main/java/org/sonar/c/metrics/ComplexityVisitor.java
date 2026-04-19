@@ -40,7 +40,6 @@ public class ComplexityVisitor extends CVisitor {
     return Arrays.asList(
       // Entry points
       CGrammar.FUNCTION_DEF,
-      CGrammar.FUNCTION_EXPR,
 
       // Branching nodes
       CGrammar.IF_STATEMENT,
@@ -104,7 +103,7 @@ public class ComplexityVisitor extends CVisitor {
     }
 
     private boolean isNestedFunction(AstNode astNode) {
-      return astNode.is(CGrammar.FUNCTION_DEF, CGrammar.FUNCTION_EXPR) && astNode != functionDef;
+      return astNode.is(CGrammar.FUNCTION_DEF) && astNode != functionDef;
     }
   }
 }

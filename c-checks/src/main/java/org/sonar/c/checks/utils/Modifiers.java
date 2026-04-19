@@ -36,29 +36,12 @@ public final class Modifiers {
     if (attributes != null && attributes.is(CGrammar.ATTRIBUTES)) {
       for (AstNode attribute : attributes.getChildren(CGrammar.ATTRIBUTE)) {
 
-        if (attribute.getFirstChild().is(CGrammar.RESERVED_NAMESPACE)) {
-          modifiersSet.add(attribute.getFirstChild(CGrammar.RESERVED_NAMESPACE).getFirstChild().getType());
-
-        } else if (attribute.getFirstChild().is(CGrammar.ATTRIBUTE_EXPR) && attribute.getFirstChild().getNumberOfChildren() == 1) {
+        if (attribute.getFirstChild().is(CGrammar.ATTRIBUTE_EXPR) && attribute.getFirstChild().getNumberOfChildren() == 1) {
           modifiersSet.add(attribute.getFirstChild().getFirstChild(CGrammar.IDENTIFIER).getFirstChild().getType());
         }
       }
     }
     return modifiersSet;
-  }
-
-  public static boolean isNonPublic(Set<AstNodeType> modifiers) {
-    for (AstNodeType modifier : modifiers) {
-      if (modifier.equals(CKeyword.INTERNAL) || modifier.equals(CKeyword.PROTECTED) || modifier.equals(CKeyword.PRIVATE)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  public static boolean isPublic(AstNode attriutes) {
-    Set<AstNodeType> modifiers = getModifiers(attriutes);
-    return modifiers.contains(CKeyword.PUBLIC) || !isNonPublic(modifiers);
   }
 
 }

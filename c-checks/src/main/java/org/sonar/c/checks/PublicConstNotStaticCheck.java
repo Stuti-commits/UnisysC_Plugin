@@ -45,7 +45,7 @@ public class PublicConstNotStaticCheck extends CCheck {
       if (Variable.isConst(directive)) {
         Set<AstNodeType> varModifiers = Modifiers.getModifiers(directive.getFirstChild(CGrammar.ATTRIBUTES));
 
-        if (varModifiers.contains(CKeyword.PUBLIC) && !varModifiers.contains(CKeyword.STATIC)) {
+        if (!varModifiers.contains(CKeyword.STATIC)) {
           String name = Variable.getName(directive.getFirstChild(CGrammar.ANNOTABLE_DIRECTIVE).getFirstChild());
           addIssue(MessageFormat.format("Make this const field \"{0}\" static too", name), directive);
         }

@@ -1,7 +1,6 @@
 {
   "name": "Sonar way",
   "ruleKeys": [
-    "ActionScript2",
     "CommentedCode",
     "NonEmptyCaseWithoutBreak",
     "S100",
@@ -13,21 +12,17 @@
     "S120",
     "S127",
     "S1066",
-    "S1068",
     "S1116",
     "S1117",
     "S1125",
-    "S1144",
     "S1170",
     "S1172",
-    "S1185",
     "S1186",
     "S1301",
     "S1434",
     "S1435",
     "S1439",
     "S1444",
-    "S1446",
     "S1455",
     "S1462",
     "S1463",
@@ -35,14 +30,11 @@
     "S1465",
     "S1466",
     "S1468",
-    "S1470",
     "S1481",
     "S1871",
-    "S1952",
     "S3923",
     "S4507",
     "S4524",
-    "SwitchWithoutDefault",
-    "WithStatement"
+    "SwitchWithoutDefault"
   ]
 }

@@ -79,7 +79,7 @@ public class PrivateStaticConstLoggerCheck extends CCheck {
           .getFirstChild(CGrammar.TYPED_IDENTIFIER)
           .getFirstChild(CGrammar.IDENTIFIER);
         Set<AstNodeType> modifiers = Modifiers.getModifiers(directive.getFirstChild(CGrammar.ATTRIBUTES));
-        boolean isPrivateStaticConst = modifiers.contains(CKeyword.PRIVATE) && modifiers.contains(CKeyword.STATIC) && isConst(variableDef);
+        boolean isPrivateStaticConst = modifiers.contains(CKeyword.STATIC) && isConst(variableDef);
 
         reportIssue(isPrivateStaticConst, pattern.matcher(identifierNode.getTokenValue()).matches(), variableBindingNode);
       }

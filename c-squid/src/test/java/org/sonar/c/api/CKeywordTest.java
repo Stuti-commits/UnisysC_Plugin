@@ -24,7 +24,7 @@ public class CKeywordTest {
 
   @Test
   public void test() {
-    assertThat(CKeyword.values().length).isEqualTo(75); //this will vary after removing flex keywords from Ckeyword file
+    assertThat(CKeyword.values().length).isEqualTo(43); //this will vary after removing flex keywords from Ckeyword file
 
     assertThat(CKeyword.keywordValues().length).isEqualTo(CKeyword.values().length);
   }

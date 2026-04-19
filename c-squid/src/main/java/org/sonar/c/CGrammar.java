@@ -24,61 +24,31 @@ import org.sonar.sslr.grammar.GrammarRuleKey;
 import org.sonar.sslr.grammar.LexerlessGrammarBuilder;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-import static org.sonar.c.api.CKeyword.AS;
 import static org.sonar.c.api.CKeyword.AUTO;
 import static org.sonar.c.api.CKeyword.BREAK;
 import static org.sonar.c.api.CKeyword.CASE;
-import static org.sonar.c.api.CKeyword.CATCH;
 import static org.sonar.c.api.CKeyword.CONST;
 import static org.sonar.c.api.CKeyword.CONTINUE;
 import static org.sonar.c.api.CKeyword.DEFAULT;
-import static org.sonar.c.api.CKeyword.DELETE;
 import static org.sonar.c.api.CKeyword.DO;
-import static org.sonar.c.api.CKeyword.DYNAMIC;
-import static org.sonar.c.api.CKeyword.EACH;
 import static org.sonar.c.api.CKeyword.ELSE;
-import static org.sonar.c.api.CKeyword.EXTENDS;
 import static org.sonar.c.api.CKeyword.FALSE;
-import static org.sonar.c.api.CKeyword.FINALLY;
 import static org.sonar.c.api.CKeyword.FOR;
-import static org.sonar.c.api.CKeyword.FUNCTION;
-import static org.sonar.c.api.CKeyword.GET;
+
 import static org.sonar.c.api.CKeyword.GOTO;
 import static org.sonar.c.api.CKeyword.IF;
-import static org.sonar.c.api.CKeyword.IMPLEMENTS;
-import static org.sonar.c.api.CKeyword.IMPORT;
-import static org.sonar.c.api.CKeyword.IN;
 import static org.sonar.c.api.CKeyword.INCLUDE;
 import static org.sonar.c.api.CKeyword.INLINE;
-import static org.sonar.c.api.CKeyword.INSTANCEOF;
-import static org.sonar.c.api.CKeyword.INTERFACE;
-import static org.sonar.c.api.CKeyword.INTERNAL;
-import static org.sonar.c.api.CKeyword.IS;
-import static org.sonar.c.api.CKeyword.NAMESPACE;
-import static org.sonar.c.api.CKeyword.NEW;
-import static org.sonar.c.api.CKeyword.NULL;
-import static org.sonar.c.api.CKeyword.PRIVATE;
-import static org.sonar.c.api.CKeyword.PROTECTED;
-import static org.sonar.c.api.CKeyword.PUBLIC;
 import static org.sonar.c.api.CKeyword.REGISTER;
 import static org.sonar.c.api.CKeyword.RETURN;
-import static org.sonar.c.api.CKeyword.SET;
 import static org.sonar.c.api.CKeyword.STATIC;
-import static org.sonar.c.api.CKeyword.SUPER;
 import static org.sonar.c.api.CKeyword.SWITCH;
-import static org.sonar.c.api.CKeyword.THIS;
-import static org.sonar.c.api.CKeyword.THROW;
 import static org.sonar.c.api.CKeyword.TRUE;
-import static org.sonar.c.api.CKeyword.TRY;
 import static org.sonar.c.api.CKeyword.TYPEDEF;
-import static org.sonar.c.api.CKeyword.TYPEOF;
-import static org.sonar.c.api.CKeyword.USE;
 import static org.sonar.c.api.CKeyword.VAR;
 import static org.sonar.c.api.CKeyword.VOID;
 import static org.sonar.c.api.CKeyword.VOLATILE;
 import static org.sonar.c.api.CKeyword.WHILE;
-import static org.sonar.c.api.CKeyword.WITH;
-import static org.sonar.c.api.CKeyword.XML;
 import static org.sonar.c.api.CKeyword.CHAR;
 import static org.sonar.c.api.CKeyword.INT;
 import static org.sonar.c.api.CKeyword.FLOAT;
@@ -209,10 +179,8 @@ public enum CGrammar implements GrammarRuleKey {
      */
     // <editor-fold defaultstate="collapsed" desc="Expression">
     PRIMARY_EXPR,
-    RESERVED_NAMESPACE,
     PARENTHESIZED_EXPR,
     PARENTHESIZED_LIST_EXPR,
-    FUNCTION_EXPR,
     OBJECT_INITIALISER,
     FIELD_NAME,
     LITERAL_FIELD,
@@ -223,7 +191,6 @@ public enum CGrammar implements GrammarRuleKey {
     CONDITIONAL_EXPR_NO_IN,
     POSTFIX_EXPR,
     COMPOUND_ASSIGNMENT,
-    SUPER_EXPR,
     GENERIC_SELECTION,
     GENERIC_ASSOC_LIST,
     GENERIC_ASSOCIATION,
@@ -237,11 +204,6 @@ public enum CGrammar implements GrammarRuleKey {
     BRACKETS,
     IDENTIFIER,
     IDENTIFIER_PART,
-    // New expressions
-    FULL_NEW_EXPR,
-    FULL_NEW_SUB_EXPR,
-    SHORT_NEW_EXPR,
-    SHORT_NEW_SUB_EXPR,
     PROPERTY_OPERATOR,
     QUERY_OPERATOR,
     // Call expression
@@ -288,22 +250,6 @@ public enum CGrammar implements GrammarRuleKey {
     TYPE_EXPR_NO_IN,
     TYPE_APPLICATION,
     VECTOR_LITERAL_EXPRESSION,
-    // XML Initialiser
-    XML_INITIALISER,
-    XML_MARKUP,
-    XML_ELEMENT,
-    XML_TAG_CONTENT,
-    XML_WHITESPACE,
-    XML_TAG_NAME,
-    XML_ATTRIBUTE,
-    XML_ATTRIBUTES,
-    XML_ATTRIBUTE_VALUE,
-    XML_NAME,
-    XML_ELEMENT_CONTENT,
-    XML_TEXT,
-    XML_COMMENT,
-    XML_CDATA,
-    XML_PI,
     KEYWORDS,
     REGULAR_EXPRESSION,
 
@@ -341,16 +287,8 @@ public enum CGrammar implements GrammarRuleKey {
     // Class
     CLASS_DEF,
     CLASS_NAME,
-    INHERITENCE,
     CLASS_IDENTIFIERS,
     TYPE_EXPRESSION_LIST,
-    // Interface
-    INTERFACE_DEF,
-    EXTENDS_LIST,
-    // Namespace
-    NAMESPACE_DEF,
-    NAMESPACE_BINDING,
-    NAMESPACE_INITIALISATION,
     // Program
     PROGRAM,
     // </editor-fold>
@@ -360,23 +298,18 @@ public enum CGrammar implements GrammarRuleKey {
      */
     // <editor-fold defaultstate="collapsed" desc="Statements">
     STATEMENT,
-    SUPER_STATEMENT,
     SWITCH_STATEMENT,
     IF_STATEMENT,
     DO_STATEMENT,
     WHILE_STATEMENT,
     FOR_STATEMENT,
-    WITH_STATEMENT,
     CONTINUE_STATEMENT,
     BREAK_STATEMENT,
     RETURN_STATEMENT,
-    THROW_STATEMENT,
-    TRY_STATEMENT,
     EXPRESSION_STATEMENT,
     EXPRESSION,
     LABELED_STATEMENT,
     METADATA_STATEMENT,
-    DEFAULT_XML_NAMESPACE_DIRECTIVE,
     SUB_STATEMENT,
     EMPTY_STATEMENT,
     VARIABLE_DECLARATION_STATEMENT,
@@ -385,8 +318,6 @@ public enum CGrammar implements GrammarRuleKey {
     CASE_LABEL,
     FOR_INITIALISER,
     FOR_IN_BINDING,
-    CATCH_CLAUSE,
-    CATCH_CLAUSES,
     DECIMAL_DIGITS,
     EXPONENT_PART,
     DECIMAL_INTEGER,
@@ -399,8 +330,6 @@ public enum CGrammar implements GrammarRuleKey {
     DIRECTIVES,
     DIRECTIVE,
     ANNOTABLE_DIRECTIVE,
-    USE_DIRECTIVE,
-    IMPORT_DIRECTIVE,
     INCLUDE_DIRECTIVE,
     ATTRIBUTES,
     ATTRIBUTE,
@@ -488,7 +417,6 @@ public enum CGrammar implements GrammarRuleKey {
         statements(b);
         directives(b);
         definitions(b);
-        xml(b);
 
         b.setRootRule(PROGRAM);
 
@@ -531,12 +459,7 @@ public enum CGrammar implements GrammarRuleKey {
         //  TODO - change identifiers for C, refer - https://www.quut.com/c/ANSI-C-grammar-l-2011.html#IDENTIFIER
         // Identifiers
         b.rule(IDENTIFIER).is(b.firstOf(
-                DYNAMIC,
-                EACH,
-                GET,
                 INCLUDE,
-                NAMESPACE,
-                SET,
                 STATIC,
                 b.sequence(SPACING, b.nextNot(KEYWORDS),
                         b.regexp(IDENTIFIER_START_REGEXP + IDENTIFIER_PART_REGEXP + "*+"))));
@@ -546,9 +469,7 @@ public enum CGrammar implements GrammarRuleKey {
                 IDENTIFIER,
                 STAR));
 
-        b.rule(QUALIFIER).is(b.firstOf(
-                PROPERTY_IDENTIFIER,
-                RESERVED_NAMESPACE));
+        b.rule(QUALIFIER).is(PROPERTY_IDENTIFIER);
 
         b.rule(SIMPLE_QUALIFIED_IDENTIFIER).is(PROPERTY_IDENTIFIER);
 
@@ -573,33 +494,22 @@ public enum CGrammar implements GrammarRuleKey {
         b.rule(QUALIFIED_IDENTIFIER).is(NON_ATTRIBUTE_QUALIFIED_IDENTIFIER);
 
         b.rule(PRIMARY_EXPR).is(b.firstOf(
-                NULL,
                 TRUE,
                 FALSE,
                 GENERIC_SELECTION,
                 HEXADECIMAL,
                 NUMBER,
                 STRING,
-                THIS,
                 REGULAR_EXPRESSION,
-                XML_INITIALISER,
                 STDIO_FUNCTION_NAME,
                 MATH_FUNCTION_NAME,
                 QUALIFIED_IDENTIFIER,
-                RESERVED_NAMESPACE,
                 PARENTHESIZED_EXPR,
                 ARRAY_INITIALISER,
-                OBJECT_INITIALISER,
-                FUNCTION_EXPR));
-
-        b.rule(RESERVED_NAMESPACE).is(b.firstOf(PUBLIC, PRIVATE, PROTECTED, INTERNAL));
+                OBJECT_INITIALISER));
 
         b.rule(PARENTHESIZED_EXPR).is(LPARENTHESIS, ASSIGNMENT_EXPR, RPARENTHESIS);
         b.rule(PARENTHESIZED_LIST_EXPR).is(LPARENTHESIS, LIST_EXPRESSION, RPARENTHESIS);
-
-        b.rule(FUNCTION_EXPR).is(b.firstOf(
-                b.sequence(FUNCTION, FUNCTION_COMMON),
-                b.sequence(FUNCTION, IDENTIFIER, FUNCTION_COMMON)));
 
         b.rule(OBJECT_INITIALISER).is(LCURLYBRACE, b.optional(LITERAL_FIELD, b.zeroOrMore(COMMA, LITERAL_FIELD)),
                 RCURLYBRACE);
@@ -639,11 +549,6 @@ public enum CGrammar implements GrammarRuleKey {
         b.rule(COMPOUND_ASSIGNMENT).is(b.firstOf(STAR_EQU, DIV_EQU, MOD_EQU, PLUS_EQU, MINUS_EQU, SL_EQU, SR_EQU,
                  AND_EQU, XOR_EQU, OR_EQU));
         
-        // Super expression
-        b.rule(SUPER_EXPR).is(b.firstOf(
-                b.sequence(SUPER, ARGUMENTS),
-                SUPER));
-
         b.rule(POSTFIX_EXPR).is(
                 b.firstOf(
                         b.sequence(LPARENTHESIS, TYPE_NAME, RPARENTHESIS, LCURLYBRACE, INITIALIZER_LIST, COMMA, RCURLYBRACE),
@@ -654,19 +559,6 @@ public enum CGrammar implements GrammarRuleKey {
                                 b.sequence(DOT, IDENTIFIER),
                                 b.sequence(SPACING_NO_LB, NEXT_NOT_LB, DOUBLE_PLUS),
                                 b.sequence(SPACING_NO_LB, NEXT_NOT_LB, DOUBLE_MINUS))));
-
-        // New expressions
-        b.rule(FULL_NEW_EXPR).is(NEW, b.firstOf(FULL_NEW_SUB_EXPR, VECTOR_LITERAL_EXPRESSION), ARGUMENTS);
-        b.rule(FULL_NEW_SUB_EXPR).is(b.firstOf(
-                PRIMARY_EXPR,
-                b.sequence(FULL_NEW_EXPR, PROPERTY_OPERATOR),
-                FULL_NEW_EXPR,
-                b.sequence(SUPER_EXPR, PROPERTY_OPERATOR)));
-
-        b.rule(SHORT_NEW_EXPR).is(NEW, b.firstOf(SHORT_NEW_SUB_EXPR, VECTOR_LITERAL_EXPRESSION));
-        b.rule(SHORT_NEW_SUB_EXPR).is(b.firstOf(
-                FULL_NEW_SUB_EXPR,
-                SHORT_NEW_EXPR));
 
         // Property accessors
         b.rule(PROPERTY_OPERATOR).is(b.firstOf(
@@ -773,10 +665,8 @@ public enum CGrammar implements GrammarRuleKey {
 
         b.rule(RELATIONAL_EXPR_NO_IN).is(SHIFT_EXPR, b.zeroOrMore(RELATIONAL_OPERATOR_NO_IN, SHIFT_EXPR))
                 .skipIfOneChild();
-        b.rule(RELATIONAL_OPERATOR).is(b.firstOf(LE, GE, LT, GT, IN, INSTANCEOF, IS, AS,
-                /* Action Script 2: */ word(b, "le"), word(b, "ge"), word(b, "lt"), word(b, "gt")));
-        b.rule(RELATIONAL_OPERATOR_NO_IN).is(b.firstOf(LE, GE, LT, GT, INSTANCEOF, IS, AS,
-                /* Action Script 2: */ word(b, "le"), word(b, "ge"), word(b, "lt"), word(b, "gt")));
+        b.rule(RELATIONAL_OPERATOR).is(b.firstOf(LE, GE, LT, GT));
+        b.rule(RELATIONAL_OPERATOR_NO_IN).is(b.firstOf(LE, GE, LT, GT));
 
         b.rule(EQUALITY_EXPR).is(RELATIONAL_EXPR, b.zeroOrMore(b.firstOf(
                 b.sequence(EQUAL2, RELATIONAL_EXPR),
@@ -786,11 +676,8 @@ public enum CGrammar implements GrammarRuleKey {
                 .skipIfOneChild();
         b.rule(EQUALITY_OPERATOR).is(b.firstOf(
                 EQUAL2,
-                NOTEQUAL1,
-                /* ActionScript 2: */
-                b.sequence(SPACING, "<>"),
-                word(b, "eq"),
-                word(b, "ne")));
+                NOTEQUAL1
+        ));
 
         b.rule(BITEWISE_AND_EXPR).is(EQUALITY_EXPR, b.zeroOrMore(AND, EQUALITY_EXPR)).skipIfOneChild();
         b.rule(BITEWISE_AND_EXPR_NO_IN).is(EQUALITY_EXPR_NO_IN, b.zeroOrMore(AND, EQUALITY_EXPR_NO_IN))
@@ -986,8 +873,6 @@ public enum CGrammar implements GrammarRuleKey {
 
         b.rule(EMPTY_STATEMENT).is(SEMICOLON);
 
-        b.rule(SUPER_STATEMENT).is(SUPER, ARGUMENTS, EOS);
-
         b.rule(BLOCK).is(LCURLYBRACE, DIRECTIVES, RCURLYBRACE);
 
         b.rule(LABELED_STATEMENT).is(b.firstOf(
@@ -1020,21 +905,9 @@ public enum CGrammar implements GrammarRuleKey {
                 b.sequence(/* No line break */ SPACING_NO_LB, NEXT_NOT_LB, IDENTIFIER, EOS),
                 EOS_NO_LB));
 
-        b.rule(WITH_STATEMENT).is(WITH, PARENTHESIZED_LIST_EXPR, SUB_STATEMENT);
-
         b.rule(RETURN_STATEMENT).is(RETURN, b.firstOf(
                 b.sequence(/* No line break */ SPACING_NO_LB, NEXT_NOT_LB, LIST_EXPRESSION, EOS),
                 EOS_NO_LB));
-
-        b.rule(THROW_STATEMENT).is(THROW, b.firstOf(
-                b.sequence(/* No line break */ SPACING_NO_LB, NEXT_NOT_LB, LIST_EXPRESSION, EOS),
-                EOS_NO_LB));
-
-        b.rule(TRY_STATEMENT).is(TRY, BLOCK, b.firstOf(
-                b.sequence(CATCH_CLAUSES, b.optional(FINALLY, BLOCK)),
-                b.sequence(FINALLY, BLOCK)));
-        b.rule(CATCH_CLAUSES).is(CATCH_CLAUSE, b.zeroOrMore(CATCH_CLAUSE));
-        b.rule(CATCH_CLAUSE).is(CATCH, LPARENTHESIS, PARAMETER, RPARENTHESIS, BLOCK);
 
         b.rule(EXPRESSION).is(ASSIGNMENT_EXPR, b.zeroOrMore(COMMA, ASSIGNMENT_EXPR));
     }
@@ -1044,36 +917,24 @@ public enum CGrammar implements GrammarRuleKey {
                 EMPTY_STATEMENT,
                 ANNOTABLE_DIRECTIVE,
                 STATEMENT,
-                DEFAULT_XML_NAMESPACE_DIRECTIVE,
                 b.sequence(ATTRIBUTES, /* No line break */ SPACING_NO_LB, NEXT_NOT_LB, ANNOTABLE_DIRECTIVE),
-                b.sequence(INCLUDE_DIRECTIVE, /* No line break */ EOS_NO_LB),
-                b.sequence(IMPORT_DIRECTIVE, /* No line break */ EOS_NO_LB),
-                b.sequence(USE_DIRECTIVE, /* No line break */ EOS_NO_LB)));
+                b.sequence(INCLUDE_DIRECTIVE, /* No line break */ EOS_NO_LB)));
 
         b.rule(ANNOTABLE_DIRECTIVE).is(b.firstOf(
                 VARIABLE_DECLARATION_STATEMENT,
-                FUNCTION_DEF,
-                INTERFACE_DEF,
-                NAMESPACE_DEF));
+                FUNCTION_DEF));
 
         b.rule(DIRECTIVES).is(b.zeroOrMore(DIRECTIVE));
 
         b.rule(ATTRIBUTES).is(b.oneOrMore(ATTRIBUTE));
         b.rule(ATTRIBUTE_COMBINATION).is(ATTRIBUTE, /* No line break */ SPACING_NO_LB, NEXT_NOT_LB, ATTRIBUTES);
         b.rule(ATTRIBUTE).is(b.firstOf(
-                b.sequence(/* hack: */b.nextNot(NAMESPACE), ATTRIBUTE_EXPR),
-                RESERVED_NAMESPACE,
+                ATTRIBUTE_EXPR,
                 b.sequence(LBRAKET, ASSIGNMENT_EXPR, RBRAKET)));
         b.rule(ATTRIBUTE_EXPR).is(IDENTIFIER, b.zeroOrMore(PROPERTY_OPERATOR));
 
-        b.rule(IMPORT_DIRECTIVE).is(IMPORT, LABEL, b.optional(DOT, STAR));
-
         b.rule(INCLUDE_DIRECTIVE).is(HASH, INCLUDE, SPACING_NO_LB, NEXT_NOT_LB, b.firstOf(STRING, b.sequence(LT, b.regexp("[^>\\r\\n]++"), GT)));
 
-        b.rule(USE_DIRECTIVE).is(USE, NAMESPACE, LIST_EXPRESSION);
-
-        b.rule(DEFAULT_XML_NAMESPACE_DIRECTIVE).is(DEFAULT, /* No line break */ SPACING_NO_LB, NEXT_NOT_LB, XML,
-                /* No line break */ SPACING_NO_LB, NEXT_NOT_LB, NAMESPACE, EQUAL1, NON_ASSIGNMENT_EXPR, EOS);
     }
 
     private static void definitions(LexerlessGrammarBuilder b) {
@@ -1202,22 +1063,11 @@ public enum CGrammar implements GrammarRuleKey {
 
         b.rule(CLASS_NAME).is(CLASS_IDENTIFIERS);
         b.rule(CLASS_IDENTIFIERS).is(IDENTIFIER, b.zeroOrMore(b.sequence(DOT, IDENTIFIER)));
-        b.rule(INHERITENCE).is(b.firstOf(
-                b.sequence(IMPLEMENTS, TYPE_EXPRESSION_LIST),
-                b.sequence(EXTENDS, TYPE_EXPR, IMPLEMENTS, TYPE_EXPRESSION_LIST),
-                b.sequence(EXTENDS, TYPE_EXPR)));
 
         b.rule(TYPE_EXPRESSION_LIST).is(TYPE_EXPR, b.zeroOrMore(b.sequence(COMMA, TYPE_EXPR)));
 
-        b.rule(INTERFACE_DEF).is(INTERFACE, CLASS_NAME, b.optional(EXTENDS_LIST), BLOCK);
-        b.rule(EXTENDS_LIST).is(EXTENDS, TYPE_EXPRESSION_LIST);
-
         b.rule(LABEL).is(LABEL_NAME, COLON, STATEMENT);
         b.rule(LABEL_NAME).is(IDENTIFIER);
-
-        b.rule(NAMESPACE_DEF).is(NAMESPACE, NAMESPACE_BINDING, EOS);
-        b.rule(NAMESPACE_BINDING).is(IDENTIFIER, b.optional(NAMESPACE_INITIALISATION));
-        b.rule(NAMESPACE_INITIALISATION).is(EQUAL1, ASSIGNMENT_EXPR);
 
         b.rule(PROGRAM).is(
                 b.zeroOrMore(INCLUDE_DIRECTIVE),
@@ -1225,57 +1075,6 @@ public enum CGrammar implements GrammarRuleKey {
                 SPACING,
                 b.token(GenericTokenType.EOF, b.endOfInput())
         );
-    }
-
-    private static void xml(LexerlessGrammarBuilder b) {
-        b.rule(XML_INITIALISER).is(b.firstOf(
-                XML_MARKUP,
-                XML_ELEMENT,
-                b.sequence(LT, GT, XML_ELEMENT_CONTENT, LT, DIV, GT)));
-
-        b.rule(XML_ELEMENT).is(b.firstOf(
-                b.sequence(LT, XML_TAG_CONTENT, b.optional(XML_WHITESPACE), DIV, GT),
-                b.sequence(LT, XML_TAG_CONTENT, b.optional(XML_WHITESPACE), XML_ELEMENT_CONTENT, LT, DIV, XML_TAG_NAME,
-                        b.optional(XML_WHITESPACE), GT)));
-
-        b.rule(XML_TAG_CONTENT).is(XML_TAG_NAME, XML_ATTRIBUTES);
-
-        b.rule(XML_TAG_NAME).is(b.firstOf(
-                b.sequence(LCURLYBRACE, EXPRESSION, RCURLYBRACE),
-                XML_NAME));
-
-        b.rule(XML_ATTRIBUTES).is(b.optional(b.firstOf(
-                b.sequence(XML_ATTRIBUTE, XML_ATTRIBUTES),
-                b.sequence(XML_WHITESPACE, LCURLYBRACE, EXPRESSION, RCURLYBRACE))));
-
-        b.rule(XML_ATTRIBUTE).is(b.firstOf(
-                b.sequence(b.zeroOrMore(XML_WHITESPACE), XML_NAME,
-                        b.zeroOrMore(XML_WHITESPACE), EQUAL1, b.zeroOrMore(XML_WHITESPACE),
-                        LCURLYBRACE, EXPRESSION, RCURLYBRACE),
-                b.sequence(b.zeroOrMore(XML_WHITESPACE), XML_NAME,
-                        b.zeroOrMore(XML_WHITESPACE), EQUAL1, b.zeroOrMore(XML_WHITESPACE),
-                        XML_ATTRIBUTE_VALUE)));
-
-        b.rule(XML_ELEMENT_CONTENT).is(b.optional(
-                b.firstOf(
-                        b.sequence(LCURLYBRACE, EXPRESSION, RCURLYBRACE, XML_ELEMENT_CONTENT),
-                        b.sequence(XML_MARKUP, XML_ELEMENT_CONTENT),
-                        b.sequence(XML_TEXT, XML_ELEMENT_CONTENT),
-                        b.sequence(XML_ELEMENT, XML_ELEMENT_CONTENT))));
-
-        b.rule(XML_MARKUP).is(b.firstOf(
-                XML_COMMENT,
-                XML_CDATA,
-                XML_PI));
-
-        b.rule(XML_COMMENT).is(SPACING, b.regexp("<!--(?:(?!--)[\\s\\S])*?-->"));
-        b.rule(XML_CDATA).is(SPACING, b.regexp("<!\\[CDATA\\[(?:(?!]])[\\s\\S])*?]]>"));
-        b.rule(XML_PI).is(SPACING, b.regexp("<\\?(?:(?!\\?>)[\\s\\S])*?\\?>"));
-        b.rule(XML_TEXT).is(SPACING, b.regexp("[^{<]++"));
-        b.rule(XML_NAME).is(SPACING,
-                b.regexp("[" + UNICODE_LETTER + "_:" + "]" + "[" + UNICODE_LETTER + UNICODE_DIGIT + "\\.\\-_:" + "]*"));
-        b.rule(XML_ATTRIBUTE_VALUE).is(b.regexp("(\"([^\"]*[//s//S]*)\")|(\'([^\']*[//s//S]*)\')"));
-        b.rule(XML_WHITESPACE).is(b.regexp("[ \\t\\r\\n]+"));
     }
 
     private static void keywords(LexerlessGrammarBuilder b) {

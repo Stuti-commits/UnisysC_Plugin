@@ -27,7 +27,6 @@ import org.sonar.c.CGrammar;
 import org.sonar.c.api.CKeyword;
 import org.sonar.c.checks.ASDocCheck;
 import org.sonar.c.checks.utils.Function;
-import org.sonar.c.checks.utils.Modifiers;
 
 public class ASDocMemberCheck {
 
@@ -53,7 +52,7 @@ public class ASDocMemberCheck {
     for (AstNode directive : classDirectives) {
       AstNode annotableDirective = directive.getFirstChild(CGrammar.ANNOTABLE_DIRECTIVE);
 
-      if (annotableDirective != null && Modifiers.isPublic(annotableDirective.getPreviousAstNode())) {
+      if (annotableDirective != null ) {
         AstNode annotableDirChild = annotableDirective.getFirstChild();
 
         // Fields
