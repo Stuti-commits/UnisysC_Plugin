@@ -92,14 +92,11 @@ import static org.sonar.c.api.CKeyword.EXTERN;
 import static org.sonar.c.api.CPunctuator.AND;
 import static org.sonar.c.api.CPunctuator.ANDAND;
 import static org.sonar.c.api.CPunctuator.AND_EQU;
-import static org.sonar.c.api.CPunctuator.AT_SIGN;
 import static org.sonar.c.api.CPunctuator.COLON;
 import static org.sonar.c.api.CPunctuator.COMMA;
 import static org.sonar.c.api.CPunctuator.DIV;
 import static org.sonar.c.api.CPunctuator.DIV_EQU;
 import static org.sonar.c.api.CPunctuator.DOT;
-import static org.sonar.c.api.CPunctuator.DOUBLE_COLON;
-import static org.sonar.c.api.CPunctuator.DOUBLE_DOT;
 import static org.sonar.c.api.CPunctuator.DOUBLE_MINUS;
 import static org.sonar.c.api.CPunctuator.DOUBLE_PLUS;
 import static org.sonar.c.api.CPunctuator.EQUAL1;
@@ -401,7 +398,6 @@ public enum CGrammar implements GrammarRuleKey {
     // <editor-fold defaultstate="collapsed" desc="Directives">
     DIRECTIVES,
     DIRECTIVE,
-    CONFIG_CONDITION,
     ANNOTABLE_DIRECTIVE,
     USE_DIRECTIVE,
     IMPORT_DIRECTIVE,
@@ -554,10 +550,7 @@ public enum CGrammar implements GrammarRuleKey {
                 PROPERTY_IDENTIFIER,
                 RESERVED_NAMESPACE));
 
-        b.rule(SIMPLE_QUALIFIED_IDENTIFIER).is(b.firstOf(
-                b.sequence(QUALIFIER, DOUBLE_COLON, PROPERTY_IDENTIFIER),
-                b.sequence(QUALIFIER, DOUBLE_COLON, BRACKETS),
-                PROPERTY_IDENTIFIER));
+        b.rule(SIMPLE_QUALIFIED_IDENTIFIER).is(PROPERTY_IDENTIFIER);
 
         b.rule(GENERIC_SELECTION).is(
                 word(b, "_Generic"),
@@ -571,18 +564,13 @@ public enum CGrammar implements GrammarRuleKey {
                 b.sequence(TYPE_NAME, COLON, ASSIGNMENT_EXPR),
                 b.sequence(DEFAULT, COLON, ASSIGNMENT_EXPR)));
 
-        b.rule(EXPR_QUALIFIED_IDENTIFIER).is(b.firstOf(
-                b.sequence(PARENTHESIZED_EXPR, DOUBLE_COLON, PROPERTY_IDENTIFIER),
-                b.sequence(PARENTHESIZED_EXPR, BRACKETS)));
+        b.rule(EXPR_QUALIFIED_IDENTIFIER).is(PARENTHESIZED_EXPR, BRACKETS);
 
         b.rule(NON_ATTRIBUTE_QUALIFIED_IDENTIFIER).is(b.firstOf(
                 SIMPLE_QUALIFIED_IDENTIFIER,
                 EXPR_QUALIFIED_IDENTIFIER));
 
-        b.rule(QUALIFIED_IDENTIFIER).is(b.firstOf(
-                b.sequence(AT_SIGN, BRACKETS),
-                b.sequence(AT_SIGN, NON_ATTRIBUTE_QUALIFIED_IDENTIFIER),
-                NON_ATTRIBUTE_QUALIFIED_IDENTIFIER));
+        b.rule(QUALIFIED_IDENTIFIER).is(NON_ATTRIBUTE_QUALIFIED_IDENTIFIER);
 
         b.rule(PRIMARY_EXPR).is(b.firstOf(
                 NULL,
@@ -689,9 +677,7 @@ public enum CGrammar implements GrammarRuleKey {
         b.rule(BRACKETS).is(LBRAKET, LIST_EXPRESSION, RBRAKET);
 
         // Query operators
-        b.rule(QUERY_OPERATOR).is(b.firstOf(
-                b.sequence(DOUBLE_DOT, QUALIFIED_IDENTIFIER),
-                b.sequence(DOT, LPARENTHESIS, LIST_EXPRESSION, RPARENTHESIS)));
+        b.rule(QUERY_OPERATOR).is(DOT, LPARENTHESIS, LIST_EXPRESSION, RPARENTHESIS);
 
         // Call expresions
         b.rule(ARGUMENTS).is(LPARENTHESIS, b.optional(LIST_EXPRESSION), RPARENTHESIS);
@@ -1055,7 +1041,6 @@ public enum CGrammar implements GrammarRuleKey {
 
     private static void directives(LexerlessGrammarBuilder b) {
         b.rule(DIRECTIVE).is(b.firstOf(
-                CONFIG_CONDITION,
                 EMPTY_STATEMENT,
                 ANNOTABLE_DIRECTIVE,
                 STATEMENT,
@@ -1064,8 +1049,6 @@ public enum CGrammar implements GrammarRuleKey {
                 b.sequence(INCLUDE_DIRECTIVE, /* No line break */ EOS_NO_LB),
                 b.sequence(IMPORT_DIRECTIVE, /* No line break */ EOS_NO_LB),
                 b.sequence(USE_DIRECTIVE, /* No line break */ EOS_NO_LB)));
-
-        b.rule(CONFIG_CONDITION).is(IDENTIFIER, DOUBLE_COLON, IDENTIFIER, LCURLYBRACE, DIRECTIVES, RCURLYBRACE);
 
         b.rule(ANNOTABLE_DIRECTIVE).is(b.firstOf(
                 VARIABLE_DECLARATION_STATEMENT,
