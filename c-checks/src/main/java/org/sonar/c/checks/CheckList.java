@@ -72,7 +72,6 @@ public final class CheckList {
       FunctionNameCheck.class,
       SemicolonCheck.class,
       ObjectTypeUseCheck.class,
-      ManagedEventTagWithEventCheck.class,
       LocalVarShadowsFieldCheck.class,
       UnusedLocalVariableCheck.class,
       TooManyUnaryOperatorCheck.class,
