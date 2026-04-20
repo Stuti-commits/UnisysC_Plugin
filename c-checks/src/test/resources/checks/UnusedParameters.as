@@ -11,7 +11,6 @@ function f1(a, b, c):void  // Noncompliant
   function f(d, e) {       // Noncompliant
     compute(b);
     compute(d.getAttr());
-
   }
   compute(a);
 

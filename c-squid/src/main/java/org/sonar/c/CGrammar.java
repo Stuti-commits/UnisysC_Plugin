@@ -21,7 +21,6 @@ import org.sonar.sslr.grammar.GrammarRuleKey;
 import org.sonar.sslr.grammar.LexerlessGrammarBuilder;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-import static org.sonar.c.CKeyword.AS;
 import static org.sonar.c.CKeyword.ASM;
 import static org.sonar.c.CKeyword.AUTO;
 import static org.sonar.c.CKeyword.BREAK;
@@ -33,39 +32,21 @@ import static org.sonar.c.CKeyword.DEFAULT;
 import static org.sonar.c.CKeyword.DO;
 import static org.sonar.c.CKeyword.ELSE;
 import static org.sonar.c.CKeyword.ENUM;
-import static org.sonar.c.CKeyword.EXTENDS;
 import static org.sonar.c.CKeyword.FOR;
-import static org.sonar.c.CKeyword.FUNCTION;
 import static org.sonar.c.CKeyword.GOTO;
 import static org.sonar.c.CKeyword.IF;
-import static org.sonar.c.CKeyword.IMPLEMENTS;
-import static org.sonar.c.CKeyword.IMPORT;
-import static org.sonar.c.CKeyword.IN;
 import static org.sonar.c.CKeyword.INCLUDE;
 import static org.sonar.c.CKeyword.INLINE;
-import static org.sonar.c.CKeyword.INSTANCEOF;
-import static org.sonar.c.CKeyword.INTERFACE;
-import static org.sonar.c.CKeyword.INTERNAL;
-import static org.sonar.c.CKeyword.IS;
-import static org.sonar.c.CKeyword.NAMESPACE;
-import static org.sonar.c.CKeyword.NEW;
-import static org.sonar.c.CKeyword.PRIVATE;
-import static org.sonar.c.CKeyword.PROTECTED;
-import static org.sonar.c.CKeyword.PUBLIC;
 import static org.sonar.c.CKeyword.REGISTER;
 import static org.sonar.c.CKeyword.RETURN;
 import static org.sonar.c.CKeyword.STATIC;
 import static org.sonar.c.CKeyword.STRUCT;
-import static org.sonar.c.CKeyword.SUPER;
 import static org.sonar.c.CKeyword.SWITCH;
 import static org.sonar.c.CKeyword.TYPEDEF;
 import static org.sonar.c.CKeyword.UNION;
-import static org.sonar.c.CKeyword.USE;
-import static org.sonar.c.CKeyword.VAR;
 import static org.sonar.c.CKeyword.VOID;
 import static org.sonar.c.CKeyword.VOLATILE;
 import static org.sonar.c.CKeyword.WHILE;
-import static org.sonar.c.CKeyword.XML;
 import static org.sonar.c.CKeyword.__FAR;
 import static org.sonar.c.CKeyword.__NEAR;
 import static org.sonar.c.CKeyword.CHAR;
@@ -198,10 +179,10 @@ public enum CGrammar implements GrammarRuleKey {
         F_CONSTANT,
         CHARACTER_CONSTANT,
         ESCAPE_SEQUENCE,
-        ESCAPE_SEQUENCE_CHARACTER,      
-        OCTAL_DIGIT,              
+        ESCAPE_SEQUENCE_CHARACTER,
+        OCTAL_DIGIT,
         HEXADECIMAL_CODE,
-        C_CHAR, 
+        C_CHAR,
         C_CHAR_SEQUENCE,
         ENUMERATION_CONSTANT,
         DECIMAL_CONSTANT,
@@ -493,25 +474,24 @@ public enum CGrammar implements GrammarRuleKey {
         private static void literals(LexerlessGrammarBuilder b) {
                 b.rule(STRING).is(SPACING, b.regexp(STRING_REGEXP));
 
-               
                 b.rule(ESCAPE_SEQUENCE_CHARACTER).is(b.regexp("['\"\\\\abfnrtv?]"));
                 b.rule(OCTAL_DIGIT).is(b.regexp("[0-7]"));
                 b.rule(HEXADECIMAL_CODE).is(b.regexp("[0-9a-fA-F]+"));
                 b.rule(ESCAPE_SEQUENCE).is(b.firstOf(
-                        b.sequence(b.regexp("\\\\"), ESCAPE_SEQUENCE_CHARACTER),
-                        b.sequence(b.regexp("\\\\"), OCTAL_DIGIT, b.optional(OCTAL_DIGIT), b.optional(OCTAL_DIGIT)),
-                        b.sequence(b.regexp("\\\\x"), HEXADECIMAL_CODE)
-                ));
+                                b.sequence(b.regexp("\\\\"), ESCAPE_SEQUENCE_CHARACTER),
+                                b.sequence(b.regexp("\\\\"), OCTAL_DIGIT, b.optional(OCTAL_DIGIT),
+                                                b.optional(OCTAL_DIGIT)),
+                                b.sequence(b.regexp("\\\\x"), HEXADECIMAL_CODE)));
                 b.rule(C_CHAR).is(b.firstOf(
-                        b.regexp("[^'\\\\\\n\\r]"),   // any char except ' \ newline
-                        ESCAPE_SEQUENCE               // or an escape sequence like \n \t \xFF
+                                b.regexp("[^'\\\\\\n\\r]"), // any char except ' \ newline
+                                ESCAPE_SEQUENCE // or an escape sequence like \n \t \xFF
                 ));
 
                 b.rule(C_CHAR_SEQUENCE).is(b.oneOrMore(C_CHAR));
 
                 b.rule(CHARACTER_CONSTANT).is(SPACING, b.firstOf(
-                        b.sequence("L'", C_CHAR_SEQUENCE, "'"),   // wide char: L'x'
-                        b.sequence("'", C_CHAR_SEQUENCE, "'")     // normal char: 'x'
+                                b.sequence("L'", C_CHAR_SEQUENCE, "'"), // wide char: L'x'
+                                b.sequence("'", C_CHAR_SEQUENCE, "'") // normal char: 'x'
                 ));
 
                 b.rule(DIGIT).is(b.regexp("[0-9]"));
@@ -538,7 +518,7 @@ public enum CGrammar implements GrammarRuleKey {
                 b.rule(DECIMAL).is(SPACING, b.regexp(DECIMAL_REGEXP));
                 b.rule(NUMBER).is(b.firstOf(OCTAL, DECIMAL, HEXADECIMAL));
 
-                b.rule(CONSTANT).is(b.firstOf( F_CONSTANT,CHARACTER_CONSTANT,I_CONSTANT, ENUMERATION_CONSTANT));
+                b.rule(CONSTANT).is(b.firstOf(F_CONSTANT, CHARACTER_CONSTANT, I_CONSTANT, ENUMERATION_CONSTANT));
 
                 // Regular expression according to ECMA 262
                 b.rule(REGULAR_EXPRESSION).is(SPACING, b.regexp("/"
