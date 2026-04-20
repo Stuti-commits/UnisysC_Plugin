@@ -53,6 +53,6 @@ public class CRulesDefinitionTest {
 
     assertThat(repository.rules().stream().filter(Rule::template))
         .extracting(Rule::key)
-        .containsOnly("XPath", "CommentRegularExpression");
+        .containsOnly("XPath", "S5639");
   }
 }

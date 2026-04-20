@@ -16,6 +16,7 @@
  */
 package org.sonar.plugins.c;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import org.sonar.api.SonarRuntime;
@@ -28,7 +29,7 @@ public final class CRulesDefinition implements RulesDefinition {
 
   private static final String REPOSITORY_NAME = "Unisys_C_Analyzer";
   private static final String RESOURCE_BASE_PATH = "org/sonar/l10n/c/rules/c";
-  private static final Set<String> TEMPLATE_RULE_KEYS = new HashSet<>();
+  private static final Set<String> TEMPLATE_RULE_KEYS = new HashSet<>(Arrays.asList("XPath", "S5639"));
 
   private final SonarRuntime sonarRuntime;
 
@@ -39,10 +40,11 @@ public final class CRulesDefinition implements RulesDefinition {
   @Override
   public void define(Context context) {
     NewRepository repository = context
-      .createRepository(CheckList.REPOSITORY_KEY, C.KEY)
-      .setName(REPOSITORY_NAME);
+        .createRepository(CheckList.REPOSITORY_KEY, C.KEY)
+        .setName(REPOSITORY_NAME);
 
-    RuleMetadataLoader ruleMetadataLoader = new RuleMetadataLoader(RESOURCE_BASE_PATH, CProfile.SONAR_WAY_PROFILE_PATH, sonarRuntime);
+    RuleMetadataLoader ruleMetadataLoader = new RuleMetadataLoader(RESOURCE_BASE_PATH, CProfile.SONAR_WAY_PROFILE_PATH,
+        sonarRuntime);
     ruleMetadataLoader.addRulesByAnnotatedClass(repository, CheckList.getChecks());
 
     TEMPLATE_RULE_KEYS.forEach(key -> repository.rule(key).setTemplate(true));
