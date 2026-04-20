@@ -193,9 +193,13 @@ public enum CGrammar implements GrammarRuleKey {
         DECIMAL,
         CONSTANT,
         HEXADECIMAL,
+        HEXADECIMAL_DIGIT,
+        HEXADECIMAL_CONSTANT,
         OCTAL,
         I_CONSTANT,
         F_CONSTANT,
+        FLOATING_SUFFIX,
+        FRACTIONAL_CONSTANT,
         CHARACTER_CONSTANT,
         ESCAPE_SEQUENCE,
         ESCAPE_SEQUENCE_CHARACTER,
@@ -208,6 +212,7 @@ public enum CGrammar implements GrammarRuleKey {
         NONZERO_DIGIT,
         DIGIT,
         DIGIT_SEQUENCE,
+        SIGN,
 
         /**
          * EXPRESSIONS
@@ -418,14 +423,14 @@ public enum CGrammar implements GrammarRuleKey {
         private static final String IDENTIFIER_PART_REGEXP = "(?:" + IDENTIFIER_START_REGEXP + "|["
                         + UNICODE_COMBINING_MARK + UNICODE_DIGIT + UNICODE_CONNECTOR_PUNCTUATION + "])";
 
-        private static final String EXPONENT_PART_REGEXP = "([eE][-+]?[0-9]++)?";
+        
         private static final String FLOAT_SUFFIX_REGEXP = "[fFlL]?";
         private static final String INTEGER_SUFFIX_REGEXP = "(?:[uU](?:ll|LL|l|L)?|(?:ll|LL|l|L)[uU]?)?";
         private static final String DECIMAL_INTEGER_REGEXP = "(0|([1-9][0-9]*+))";
         private static final String DECIMAL_DIGITS_REGEXP = "([0-9]++)";
         private static final String DECIMAL_REGEXP = DECIMAL_INTEGER_REGEXP + "\\.[0-9]*+"
-                        + EXPONENT_PART_REGEXP + "|\\." + DECIMAL_DIGITS_REGEXP + EXPONENT_PART_REGEXP + "|"
-                        + DECIMAL_INTEGER_REGEXP + EXPONENT_PART_REGEXP;
+                         + "(?:[eE][-+]?[0-9]++)?" + "|\\." + DECIMAL_DIGITS_REGEXP + "(?:[eE][-+]?[0-9]++)?" + "|"
+                        + DECIMAL_INTEGER_REGEXP + "(?:[eE][-+]?[0-9]++)|" + DECIMAL_INTEGER_REGEXP;;
 
         private static final String SINGLE_LINE_COMMENT_REGEXP = "//[^\\n\\r]*+";
 
@@ -495,7 +500,12 @@ public enum CGrammar implements GrammarRuleKey {
 
                 b.rule(ESCAPE_SEQUENCE_CHARACTER).is(b.regexp("['\"\\\\abfnrtv?]"));
                 b.rule(OCTAL_DIGIT).is(b.regexp("[0-7]"));
-                b.rule(HEXADECIMAL_CODE).is(b.regexp("[0-9a-fA-F]+"));
+                b.rule(HEXADECIMAL_DIGIT).is(b.regexp("[0-9a-fA-F]"));
+                b.rule(HEXADECIMAL_CODE).is(b.oneOrMore(HEXADECIMAL_DIGIT)); 
+                b.rule(HEXADECIMAL_CONSTANT).is(b.sequence(SPACING,
+                        b.firstOf("0x", "0X"),
+                        b.oneOrMore(HEXADECIMAL_DIGIT)
+                ));
                 b.rule(ESCAPE_SEQUENCE).is(b.firstOf(
                                 b.sequence(b.regexp("\\\\"), ESCAPE_SEQUENCE_CHARACTER),
                                 b.sequence(b.regexp("\\\\"), OCTAL_DIGIT, b.optional(OCTAL_DIGIT),
@@ -519,23 +529,37 @@ public enum CGrammar implements GrammarRuleKey {
 
                 b.rule(DIGIT_SEQUENCE).is(b.oneOrMore(DIGIT));
 
+                b.rule(SIGN).is(b.firstOf(PLUS, MINUS));
+
+                b.rule(EXPONENT_PART).is(b.firstOf(
+                        b.sequence("e", b.optional(SIGN), DIGIT_SEQUENCE),
+                        b.sequence("E", b.optional(SIGN), DIGIT_SEQUENCE)
+                ));
+
                 b.rule(DECIMAL_CONSTANT).is(NONZERO_DIGIT, b.zeroOrMore(DIGIT));
-                b.rule(I_CONSTANT).is(SPACING, b.firstOf(
-                                b.sequence(b.regexp("0[xX][0-9a-fA-F]++"), b.regexp(INTEGER_SUFFIX_REGEXP)),
-                                b.sequence(b.regexp("0[0-7]++"), b.regexp(INTEGER_SUFFIX_REGEXP)),
-                                b.sequence("0", b.regexp(INTEGER_SUFFIX_REGEXP)),
-                                b.sequence(DECIMAL_CONSTANT, b.regexp(INTEGER_SUFFIX_REGEXP))));
-                b.rule(F_CONSTANT).is(SPACING,
-                                b.regexp("(?:" + DECIMAL_INTEGER_REGEXP + "\\.[0-9]*+|\\."
-                                                + DECIMAL_DIGITS_REGEXP + "|" + DECIMAL_INTEGER_REGEXP
-                                                + "[eE][-+]?[0-9]++)" + FLOAT_SUFFIX_REGEXP));
+                b.rule(I_CONSTANT).is(b.firstOf(
+                                b.sequence(HEXADECIMAL_CONSTANT, b.regexp(INTEGER_SUFFIX_REGEXP)),
+                                b.sequence(SPACING, b.regexp("0[0-7]+"), b.regexp(INTEGER_SUFFIX_REGEXP)),
+                                b.sequence(SPACING, "0", b.regexp(INTEGER_SUFFIX_REGEXP)),
+                                b.sequence(SPACING, DECIMAL_CONSTANT, b.regexp(INTEGER_SUFFIX_REGEXP))));
+                b.rule(FLOATING_SUFFIX).is(b.regexp("[fFlL]"));
+                b.rule(FRACTIONAL_CONSTANT).is(b.firstOf(
+                        b.sequence(b.optional(DIGIT_SEQUENCE), ".", DIGIT_SEQUENCE),  
+                        b.sequence(DIGIT_SEQUENCE, ".")                                 
+                ));
+
+                b.rule(F_CONSTANT).is(SPACING, b.firstOf(
+                                b.sequence(b.regexp(DECIMAL_INTEGER_REGEXP), ".", b.optional(DIGIT_SEQUENCE), b.optional(EXPONENT_PART), b.optional(FLOATING_SUFFIX)),
+                                b.sequence(".", DIGIT_SEQUENCE, b.optional(EXPONENT_PART), b.optional(FLOATING_SUFFIX)),
+                                b.sequence(b.regexp(DECIMAL_INTEGER_REGEXP), EXPONENT_PART, b.optional(FLOATING_SUFFIX))
+                ));
 
                 b.rule(ENUMERATION_CONSTANT).is(IDENTIFIER);
 
-                b.rule(HEXADECIMAL).is(SPACING, b.regexp("0[xX][0-9a-fA-F]++"));
-                b.rule(OCTAL).is(SPACING, b.regexp("0[0-7]++"));
+                b.rule(HEXADECIMAL).is(SPACING, b.regexp("0[xX][0-9a-fA-F]+"));
+                b.rule(OCTAL).is(SPACING, b.regexp("0[0-7]+"));
                 b.rule(DECIMAL).is(SPACING, b.regexp(DECIMAL_REGEXP));
-                b.rule(NUMBER).is(b.firstOf(OCTAL, DECIMAL, HEXADECIMAL));
+                b.rule(NUMBER).is(b.firstOf(HEXADECIMAL, OCTAL, DECIMAL));
 
                 b.rule(CONSTANT).is(b.firstOf(F_CONSTANT, CHARACTER_CONSTANT, I_CONSTANT, ENUMERATION_CONSTANT));
 
