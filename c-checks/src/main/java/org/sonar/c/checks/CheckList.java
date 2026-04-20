@@ -104,7 +104,9 @@ public final class CheckList {
         CyclomaticComplexityCheck.class,
         CastAwayQualifiersCheck.class,
         GotoStatementCheck.class,
-        AsmDeclarationCheck.class));
+        AsmDeclarationCheck.class,
+        NoUnaryPlusCheck.class
+      ));
   }
 
 }
