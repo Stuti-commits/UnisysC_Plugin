@@ -1,0 +1,13 @@
+void test() {
+  int x = 10;
+  int y;
+
+  y = -x;   // OK
+  y = x + 5; // OK
+  
+  y = +x;   // Noncompliant
+  
+  if (+x > 0) { // Noncompliant
+      doWork();
+  }
+}

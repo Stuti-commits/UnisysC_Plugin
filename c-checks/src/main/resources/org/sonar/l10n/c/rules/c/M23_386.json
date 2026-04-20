@@ -1,0 +1,22 @@
+{
+  "title": "The built-in unary '+' operator should not be used",
+  "type": "CODE_SMELL",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "LOW"
+    },
+    "attribute": "READABILITY"
+  },
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "bad-practice"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-23_386",
+  "sqKey": "M23_386",
+  "scope": "All"
+}
