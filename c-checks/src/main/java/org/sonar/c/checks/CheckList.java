@@ -71,7 +71,6 @@ public final class CheckList {
       PrivateStaticConstLoggerCheck.class,
       FunctionNameCheck.class,
       SemicolonCheck.class,
-      ObjectTypeUseCheck.class,
       LocalVarShadowsFieldCheck.class,
       UnusedLocalVariableCheck.class,
       TooManyUnaryOperatorCheck.class,

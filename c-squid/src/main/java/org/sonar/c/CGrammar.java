@@ -178,7 +178,6 @@ public enum CGrammar implements GrammarRuleKey {
     PRIMARY_EXPR,
     PARENTHESIZED_EXPR,
     PARENTHESIZED_LIST_EXPR,
-    OBJECT_INITIALISER,
     FIELD_NAME,
     LITERAL_FIELD,
     ARRAY_INITIALISER,
@@ -500,14 +499,11 @@ public enum CGrammar implements GrammarRuleKey {
                 MATH_FUNCTION_NAME,
                 QUALIFIED_IDENTIFIER,
                 PARENTHESIZED_EXPR,
-                ARRAY_INITIALISER,
-                OBJECT_INITIALISER));
+                ARRAY_INITIALISER));
 
         b.rule(PARENTHESIZED_EXPR).is(LPARENTHESIS, ASSIGNMENT_EXPR, RPARENTHESIS);
         b.rule(PARENTHESIZED_LIST_EXPR).is(LPARENTHESIS, LIST_EXPRESSION, RPARENTHESIS);
 
-        b.rule(OBJECT_INITIALISER).is(LCURLYBRACE, b.optional(LITERAL_FIELD, b.zeroOrMore(COMMA, LITERAL_FIELD)),
-                RCURLYBRACE);
         b.rule(LITERAL_FIELD).is(FIELD_NAME, COLON, ASSIGNMENT_EXPR);
         b.rule(FIELD_NAME).is(b.firstOf(
                 NON_ATTRIBUTE_QUALIFIED_IDENTIFIER,

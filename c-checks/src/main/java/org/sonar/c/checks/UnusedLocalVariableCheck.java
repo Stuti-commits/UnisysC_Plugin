@@ -79,8 +79,7 @@ public class UnusedLocalVariableCheck extends CCheck {
   public List<AstNodeType> subscribedTo() {
     return Arrays.asList(
       CGrammar.FUNCTION_DEF,
-      CGrammar.VARIABLE_DECLARATION_STATEMENT,
-      CGrammar.QUALIFIED_IDENTIFIER);
+      CGrammar.VARIABLE_DECLARATION_STATEMENT);
   }
 
   @Override
@@ -96,8 +95,6 @@ public class UnusedLocalVariableCheck extends CCheck {
       for (AstNode varIdentifier : Variable.getDeclaredIdentifiers(astNode)) {
         currentScope.declare(varIdentifier);
       }
-    } else if (currentScope != null && astNode.is(CGrammar.QUALIFIED_IDENTIFIER)) {
-      currentScope.use(astNode);
     }
   }
 

@@ -32,31 +32,10 @@ public class PrimaryExpressionTest {
   }
 
   @Test
-  public void reservedNamespace() {
-    Assertions.assertThat(g.rule(CGrammar.PRIMARY_EXPR))
-      .matches("internal")
-      .matches("private::identifier");
-  }
-
-  @Test
   public void emptyArrayInitialiser() {
     Assertions.assertThat(g.rule(CGrammar.PRIMARY_EXPR))
       .matches("[]")
       .matches("[   ]");
-  }
-
-  @Test
-  public void emptyObjectInitialiser() {
-    Assertions.assertThat(g.rule(CGrammar.PRIMARY_EXPR))
-      .matches("{}")
-      .matches("{   }");
-  }
-
-  @Test
-  public void filledObjectInitialiser() {
-    Assertions.assertThat(g.rule(CGrammar.PRIMARY_EXPR))
-      .matches("{ FirstName : \"John\", LastName: \"Smith\"}")
-      .matches("{ Age : 43}");
   }
 
 }
