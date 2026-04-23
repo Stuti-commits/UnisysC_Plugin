@@ -83,7 +83,8 @@ public final class CheckList {
         AsmDeclarationCheck.class,
         NoUnaryPlusCheck.class,
         NoUnaryMinusOnUnsignedCheck.class,
-        NoGlobalVariablesCheck.class
+        NoGlobalVariablesCheck.class,
+        NoCastPointerToIntegralCheck.class
       ));
   }
 

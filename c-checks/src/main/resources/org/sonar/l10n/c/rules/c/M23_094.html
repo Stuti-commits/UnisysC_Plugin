@@ -1,0 +1,72 @@
+<h2>Why is this an issue?</h2>
+<p>
+    Casting a pointer type to an integral type is problematic for several reasons:
+    <ul>
+        <li><strong>Breaks Code Analysis:</strong> Pointer tracking tools become unreliable when pointers are cast to integers, making it harder for static analysis tools to understand program behavior.</li>
+        <li><strong>Platform Portability:</strong> The size of a pointer and the size of integral types vary across different platforms. A cast that works on one platform may fail or produce unexpected results on another.</li>
+        <li><strong>Undefined Behavior:</strong> Casting pointers to integral types (other than pointer-sized types) can result in undefined behavior, leading to runtime errors or data corruption.</li>
+        <li><strong>Readability:</strong> Such casts indicate low-level manipulation that is often not immediately clear to other developers reviewing the code.</li>
+        <li><strong>Maintenance Issues:</strong> Code using pointer-to-integral casts is difficult to maintain and refactor safely.</li>
+    </ul>
+</p>
+
+<p>
+    While casting between pointers and integers may be unavoidable when addressing memory-mapped registers or other hardware-specific features, such cases should be handled with explicit types designed for this purpose.
+</p>
+
+<pre>
+void test() {
+    int *p = malloc(sizeof(int));
+    
+    int id = (int) p;          // Noncompliant: pointer cast to integral
+    long addr = (long) p;      // Noncompliant: pointer cast to integral
+}
+</pre>
+
+<h3>How to fix it</h3>
+
+<h4>Option 1: Avoid the cast altogether</h4>
+<p>If you don't actually need an integral representation, simply pass the pointer directly:</p>
+
+<pre>
+void process(int *data) {
+    /* Use the pointer directly */
+}
+
+int main() {
+    int *ptr = malloc(sizeof(int));
+    process(ptr);  /* Pass pointer, no cast needed */
+    return 0;
+}
+</pre>
+
+<h4>Option 2: Use platform-safe pointer types</h4>
+<p>If you must convert a pointer to an integral type (e.g., for memory-mapped hardware), use <code>uintptr_t</code> or <code>intptr_t</code> which are guaranteed to hold any pointer value:</p>
+
+<pre>
+#include &lt;stdint.h&gt;
+
+void test() {
+    int *p = malloc(sizeof(int));
+    
+    uintptr_t addr = (uintptr_t) p;  /* Compliant: safe conversion */
+    intptr_t signed_addr = (intptr_t) p;  /* Also compliant */
+}
+</pre>
+
+<h4>Option 3: Use a struct to encapsulate pointer metadata</h4>
+<pre>
+typedef struct {
+    void *ptr;
+    unsigned long handle;
+} PointerHandle;
+
+PointerHandle createHandle(void *ptr, unsigned long id) {
+    PointerHandle h = { ptr, id };
+    return h;  /* Store id separately, not by casting */
+}
+</pre>
+
+<p>
+    By avoiding pointer-to-integral casts (or using safe types when necessary), your code becomes more portable, maintainable, and amenable to static analysis.
+</p>

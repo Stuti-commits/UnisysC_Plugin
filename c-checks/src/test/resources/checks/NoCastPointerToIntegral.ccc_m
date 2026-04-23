@@ -1,0 +1,14 @@
+void test() {
+    int    x = 10;
+    int   *p = &x;
+
+    int   i = (int) p;           // Noncompliant
+    long  l = (long) p;          // Noncompliant
+    short s = (short) p;         // Noncompliant
+    char  c = (char) p;          // Noncompliant
+
+    int  *q = (int *) i;         // OK - integral to pointer, not our rule
+    void *v = (void *) p;        // OK - pointer to pointer
+    int   j = (int) x;           // OK - int to int, not a pointer cast
+    int   k = x;                 // OK - no cast at all
+}
