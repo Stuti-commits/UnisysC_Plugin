@@ -1,0 +1,23 @@
+{
+  "title": "Unsigned \"integer literals\" shall be appropriately suffixed",
+  "type": "CODE_SMELL",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "HIGH"
+    },
+  "attribute": "CLEAR"
+  },
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "pitfall"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-23_036",
+  "sqKey": "M23_036",
+  "scope": "All",
+  "quickfix": "unknown"
+}

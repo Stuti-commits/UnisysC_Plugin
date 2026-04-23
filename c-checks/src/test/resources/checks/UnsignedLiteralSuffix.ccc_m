@@ -1,0 +1,9 @@
+void test() {
+  unsigned int a = 10; // Noncompliant
+  unsigned int uVal;
+
+  uVal = 10;    // Noncompliant
+  uVal = 10u;   // OK
+  uVal = 10U;   // OK
+  
+}

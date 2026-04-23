@@ -85,7 +85,8 @@ public final class CheckList {
         NoUnaryMinusOnUnsignedCheck.class,
         NoGlobalVariablesCheck.class,
         NoCastPointerToIntegralCheck.class,
-        OctalConstantCheck.class
+        OctalConstantCheck.class,
+        UnsignedLiteralSuffixCheck.class
       ));
   }
 

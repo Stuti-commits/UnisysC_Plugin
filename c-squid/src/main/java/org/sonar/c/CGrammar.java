@@ -163,6 +163,7 @@ public enum CGrammar implements GrammarRuleKey {
         ITERATION_STATEMENT,
         JUMP_STATEMENT,
         CONTROL_STATEMENT,
+        LINKAGE_SPECIFICATION,
         STATEMENT_LIST,
         STORAGE_CLASS_SPECIFIER,
         STRUCT_DECLARATOR,
@@ -418,8 +419,6 @@ public enum CGrammar implements GrammarRuleKey {
         private static final String IDENTIFIER_PART_REGEXP = "(?:" + IDENTIFIER_START_REGEXP + "|["
                         + UNICODE_COMBINING_MARK + UNICODE_DIGIT + UNICODE_CONNECTOR_PUNCTUATION + "])";
 
-        
-        private static final String INTEGER_SUFFIX_REGEXP = "(?:[uU](?:ll|LL|l|L)?|(?:ll|LL|l|L)[uU]?)?";
         private static final String DECIMAL_INTEGER_REGEXP = "(0|([1-9][0-9]*+))";
         private static final String DECIMAL_DIGITS_REGEXP = "([0-9]++)";
         private static final String DECIMAL_REGEXP = DECIMAL_INTEGER_REGEXP + "\\.[0-9]*+"
@@ -1085,7 +1084,16 @@ public enum CGrammar implements GrammarRuleKey {
                 b.rule(TYPED_IDENTIFIER_NO_IN)
                                 .is(b.firstOf(b.sequence(IDENTIFIER, COLON, TYPE_EXPR_NO_IN), IDENTIFIER));
                 
-                b.rule(EXTERNAL_DEFINITION).is(b.firstOf(FUNCTION_DEF, /*LINKAGE_SPECIFICATION,*/ DECLARATION));
+                b.rule(EXTERNAL_DEFINITION).is(b.firstOf(FUNCTION_DEF, LINKAGE_SPECIFICATION, DECLARATION));
+                
+                b.rule(LINKAGE_SPECIFICATION).is(
+                        EXTERN,
+                        STRING_CONSTANT,
+                        b.firstOf(
+                                b.sequence(LCURLYBRACE, DECLARATION_LIST, RCURLYBRACE),
+                                DECLARATION
+                        )
+                );
                 
                 b.rule(FUNCTION_DEF).is(b.optional(DECLARATION_SPECIFIERS), DECLARATOR, FUNCTION_BODY);
 
