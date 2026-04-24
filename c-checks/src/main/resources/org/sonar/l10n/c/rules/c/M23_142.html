@@ -1,0 +1,32 @@
+<h2>Why is this an issue?</h2>
+<p>
+    Returning a pointer or reference to a local variable with automatic storage duration is undefined behavior. When the function returns, the local variable goes out of scope and its memory is deallocated, leaving the caller with a dangling pointer or reference.
+</p>
+<p>
+    Any attempt to dereference such a pointer or reference results in accessing freed memory, which can lead to crashes, data corruption, and security vulnerabilities.
+</p>
+<p>
+    <h3>Example:</h3>
+    <pre>
+    int* getLocalPointer() {
+        int local = 42;
+        return &amp;local;         // Noncompliant - returning pointer to local variable
+    }
+    
+    int* getStaticPointer() {
+        static int staticVar = 42;
+        return &amp;staticVar;     // OK - static variable persists
+    }
+    
+    int* getHeapPointer() {
+        int *p = malloc(sizeof(int));
+        *p = 42;
+        return p;              // OK - dynamically allocated memory
+    }
+    
+    void caller() {
+        int *ptr = getLocalPointer();
+        printf("%d\n", *ptr);  // Undefined behavior - dangling pointer
+    }
+</pre>
+</p>

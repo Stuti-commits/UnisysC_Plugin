@@ -89,7 +89,8 @@ public final class CheckList {
         UnsignedLiteralSuffixCheck.class,
         SignedBitFieldLengthCheck.class,
         TooManyLinesInFileCheck.class,
-        NoPointerSubtractionCheck.class
+        NoPointerSubtractionCheck.class,
+        NoReturnLocalAddressCheck.class
       ));
   }
 

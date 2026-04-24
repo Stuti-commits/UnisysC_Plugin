@@ -1,0 +1,23 @@
+{
+  "title": "A function must not return a reference or a pointer to a local variable with automatic storage duration",
+  "type": "BUG",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "LOW"
+    },
+    "attribute": "CLEAR"
+  },
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "pitfall"
+  ],
+  "defaultSeverity": "Blocker",
+  "ruleSpecification": "RSPEC-23_142",
+  "sqKey": "M23_142",
+  "scope": "All",
+  "quickfix": "unknown"
+}
