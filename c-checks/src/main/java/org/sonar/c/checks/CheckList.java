@@ -91,7 +91,8 @@ public final class CheckList {
         TooManyLinesInFileCheck.class,
         NoPointerSubtractionCheck.class,
         NoReturnLocalAddressCheck.class,
-        NoProgramTerminatingFunctionsCheck.class
+        NoProgramTerminatingFunctionsCheck.class,
+        NoFloatForLoopCounterCheck.class
       ));
   }
 

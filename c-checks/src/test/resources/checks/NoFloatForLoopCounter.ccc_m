@@ -1,0 +1,22 @@
+void test() {
+    int i;
+    float f;
+    double d;
+    int result;
+
+    for (i = 0; i < 10; i = i + 1) {      // OK 
+        result = i;
+    }
+
+    for (f = 0; f < 10; f = f + 1) {      // Noncompliant
+        result = 1;
+    }
+
+    for (d = 0; d < 10; d = d + 1) {      // Noncompliant
+        result = 1;
+    }
+
+    for (i = 0; i < 5; i = i + 1) {       // OK 
+        result = i;
+    }
+}

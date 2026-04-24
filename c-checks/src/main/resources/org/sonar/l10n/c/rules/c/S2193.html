@@ -1,0 +1,36 @@
+<h2>Why is this an issue?</h2>
+<p>
+    Using floating-point variables as loop counters is problematic due to floating-point precision limitations. Small rounding errors can accumulate, causing the loop to execute an unexpected number of times or skip iterations entirely.
+</p>
+<p>
+    Floating-point arithmetic is inherently imprecise, and comparing floats for equality is unreliable. This can lead to infinite loops, off-by-one errors, or loops that terminate unexpectedly, causing subtle and hard-to-debug issues.
+</p>
+<p>
+    <h3>Example:</h3>
+    <pre>
+    #include &lt;stdio.h&gt;
+    
+    void floatLoopProblem() {
+        // Noncompliant - floating point loop counter
+        for (float f = 0.1f; f != 1.0f; f += 0.1f) {
+            printf("f = %f\n", f);
+        }
+        // Due to precision errors, f may never equal exactly 1.0f
+    }
+    
+    void intLoopCorrect() {
+        // OK - integer loop counter
+        for (int i = 0; i < 10; i++) {
+            printf("i = %d\n", i);
+        }
+    }
+    
+    void floatWithIntCounter() {
+        // OK - use integer counter, convert to float if needed
+        for (int i = 0; i < 10; i++) {
+            float f = (float)i * 0.1f;
+            printf("f = %f\n", f);
+        }
+    }
+</pre>
+</p>

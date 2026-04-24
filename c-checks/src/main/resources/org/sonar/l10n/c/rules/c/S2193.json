@@ -1,0 +1,23 @@
+{
+  "title": "\"for\" loop counters should not have essentially floating type",
+  "type": "BUG",
+  "code": {
+    "impacts": {
+      "RELIABILITY": "LOW"
+    },
+    "attribute": "LOGICAL"
+  },
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "cert"
+  ],
+  "defaultSeverity": "MINOR",
+  "ruleSpecification": "RSPEC-2193",
+  "sqKey": "S2193",
+  "scope": "All",
+  "quickfix": "unknown"
+}
