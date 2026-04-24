@@ -1,0 +1,35 @@
+int globalVar = 10;
+int *globalPtr = 0;
+
+int *badFunc1() {
+    int local = 5;
+    return &local;             // Noncompliant
+}
+
+int *badFunc2() {
+    int *localPtr = 0;
+    return localPtr;           // Noncompliant
+}
+
+int *badFunc3() {
+    int local = 5;
+    int *p = &local;
+    return p;                  // Noncompliant
+}
+
+int *okFunc1() {
+    return &globalVar;         // OK 
+}
+
+int *okFunc2() {
+    return globalPtr;          // OK 
+}
+
+int *okFunc3(int *param) {
+    return param;              // OK
+}
+
+void noReturnFunc() {
+    int local = 5;
+    int *p = &local;
+}
