@@ -1,0 +1,37 @@
+int add(int a, int b) {           // Noncompliant 
+    int result;
+    result = a + b;
+}
+
+int multiply(int a, int b) {      // OK 
+    int result;
+    result = a + b;
+    return result;
+}
+
+void printVal(int x) {            // OK 
+    int y;
+    y = x + 1;
+}
+
+int getValue() {                  // OK 
+    return 42;
+}
+
+void doWork() {                   // OK 
+    int x;
+    x = 1;
+}
+
+int badFunc() {                   // Noncompliant 
+    int x;
+    x = 1;
+    return;
+}
+
+int conditional(int x) {          // OK
+    if (x > 0) {
+        return x;
+    }
+    return 0;
+}

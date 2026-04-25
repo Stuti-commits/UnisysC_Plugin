@@ -90,7 +90,8 @@ public final class CheckList {
         LocalStaticVariableCheck.class,
         NoLowercaseLSuffixCheck.class,
         NoBitFieldsCheck.class,
-        ConsistentDeclarationTypeCheck.class
+        ConsistentDeclarationTypeCheck.class,
+        NonVoidFunctionMustReturnCheck.class
       ));
   }
 
