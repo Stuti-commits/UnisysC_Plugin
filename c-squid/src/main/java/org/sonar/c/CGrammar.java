@@ -232,7 +232,6 @@ public enum CGrammar implements GrammarRuleKey {
         PARENTHESIZED_EXPR,
         PARENTHESIZED_LIST_EXPR,
         FUNCTION_EXPR,
-        OBJECT_INITIALISER,
         FIELD_NAME,
         LITERAL_FIELD,
         ARRAY_INITIALISER,
@@ -615,8 +614,6 @@ public enum CGrammar implements GrammarRuleKey {
                                 b.sequence(FUNCTION, FUNCTION_COMMON),
                                 b.sequence(FUNCTION, IDENTIFIER, FUNCTION_COMMON)));
 
-                b.rule(OBJECT_INITIALISER).is(LCURLYBRACE,
-                                b.optional(LITERAL_FIELD, b.zeroOrMore(COMMA, LITERAL_FIELD)), RCURLYBRACE);
                 b.rule(LITERAL_FIELD).is(FIELD_NAME, COLON, ASSIGNMENT_EXPRESSION);
                 b.rule(FIELD_NAME).is(b.firstOf(NON_ATTRIBUTE_QUALIFIED_IDENTIFIER, STRING, NUMBER));
 
