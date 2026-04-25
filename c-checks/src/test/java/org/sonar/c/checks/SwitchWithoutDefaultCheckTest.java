@@ -18,14 +18,12 @@ package org.sonar.c.checks;
 
 import java.io.File;
 import org.junit.jupiter.api.Test;
-import org.sonar.c.checks.SwitchWithoutDefaultCheck;
 
 public class SwitchWithoutDefaultCheckTest {
 
   @Test
   public void test() {
     SwitchWithoutDefaultCheck check = new SwitchWithoutDefaultCheck();
-
     CVerifier.verify(new File("src/test/resources/checks/SwitchWithoutDefault.ccc_m"), check);
   }
 

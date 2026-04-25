@@ -30,7 +30,6 @@ public class CollapsibleIfStatementCheck extends CCheck {
 
   @Override
   public List<AstNodeType> subscribedTo() {
-    // Subscribe to CONTROL_STATEMENT as defined in CGrammar
     return Collections.singletonList(CGrammar.CONTROL_STATEMENT);
   }
 

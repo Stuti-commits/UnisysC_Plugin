@@ -20,10 +20,9 @@ import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import java.util.Collections;
 import java.util.List;
-
 import org.sonar.c.CCheck;
 import org.sonar.c.CGrammar;
-import org.sonar.c.CKeyword;
+import org.sonar.c.api.CKeyword;
 import org.sonar.check.Rule;
 
 @Rule(key = "S131")
@@ -36,30 +35,30 @@ public class SwitchWithoutDefaultCheck extends CCheck {
 
   @Override
   public void visitNode(AstNode astNode) {
-    // Only proceed if the first child of the control statement is 'switch'
-    if (!astNode.hasDirectChildren(CKeyword.SWITCH)) {
+    if (!isSwitchStatement(astNode)) {
       return;
     }
 
-    // Find all labeled statements (case X: or default:) within this switch
-    List<AstNode> labels = astNode.getDescendants(CGrammar.LABELED_STATEMENT);
-
-    AstNode defaultLabel = null;
-
-    for (AstNode label : labels) {
-      if (label.hasDirectChildren(CKeyword.DEFAULT)) {
-        defaultLabel = label;
-        break;
-      }
+    AstNode body = astNode.getFirstChild(CGrammar.STATEMENT);
+    if (body == null) {
+      return;
     }
 
-    if (defaultLabel == null) {
+    boolean hasDefault = body.getDescendants(CGrammar.LABELED_STATEMENT).stream()
+        .anyMatch(this::isDefaultLabel);
+
+    if (!hasDefault) {
       addIssue("Avoid switch statement without a \"default\" clause.", astNode);
-    } else {
-      // Check if default is the last labeled statement in the switch
-      if (!labels.isEmpty() && labels.get(labels.size() - 1) != defaultLabel) {
-        addIssue("The \"default\" clause should be the last one in a \"switch\" statement.", defaultLabel);
-      }
     }
   }
+
+  private boolean isSwitchStatement(AstNode node) {
+    return node.getToken() != null && "switch".equals(node.getToken().getValue());
+  }
+
+  private boolean isDefaultLabel(AstNode labelNode) {
+    return labelNode.hasDirectChildren(CKeyword.DEFAULT) ||
+        (labelNode.getToken() != null && "default".equals(labelNode.getToken().getValue()));
+  }
+
 }

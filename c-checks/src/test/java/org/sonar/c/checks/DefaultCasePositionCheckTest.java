@@ -18,12 +18,11 @@ package org.sonar.c.checks;
 
 import java.io.File;
 import org.junit.jupiter.api.Test;
-import org.sonar.c.checks.DefaultCasePositionCheck;
 
 public class DefaultCasePositionCheckTest {
 
   @Test
-  public void test(){
+  public void test() {
     CVerifier.verify(new File("src/test/resources/checks/DefaultCasePosition.ccc_m"), new DefaultCasePositionCheck());
   }
 }
