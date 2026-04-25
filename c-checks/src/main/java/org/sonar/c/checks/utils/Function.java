@@ -19,9 +19,7 @@ package org.sonar.c.checks.utils;
 import com.sonar.sslr.api.AstNode;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.sonar.c.CGrammar;
-import org.sonar.c.api.CKeyword;
 
 public class Function {
 

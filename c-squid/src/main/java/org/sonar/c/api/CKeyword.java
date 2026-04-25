@@ -20,7 +20,8 @@ import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.TokenType;
 
 /**
- * Below is a list of ActionScript 3 syntactic keywords, that can be used as identifiers, but that have special meaning in certain contexts:
+ * Below is a list of ActionScript 3 syntactic keywords, that can be used as
+ * identifiers, but that have special meaning in certain contexts:
  * each
  * get
  * set
@@ -33,9 +34,10 @@ import com.sonar.sslr.api.TokenType;
  * static
  */
 public enum CKeyword implements TokenType {
-  // "as" is not a keyword in ActionScript 2, so we treat it as syntactic keyword to permit usage as identifier - see SONARPLUGINS-2072
+  // "as" is not a keyword in ActionScript 2, so we treat it as syntactic keyword
+  // to permit usage as identifier - see SONARPLUGINS-2072
   // AS("as"),
-  
+
   ASM("asm"),
   AUTO("auto"),
   BREAK("break"),
@@ -53,7 +55,6 @@ public enum CKeyword implements TokenType {
   ENUM("enum"),
   EXTENDS("extends"),
   EXTERN("extern"),
-  FALSE("false"),
   __FAR("__far"),
   FINALLY("finally"),
   FLOAT("float"),
@@ -88,7 +89,6 @@ public enum CKeyword implements TokenType {
   STRUCT("struct"),
   SWITCH("switch"),
   THROW("throw"),
-  TRUE("true"),
   TRY("try"),
   TYPEDEF("typedef"),
   TYPEOF("typeof"),
@@ -97,7 +97,6 @@ public enum CKeyword implements TokenType {
   USE("use"),
   __USER_LOCK__("__user_lock__"),
   __USER_UNLOCK__("__user_unlock__"),
-  VAR("var"),
   VOID("void"),
   VOLATILE("volatile"),
   WHILE("while"),

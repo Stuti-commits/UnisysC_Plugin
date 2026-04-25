@@ -18,8 +18,6 @@ package org.sonar.c.checks;
 
 import java.io.File;
 import org.junit.jupiter.api.Test;
-import org.sonar.c.checks.XPathCheck;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
@@ -56,7 +54,8 @@ public class XPathCheckTest {
     XPathCheck check = new XPathCheck();
     check.xpathQuery = "[a-";
     final File file = new File("src/test/resources/checks/ParsingError.ccc_m");
-    RuntimeException e = assertThrows(RuntimeException.class, () -> CVerifier.verifyNoIssueIgnoringExpected(file, check));
+    RuntimeException e = assertThrows(RuntimeException.class,
+        () -> CVerifier.verifyNoIssueIgnoringExpected(file, check));
     assertEquals("Unable to initialize the XPath engine, perhaps because of an invalid query: [a-", e.getMessage());
   }
 

@@ -34,17 +34,11 @@ public class XPathCheck extends CCheck {
   private static final String DEFAULT_XPATH_QUERY = "";
   private static final String DEFAULT_MESSAGE = "The XPath expression matches this piece of code";
 
-  @RuleProperty(
-    key = "xpathQuery",
-    description = "The XPath query",
-    defaultValue = "" + DEFAULT_XPATH_QUERY,
-    type = "TEXT")
+  @RuleProperty(key = "xpathQuery", description = "The XPath query", defaultValue = ""
+      + DEFAULT_XPATH_QUERY, type = "TEXT")
   public String xpathQuery = DEFAULT_XPATH_QUERY;
 
-  @RuleProperty(
-    key = "message",
-    description = "The issue message",
-    defaultValue = "" + DEFAULT_MESSAGE)
+  @RuleProperty(key = "message", description = "The issue message", defaultValue = "" + DEFAULT_MESSAGE)
   public String message = DEFAULT_MESSAGE;
 
   private AstNodeXPathQuery<Object> query = null;
@@ -60,7 +54,8 @@ public class XPathCheck extends CCheck {
       try {
         query = AstNodeXPathQuery.create(xpathQuery);
       } catch (RuntimeException e) {
-        throw new IllegalStateException("Unable to initialize the XPath engine, perhaps because of an invalid query: " + xpathQuery, e);
+        throw new IllegalStateException(
+            "Unable to initialize the XPath engine, perhaps because of an invalid query: " + xpathQuery, e);
       }
     }
     return query;
@@ -74,8 +69,6 @@ public class XPathCheck extends CCheck {
         if (object instanceof AstNode) {
           AstNode astNode = (AstNode) object;
           addIssueAtLine(message, astNode.getTokenLine());
-        } else if (Boolean.TRUE.equals(object)) {
-          addFileIssue(message);
         }
       }
     }

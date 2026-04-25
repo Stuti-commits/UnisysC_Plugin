@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.List;
-
 import org.sonar.c.CCheck;
 import org.sonar.c.CVisitorContext;
 import org.sonar.c.Issue;

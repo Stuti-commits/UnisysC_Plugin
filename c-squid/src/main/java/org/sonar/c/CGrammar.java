@@ -61,7 +61,6 @@ import static org.sonar.c.CKeyword.SWITCH;
 import static org.sonar.c.CKeyword.TYPEDEF;
 import static org.sonar.c.CKeyword.UNION;
 import static org.sonar.c.CKeyword.USE;
-import static org.sonar.c.CKeyword.VAR;
 import static org.sonar.c.CKeyword.VOID;
 import static org.sonar.c.CKeyword.VOLATILE;
 import static org.sonar.c.CKeyword.WHILE;
@@ -422,7 +421,7 @@ public enum CGrammar implements GrammarRuleKey {
         private static final String DECIMAL_INTEGER_REGEXP = "(0|([1-9][0-9]*+))";
         private static final String DECIMAL_DIGITS_REGEXP = "([0-9]++)";
         private static final String DECIMAL_REGEXP = DECIMAL_INTEGER_REGEXP + "\\.[0-9]*+"
-                         + "(?:[eE][-+]?[0-9]++)?" + "|\\." + DECIMAL_DIGITS_REGEXP + "(?:[eE][-+]?[0-9]++)?" + "|"
+                        + "(?:[eE][-+]?[0-9]++)?" + "|\\." + DECIMAL_DIGITS_REGEXP + "(?:[eE][-+]?[0-9]++)?" + "|"
                         + DECIMAL_INTEGER_REGEXP + "(?:[eE][-+]?[0-9]++)|" + DECIMAL_INTEGER_REGEXP;;
 
         private static final String SINGLE_LINE_COMMENT_REGEXP = "//[^\\n\\r]*+";
@@ -492,8 +491,8 @@ public enum CGrammar implements GrammarRuleKey {
                 b.rule(STRING).is(SPACING, b.regexp(STRING_REGEXP));
 
                 b.rule(STRING_CONSTANT).is(SPACING, b.firstOf(
-                        b.sequence("L\"", S_CHAR_SEQUENCE, "\""),
-                        b.sequence("\"", S_CHAR_SEQUENCE, "\"")));
+                                b.sequence("L\"", S_CHAR_SEQUENCE, "\""),
+                                b.sequence("\"", S_CHAR_SEQUENCE, "\"")));
 
                 b.rule(S_CHAR_SEQUENCE).is(b.zeroOrMore(S_CHAR));
 
@@ -502,11 +501,10 @@ public enum CGrammar implements GrammarRuleKey {
                 b.rule(ESCAPE_SEQUENCE_CHARACTER).is(b.regexp("['\"\\\\abfnrtv?]"));
                 b.rule(OCTAL_DIGIT).is(b.regexp("[0-7]"));
                 b.rule(HEXADECIMAL_DIGIT).is(b.regexp("[0-9a-fA-F]"));
-                b.rule(HEXADECIMAL_CODE).is(b.oneOrMore(HEXADECIMAL_DIGIT)); 
+                b.rule(HEXADECIMAL_CODE).is(b.oneOrMore(HEXADECIMAL_DIGIT));
                 b.rule(HEXADECIMAL_CONSTANT).is(b.sequence(SPACING,
-                        b.firstOf("0x", "0X"),
-                        b.oneOrMore(HEXADECIMAL_DIGIT)
-                ));
+                                b.firstOf("0x", "0X"),
+                                b.oneOrMore(HEXADECIMAL_DIGIT)));
                 b.rule(ESCAPE_SEQUENCE).is(b.firstOf(
                                 b.sequence(b.regexp("\\\\"), ESCAPE_SEQUENCE_CHARACTER),
                                 b.sequence(b.regexp("\\\\"), OCTAL_DIGIT, b.optional(OCTAL_DIGIT),
@@ -533,35 +531,32 @@ public enum CGrammar implements GrammarRuleKey {
                 b.rule(SIGN).is(b.firstOf(PLUS, MINUS));
 
                 b.rule(EXPONENT_PART).is(b.firstOf(
-                        b.sequence("e", b.optional(SIGN), DIGIT_SEQUENCE),
-                        b.sequence("E", b.optional(SIGN), DIGIT_SEQUENCE)
-                ));
+                                b.sequence("e", b.optional(SIGN), DIGIT_SEQUENCE),
+                                b.sequence("E", b.optional(SIGN), DIGIT_SEQUENCE)));
 
                 b.rule(UNSIGNED_SUFFIX).is(b.regexp("[uU]"));
                 b.rule(LONG_SUFFIX).is(b.regexp("[lL]+"));
                 b.rule(INTEGER_SUFFIX).is(b.firstOf(
-                        b.sequence(UNSIGNED_SUFFIX, b.optional(LONG_SUFFIX)),
-                        b.sequence(LONG_SUFFIX, b.optional(UNSIGNED_SUFFIX))
-                ));
+                                b.sequence(UNSIGNED_SUFFIX, b.optional(LONG_SUFFIX)),
+                                b.sequence(LONG_SUFFIX, b.optional(UNSIGNED_SUFFIX))));
                 b.rule(OCTAL_CONSTANT).is(SPACING, "0", b.zeroOrMore(OCTAL_DIGIT));
 
                 b.rule(DECIMAL_CONSTANT).is(NONZERO_DIGIT, b.zeroOrMore(DIGIT));
                 b.rule(I_CONSTANT).is(b.firstOf(
-                        b.sequence(HEXADECIMAL_CONSTANT, b.optional(INTEGER_SUFFIX)),
-                        b.sequence(OCTAL_CONSTANT, b.optional(INTEGER_SUFFIX)),
-                        b.sequence(SPACING, DECIMAL_CONSTANT, b.optional(INTEGER_SUFFIX))
-                ));
+                                b.sequence(HEXADECIMAL_CONSTANT, b.optional(INTEGER_SUFFIX)),
+                                b.sequence(OCTAL_CONSTANT, b.optional(INTEGER_SUFFIX)),
+                                b.sequence(SPACING, DECIMAL_CONSTANT, b.optional(INTEGER_SUFFIX))));
                 b.rule(FLOATING_SUFFIX).is(b.regexp("[fFlL]"));
                 b.rule(FRACTIONAL_CONSTANT).is(b.firstOf(
-                        b.sequence(b.optional(DIGIT_SEQUENCE), ".", DIGIT_SEQUENCE),  
-                        b.sequence(DIGIT_SEQUENCE, ".")                                 
-                ));
+                                b.sequence(b.optional(DIGIT_SEQUENCE), ".", DIGIT_SEQUENCE),
+                                b.sequence(DIGIT_SEQUENCE, ".")));
 
                 b.rule(F_CONSTANT).is(SPACING, b.firstOf(
-                                b.sequence(b.regexp(DECIMAL_INTEGER_REGEXP), ".", b.optional(DIGIT_SEQUENCE), b.optional(EXPONENT_PART), b.optional(FLOATING_SUFFIX)),
+                                b.sequence(b.regexp(DECIMAL_INTEGER_REGEXP), ".", b.optional(DIGIT_SEQUENCE),
+                                                b.optional(EXPONENT_PART), b.optional(FLOATING_SUFFIX)),
                                 b.sequence(".", DIGIT_SEQUENCE, b.optional(EXPONENT_PART), b.optional(FLOATING_SUFFIX)),
-                                b.sequence(b.regexp(DECIMAL_INTEGER_REGEXP), EXPONENT_PART, b.optional(FLOATING_SUFFIX))
-                ));
+                                b.sequence(b.regexp(DECIMAL_INTEGER_REGEXP), EXPONENT_PART,
+                                                b.optional(FLOATING_SUFFIX))));
 
                 b.rule(ENUMERATION_CONSTANT).is(IDENTIFIER);
 
@@ -570,7 +565,7 @@ public enum CGrammar implements GrammarRuleKey {
                 b.rule(DECIMAL).is(SPACING, b.regexp(DECIMAL_REGEXP));
                 b.rule(NUMBER).is(b.firstOf(HEXADECIMAL, OCTAL, DECIMAL));
 
-                b.rule(CONSTANT).is(b.firstOf(F_CONSTANT,I_CONSTANT, CHARACTER_CONSTANT, ENUMERATION_CONSTANT));
+                b.rule(CONSTANT).is(b.firstOf(F_CONSTANT, I_CONSTANT, CHARACTER_CONSTANT, ENUMERATION_CONSTANT));
 
                 // Regular expression according to ECMA 262
                 b.rule(REGULAR_EXPRESSION).is(SPACING, b.regexp("/"
@@ -799,7 +794,7 @@ public enum CGrammar implements GrammarRuleKey {
                 b.rule(LOGICAL_OR_EXPRESSION)
                                 .is(LOGICAL_AND_EXPRESSION, b.zeroOrMore(b.sequence(OROR, LOGICAL_AND_EXPRESSION)))
                                 .skipIfOneChild();
-                
+
                 b.rule(LOGICAL_OR_OPERATOR).is(b.firstOf(
                                 OROR,
                                 /* ActionScript 2: */
@@ -1067,7 +1062,7 @@ public enum CGrammar implements GrammarRuleKey {
                 b.rule(VARIABLE_DEF).is(TYPE_SPECIFIER, VARIABLE_BINDING_LIST, EOS);
                 b.rule(VARIABLE_DEF_NO_IN).is(VARIABLE_DEF_KIND, VARIABLE_BINDING_LIST_NO_IN);
 
-                b.rule(VARIABLE_DEF_KIND).is(b.firstOf(VAR, CONST));
+                b.rule(VARIABLE_DEF_KIND).is(CONST);
 
                 b.rule(VARIABLE_BINDING_LIST).is(VARIABLE_BINDING, b.zeroOrMore(COMMA, VARIABLE_BINDING));
                 b.rule(VARIABLE_BINDING_LIST_NO_IN).is(VARIABLE_BINDING_NO_IN,
@@ -1083,18 +1078,16 @@ public enum CGrammar implements GrammarRuleKey {
                 b.rule(TYPED_IDENTIFIER).is(b.firstOf(b.sequence(IDENTIFIER, COLON, TYPE_EXPR), IDENTIFIER));
                 b.rule(TYPED_IDENTIFIER_NO_IN)
                                 .is(b.firstOf(b.sequence(IDENTIFIER, COLON, TYPE_EXPR_NO_IN), IDENTIFIER));
-                
+
                 b.rule(EXTERNAL_DEFINITION).is(b.firstOf(FUNCTION_DEF, LINKAGE_SPECIFICATION, DECLARATION));
-                
+
                 b.rule(LINKAGE_SPECIFICATION).is(
-                        EXTERN,
-                        STRING_CONSTANT,
-                        b.firstOf(
-                                b.sequence(LCURLYBRACE, DECLARATION_LIST, RCURLYBRACE),
-                                DECLARATION
-                        )
-                );
-                
+                                EXTERN,
+                                STRING_CONSTANT,
+                                b.firstOf(
+                                                b.sequence(LCURLYBRACE, DECLARATION_LIST, RCURLYBRACE),
+                                                DECLARATION));
+
                 b.rule(FUNCTION_DEF).is(b.optional(DECLARATION_SPECIFIERS), DECLARATOR, FUNCTION_BODY);
 
                 b.rule(FUNCTION_BODY).is(b.optional(DECLARATION_LIST), COMPOUND_STATEMENT);
@@ -1147,8 +1140,7 @@ public enum CGrammar implements GrammarRuleKey {
                                 b.sequence(FUNCTION_SIGNATURE, BLOCK),
                                 b.sequence(FUNCTION_SIGNATURE, EOS)));
 
-                b.rule(FUNCTION_SIGNATURE).is(b.sequence(LPARENTHESIS, b.optional(PARAMETERS), RPARENTHESIS
-                                ));
+                b.rule(FUNCTION_SIGNATURE).is(b.sequence(LPARENTHESIS, b.optional(PARAMETERS), RPARENTHESIS));
 
                 b.rule(PARAMETERS).is(b.firstOf(b.sequence(PARAMETER, b.zeroOrMore(COMMA, PARAMETER),
                                 b.optional(COMMA, REST_PARAMETERS)), REST_PARAMETERS));
@@ -1157,7 +1149,6 @@ public enum CGrammar implements GrammarRuleKey {
                                 TYPED_IDENTIFIER));
 
                 b.rule(REST_PARAMETERS).is(b.firstOf(b.sequence(TRIPLE_DOTS, TYPED_IDENTIFIER), TRIPLE_DOTS));
-
 
                 b.rule(CLASS_DEF).is(CLASS, CLASS_NAME, b.optional(INHERITENCE), BLOCK);
                 b.rule(CLASS_NAME).is(CLASS_IDENTIFIERS);
@@ -1180,9 +1171,9 @@ public enum CGrammar implements GrammarRuleKey {
                 b.rule(NAMESPACE_INITIALISATION).is(EQUAL1, ASSIGNMENT_EXPRESSION);
 
                 b.rule(PROGRAM).is(
-                        b.zeroOrMore(INCLUDE_DIRECTIVE),
-                        b.zeroOrMore(EXTERNAL_DEFINITION), SPACING,
-                        b.token(GenericTokenType.EOF, b.endOfInput()));
+                                b.zeroOrMore(INCLUDE_DIRECTIVE),
+                                b.zeroOrMore(EXTERNAL_DEFINITION), SPACING,
+                                b.token(GenericTokenType.EOF, b.endOfInput()));
         }
 
         private static void xml(LexerlessGrammarBuilder b) {
