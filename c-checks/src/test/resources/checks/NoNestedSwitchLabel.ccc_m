@@ -1,0 +1,55 @@
+void test() {
+    int x = 1;
+    int y = 1;
+    int result;
+
+    switch (x) {
+        case 1:                        // OK 
+            result = 1;
+            break;
+        case 2:                        // OK    
+            result = 2;
+            break;
+        default:                       // OK    
+            result = 0;
+            break;
+    }
+
+    switch (x) {
+        case 1:                        // OK    
+            if (y > 0) {
+                result = 1;
+            }
+            break;
+        default:                       // OK    
+            result = 0;
+            break;
+    }
+
+    switch (x) {
+        case 1:                        // OK    
+            result = 1;
+            break;
+        default:                       // OK    
+            if (y > 0) {
+                case 2:                // Noncompliant  
+                    result = 2;
+                    break;
+            }
+            break;
+    }
+
+    switch (x) {
+        case 1:                        // OK    
+            while (y > 0) {
+                case 2:                // Noncompliant  
+                    result = 2;
+                    y = y - 1;
+                    break;
+            }
+            break;
+        default:                       // OK    
+            result = 0;
+            break;
+    }
+}

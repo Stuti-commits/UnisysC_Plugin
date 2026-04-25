@@ -1,0 +1,23 @@
+{
+  "title": "Switch labels should not be nested inside non-switch blocks",
+  "type": "CODE_SMELL",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "BLOCKER"
+    },
+    "attribute": "CLEAR"
+  },
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "20min"
+  },
+  "tags": [
+    "confusing"
+  ],
+  "defaultSeverity": "BLOCKER",
+  "ruleSpecification": "RSPEC-916",
+  "sqKey": "S916",
+  "scope": "All",
+  "quickfix": "unknown"
+}

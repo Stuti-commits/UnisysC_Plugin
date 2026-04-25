@@ -92,7 +92,8 @@ public final class CheckList {
         NoBitFieldsCheck.class,
         ConsistentDeclarationTypeCheck.class,
         NonVoidFunctionMustReturnCheck.class,
-        NoReturnFunctionShouldBeNoreturnCheck.class
+        NoReturnFunctionShouldBeNoreturnCheck.class,
+        NoNestedSwitchLabelCheck.class
       ));
   }
 

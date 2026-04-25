@@ -1,0 +1,67 @@
+<h2>Why is this an issue?</h2>
+<p>
+    Switch labels (`case` and `default`) must appear directly inside a `switch` statement. Nesting switch labels inside other blocks (like `if`, `for`, `while`, or compound blocks) violates C language rules and results in undefined behavior.
+</p>
+<p>
+    Switch labels are control flow constructs that work exclusively with `switch` statements. Placing them in nested blocks breaks the intended structure and can cause:
+    <ul>
+        <li>Compilation errors or warnings</li>
+        <li>Incorrect program flow</li>
+        <li>Undefined behavior</li>
+        <li>Difficulty in code maintenance and understanding</li>
+    </ul>
+</p>
+<p>
+    <h3>Example:</h3>
+    <pre>
+    int value = 5;
+    
+    // Noncompliant - case inside if block
+    switch (value) {
+        case 1:
+            printf("One\n");
+            break;
+        default:
+            if (value > 10) {
+                case 2:        // ERROR - case nested in if
+                    printf("Two\n");
+                    break;
+            }
+    }
+    
+    // Noncompliant - case inside for loop
+    switch (value) {
+        case 1:
+            for (int i = 0; i < 3; i++) {
+                case 2:        // ERROR - case nested in for
+                    printf("Two\n");
+                    break;
+            }
+    }
+    
+    // Compliant - all cases directly in switch
+    switch (value) {
+        case 1:
+            printf("One\n");
+            break;
+        case 2:
+            printf("Two\n");
+            break;
+        default:
+            printf("Other\n");
+            break;
+    }
+    
+    // Compliant - logic moved outside switch
+    if (value > 10) {
+        switch (value) {
+            case 11:
+                printf("Eleven\n");
+                break;
+            default:
+                printf("Other\n");
+                break;
+        }
+    }
+</pre>
+</p>
