@@ -1,0 +1,65 @@
+<h2>Why is this an issue?</h2>
+<p>
+    A function declared with a non-void return type must return a value on all execution paths. If a function doesn't return a value on some path, the caller receives an undefined/uninitialized value, leading to unpredictable behavior.
+</p>
+<p>
+    This violates the C standard and can result in:
+    <ul>
+        <li>Undefined behavior</li>
+        <li>Data corruption</li>
+        <li>Logic errors that are difficult to debug</li>
+        <li>Compiler warnings or errors</li>
+    </ul>
+</p>
+<p>
+    All code paths in a non-void function must explicitly return a value, including:
+    <ul>
+        <li>Normal execution paths</li>
+        <li>Error handling branches</li>
+        <li>Loop exit paths</li>
+        <li>Default cases in switch statements</li>
+    </ul>
+</p>
+<p>
+    <h3>Example:</h3>
+    <pre>
+    // Noncompliant - missing return on some paths
+    int getValue(int flag) {
+        if (flag > 0) {
+            return 10;
+        }
+        // Missing return statement when flag &lt;= 0
+    }
+    
+    // Noncompliant - switch without default case
+    int getStatus(int code) {
+        switch (code) {
+            case 0:
+                return 0;
+            case 1:
+                return 1;
+            // Missing return for unknown codes
+        }
+    }
+    
+    // Compliant - all paths return a value
+    int getValue(int flag) {
+        if (flag > 0) {
+            return 10;
+        }
+        return 0;  // Return on all paths
+    }
+    
+    // Compliant - default case handles all cases
+    int getStatus(int code) {
+        switch (code) {
+            case 0:
+                return 0;
+            case 1:
+                return 1;
+            default:
+                return -1;  // Handles all other cases
+        }
+    }
+</pre>
+</p>

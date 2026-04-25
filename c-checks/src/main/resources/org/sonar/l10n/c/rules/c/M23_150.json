@@ -1,0 +1,24 @@
+{
+  "title": "A function with non-\"void\" return type shall return a value on all paths",
+  "type": "BUG",
+  "code": {
+    "impacts": {
+      "RELIABILITY": "HIGH"
+    },
+    "attribute": "LOGICAL"
+  },
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "confusing",
+    "cert"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-23_398",
+  "sqKey": "M23_398",
+  "scope": "All",
+  "quickfix": "unknown"
+}
