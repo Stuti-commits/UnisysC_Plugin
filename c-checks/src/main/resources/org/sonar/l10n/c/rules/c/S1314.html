@@ -3,10 +3,10 @@
 have experience with them. They may not recognize octal values as such, mistaking them instead for decimal values.</p>
 <h3>Noncompliant code example</h3>
 <pre>
-var myNumber:int = 010;  // Noncompliant. myNumber will hold 8, not 10 - was this really expected?
+int myNumber = 010;  // Noncompliant. myNumber will hold 8, not 10 - was this really expected?
 </pre>
 <h3>Compliant solution</h3>
 <pre>
-var myNumber:int = 8;
+int myNumber = 8;
 </pre>
 

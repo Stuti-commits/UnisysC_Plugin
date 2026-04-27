@@ -30,7 +30,7 @@ public class OctalValueCheck extends CCheck {
 
   @Override
   public List<AstNodeType> subscribedTo() {
-    return Collections.singletonList(CGrammar.OCTAL);
+    return Collections.singletonList(CGrammar.OCTAL_CONSTANT);
   }
 
   @Override

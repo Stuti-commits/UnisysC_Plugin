@@ -194,13 +194,11 @@ public enum CGrammar implements GrammarRuleKey {
         EOS_NO_LB,
 
         STRING,
-        NUMBER,
         DECIMAL,
         CONSTANT,
         HEXADECIMAL,
         HEXADECIMAL_DIGIT,
         HEXADECIMAL_CONSTANT,
-        OCTAL,
         I_CONSTANT,
         F_CONSTANT,
         FLOATING_SUFFIX,
@@ -560,9 +558,7 @@ public enum CGrammar implements GrammarRuleKey {
                 b.rule(ENUMERATION_CONSTANT).is(IDENTIFIER);
 
                 b.rule(HEXADECIMAL).is(SPACING, b.regexp("0[xX][0-9a-fA-F]+"));
-                b.rule(OCTAL).is(SPACING, b.regexp("0[0-7]+"));
                 b.rule(DECIMAL).is(SPACING, b.regexp(DECIMAL_REGEXP));
-                b.rule(NUMBER).is(b.firstOf(HEXADECIMAL, OCTAL, DECIMAL));
 
                 b.rule(CONSTANT).is(b.firstOf(F_CONSTANT, I_CONSTANT, CHARACTER_CONSTANT, ENUMERATION_CONSTANT));
 
@@ -615,7 +611,7 @@ public enum CGrammar implements GrammarRuleKey {
                                 b.sequence(FUNCTION, IDENTIFIER, FUNCTION_COMMON)));
 
                 b.rule(LITERAL_FIELD).is(FIELD_NAME, COLON, ASSIGNMENT_EXPRESSION);
-                b.rule(FIELD_NAME).is(b.firstOf(NON_ATTRIBUTE_QUALIFIED_IDENTIFIER, STRING, NUMBER));
+                b.rule(FIELD_NAME).is(b.firstOf(NON_ATTRIBUTE_QUALIFIED_IDENTIFIER, STRING));
 
                 // Array initialiser
                 b.rule(ARRAY_INITIALISER).is(LBRAKET, b.optional(ELEMENT_LIST), RBRAKET);

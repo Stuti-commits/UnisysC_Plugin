@@ -27,7 +27,7 @@ public class OctalTest {
 
   @Test
   public void test() {
-    Assertions.assertThat(g.rule(CGrammar.OCTAL))
+    Assertions.assertThat(g.rule(CGrammar.OCTAL_CONSTANT))
       .matches("010");
 
   }

@@ -1,0 +1,2 @@
+int myNumber = 010;     // Noncompliant
+int myNumber = 8;       // OK
