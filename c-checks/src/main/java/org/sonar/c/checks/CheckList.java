@@ -97,7 +97,9 @@ public final class CheckList {
         ForLoopExpressionCheck.class,
         NoPostfixOperatorCheck.class,
         NonPortableIncludeCheck.class,
-        EscapeCharacterCheck.class));
+        EscapeCharacterCheck.class,
+        TooManyFieldsInStructCheck.class
+      ));
   }
 
 }
