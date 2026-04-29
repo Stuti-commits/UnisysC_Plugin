@@ -22,8 +22,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-
-import org.sonar.c.CVisitorContext;
 import org.sonar.c.parser.CParser;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
