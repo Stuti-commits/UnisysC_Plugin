@@ -1,0 +1,18 @@
+void func() {
+    switch (day) {
+        case MONDAY:
+        case TUESDAY:
+        WEDNESDAY:   // Noncompliant
+            doSomething();
+            break;
+
+    }
+
+    switch (day) {
+        case MONDAY:
+        case TUESDAY:
+        case WEDNESDAY:     // OK
+            doSomething();
+            break;
+    }
+}

@@ -99,7 +99,8 @@ public final class CheckList {
         NonPortableIncludeCheck.class,
         EscapeCharacterCheck.class,
         TooManyFieldsInStructCheck.class,
-        ArrayBracketPositionCheck.class
+        ArrayBracketPositionCheck.class,
+        SwitchNonCaseLabelCheck.class
       ));
   }
 

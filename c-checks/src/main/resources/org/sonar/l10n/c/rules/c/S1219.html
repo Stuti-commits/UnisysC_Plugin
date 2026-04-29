@@ -1,0 +1,25 @@
+<h2>Why is this an issue?</h2>
+<p>Even if it is legal, mixing case and non-case labels in the body of a switch statement is very confusing and can even be the result of a typing error.</p>
+<h3>Noncompliant code example</h3>
+<p>The code is syntactically correct but the behavior is not the expected one</p>
+<pre>
+    switch (day) {
+          case MONDAY:
+            case TUESDAY:
+              WEDNESDAY:   // instead of \"case WEDNESDAY\"
+                  doSomething();
+                      break;
+                        ...
+                    }
+</pre>
+<h3>Compliant solution</h3>
+<pre>
+    switch (day) {
+          case MONDAY:
+            case TUESDAY:
+              case WEDNESDAY:
+                  doSomething();
+                      break;
+                        ...
+                }
+</pre>
