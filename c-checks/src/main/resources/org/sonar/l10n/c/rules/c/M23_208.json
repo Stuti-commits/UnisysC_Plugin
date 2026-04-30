@@ -1,5 +1,5 @@
 {
-  "title": "Header file names should not contain invalid characters or sequences",
+  "title": "The \"'\" or \"\\\"\" or \"\\\\\" characters and the \"/*\" or \"//\" character sequences shall not occur in a \"header file\" name",
   "type": "BUG",
   "code": {
     "impacts": {

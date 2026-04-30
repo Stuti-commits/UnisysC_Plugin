@@ -110,7 +110,8 @@ public final class CheckList {
         RepeatedUnaryPrefixOperatorCheck.class,
         IdentifierLengthCheck.class,
         XorNotExponentiationCheck.class,
-        IncludeHeaderNameCheck.class));
+        IncludeHeaderNameCheck.class,
+        EscapeSequenceTerminationCheck.class
+      ));
   }
-
 }
