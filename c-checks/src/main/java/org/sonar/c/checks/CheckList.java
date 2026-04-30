@@ -107,7 +107,8 @@ public final class CheckList {
         ExplicitZeroComparisonCheck.class,
         ConstPointerLocalVarCheck.class,
         SingleLineBodyIndentationCheck.class,
-        ConditionalsStartOnNewLineCheck.class
+        ConditionalsStartOnNewLineCheck.class,
+        RepeatedUnaryPrefixOperatorCheck.class
       ));
   }
 
