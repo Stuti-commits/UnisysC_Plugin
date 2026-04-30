@@ -1,0 +1,51 @@
+<h2>Why is this an issue?</h2>
+<p>
+    When testing non-Boolean values (like integers, pointers, or floating-point numbers) in conditions, it's ambiguous and can be confusing whether you're testing for truthiness (non-zero) or falsiness (zero).
+</p>
+<p>
+    Making such tests explicit improves code readability and clarifies intent:
+    <ul>
+        <li>Clearer what value is being tested</li>
+        <li>Prevents accidental bugs from implicit conversions</li>
+        <li>Makes the code more maintainable and easier to review</li>
+        <li>Reduces cognitive load for readers</li>
+    </ul>
+</p>
+<p>
+    <h3>Example:</h3>
+    <pre>
+    int count = 5;
+    int *ptr = malloc(sizeof(int));
+    
+    // Noncompliant - implicit comparison with zero
+    if (count) {
+        printf("Count is non-zero\n");
+    }
+    
+    if (!ptr) {
+        printf("Pointer is NULL\n");
+    }
+    
+    if (count < 0) {
+        printf("Count is negative\n");
+    }
+    
+    // Compliant - explicit comparison with zero
+    if (count != 0) {
+        printf("Count is non-zero\n");
+    }
+    
+    if (ptr == NULL) {
+        printf("Pointer is NULL\n");
+    }
+    
+    if (count < 0) {
+        printf("Count is negative\n");
+    }
+    
+    // Explicit comparisons are already acceptable
+    if (count == 0) {      // OK - already explicit
+        printf("Count is zero\n");
+    }
+</pre>
+</p>

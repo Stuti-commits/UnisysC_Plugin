@@ -1,0 +1,21 @@
+{
+  "title": "Tests of non-Boolean values against zero should be explicit",
+  "type": "CODE_SMELL",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "LOW"
+    },
+    "attribute": "CLEAR"
+  },
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [],
+  "defaultSeverity": "MINOR",
+  "ruleSpecification": "RSPEC-883",
+  "sqKey": "S883",
+  "scope": "All",
+  "quickfix": "unknown"
+}

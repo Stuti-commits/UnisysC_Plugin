@@ -101,7 +101,8 @@ public final class CheckList {
         TooManyFieldsInStructCheck.class,
         ArrayBracketPositionCheck.class,
         SwitchNonCaseLabelCheck.class,
-        RedundantPointerOperatorCheck.class
+        RedundantPointerOperatorCheck.class,
+        ExplicitZeroComparisonCheck.class
       ));
   }
 
