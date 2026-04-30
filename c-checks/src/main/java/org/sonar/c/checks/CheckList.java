@@ -109,8 +109,8 @@ public final class CheckList {
         ConditionalsStartOnNewLineCheck.class,
         RepeatedUnaryPrefixOperatorCheck.class,
         IdentifierLengthCheck.class,
-        XorNotExponentiationCheck.class
-      ));
+        XorNotExponentiationCheck.class,
+        IncludeHeaderNameCheck.class));
   }
 
 }
