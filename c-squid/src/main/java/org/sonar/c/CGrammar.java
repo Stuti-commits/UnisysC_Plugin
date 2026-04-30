@@ -1089,7 +1089,7 @@ public enum CGrammar implements GrammarRuleKey {
                                 CHAR,
                                 CONST,
                                 DOUBLE,
-                                // ENUM_SPECIFIER,
+                                ENUM_SPECIFIER,
                                 __FAR,
                                 FLOAT,
                                 INT,

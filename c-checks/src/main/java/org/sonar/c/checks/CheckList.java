@@ -112,7 +112,8 @@ public final class CheckList {
         XorNotExponentiationCheck.class,
         IncludeHeaderNameCheck.class,
         EscapeSequenceTerminationCheck.class,
-        ElseMatchedWithIfCheck.class
+        ElseMatchedWithIfCheck.class,
+        EnumBitFieldConsistencyCheck.class
       ));
   }
 }

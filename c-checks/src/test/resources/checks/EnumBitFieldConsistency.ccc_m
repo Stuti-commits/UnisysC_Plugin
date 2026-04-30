@@ -1,0 +1,24 @@
+enum Color {
+    RED,   
+    GREEN, 
+    BLUE,  
+    BLACK  
+};
+
+enum Status {
+    OK = 0,
+    ERROR = 15 
+};
+
+struct MyStruct {
+    enum Color c1 : 1;       // Noncompliant
+    enum Color c2 : 2;       // OK
+    enum Color c3 : 3;       // OK
+
+    enum Status s1 : 3;      // Noncompliant
+    enum Status s2 : 4;      // OK
+    enum Status s3 : 8;      // OK
+
+    int standard_var;        // OK 
+    int bit_field : 1;       // OK 
+};
