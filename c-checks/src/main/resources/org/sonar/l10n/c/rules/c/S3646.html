@@ -1,0 +1,59 @@
+<h2>Why is this an issue?</h2>
+<p>
+    Declaring types (structs, enums, unions, typedefs) and variables in the same statement reduces code clarity and maintainability. Keeping these declarations separate makes code easier to read and understand.
+</p>
+<p>
+    Mixing type and variable declarations:
+    <ul>
+        <li>Reduces code clarity and readability</li>
+        <li>Makes it harder to find type definitions</li>
+        <li>Complicates code navigation and searching</li>
+        <li>Violates separation of concerns principle</li>
+        <li>Can lead to confusion about scope and visibility</li>
+    </ul>
+</p>
+<p>
+    <h3>Example:</h3>
+    <pre>
+    // Noncompliant - type and variable in same statement
+    typedef struct {
+        int x;
+        int y;
+    } Point, myPoint;  // Type definition and variable declaration mixed
+    
+    // Noncompliant - enum type and variable together
+    enum Color { RED, GREEN, BLUE } myColor;
+    
+    // Noncompliant - struct definition and variable in one statement
+    struct Employee {
+        char name[50];
+        int id;
+    } emp1, emp2;
+    
+    // Compliant - type definition separate from variable declarations
+    typedef struct {
+        int x;
+        int y;
+    } Point;
+    
+    Point myPoint;
+    
+    // Compliant - enum type separate from variable
+    enum Color { RED, GREEN, BLUE };
+    
+    enum Color myColor = RED;
+    
+    // Compliant - struct definition separate from variables
+    struct Employee {
+        char name[50];
+        int id;
+    };
+    
+    struct Employee emp1;
+    struct Employee emp2;
+    
+    // Compliant - multiple declarations of same type
+    int a, b, c;  // OK - same type, all variables
+    struct Point p1, p2;  // OK - same type, all variables
+</pre>
+</p>

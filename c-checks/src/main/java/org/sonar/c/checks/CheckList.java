@@ -116,6 +116,8 @@ public final class CheckList {
         EnumBitFieldConsistencyCheck.class,
         FieldNamingConventionCheck.class,
         UnusedFunctionCheck.class,
-        NoBitwiseInBooleanContextCheck.class));
+        NoBitwiseInBooleanContextCheck.class,
+      TypeAndVarSeparateDeclarationCheck.class
+    ));
   }
 }

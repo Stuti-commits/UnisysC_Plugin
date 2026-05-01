@@ -1,0 +1,23 @@
+{
+  "title": "Types and variables should be declared in separate statements",
+  "type": "CODE_SMELL",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "LOW"
+    },
+    "attribute": "FOCUSED"
+  },
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "confusing"
+  ],
+  "defaultSeverity": "MINOR",
+  "ruleSpecification": "RSPEC-3646",
+  "sqKey": "S3646",
+  "scope": "All",
+  "quickfix": "unknown"
+}
