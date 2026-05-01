@@ -19,9 +19,7 @@ package org.sonar.c.checks;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 import java.text.MessageFormat;
-import java.util.ArrayDeque;
 import java.util.Arrays;
-import java.util.Deque;
 import java.util.List;
 import java.util.regex.Pattern;
 import javax.annotation.Nullable;
@@ -77,7 +75,6 @@ public class FunctionNameCheck extends CCheck {
     if (declarator != null) {
       AstNode directDeclarator = declarator.getFirstChild(CGrammar.DIRECT_DECLARATOR);
       if (directDeclarator != null) {
-        // The IDENTIFIER is the leaf node containing the name string
         return directDeclarator.getFirstChild(CGrammar.IDENTIFIER);
       }
     }

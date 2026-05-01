@@ -18,7 +18,6 @@ package org.sonar.c.checks;
 
 import java.io.File;
 import org.junit.jupiter.api.Test;
-import org.sonar.c.checks.FunctionNameCheck;
 
 public class FunctionNameCheckTest {
 
