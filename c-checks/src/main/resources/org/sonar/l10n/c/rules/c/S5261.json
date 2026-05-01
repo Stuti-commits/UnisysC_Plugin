@@ -3,19 +3,19 @@
   "type": "CODE_SMELL",
   "code": {
     "impacts": {
-      "READABILITY": "MEDIUM"
+      "MAINTAINABILITY": "MEDIUM"
     },
     "attribute": "CLEAR"
   },
   "status": "ready",
   "remediation": {
     "func": "Constant/Issue",
-    "constantCost": "5min"
+    "constantCost": "1min"
   },
   "tags": [
     "confusing"
   ],
-  "defaultSeverity": "Minor",
+  "defaultSeverity": "MAJOR",
   "ruleSpecification": "RSPEC-5261",
   "sqKey": "S5261",
   "scope": "All",
