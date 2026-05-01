@@ -1,0 +1,10 @@
+static void unused_private_func(void) {} // Noncompliant
+
+static void used_private_func(void) {} // OK
+
+void public_func(void) {} // OK
+
+int main(void) {
+    used_private_func();
+    return 0;
+}

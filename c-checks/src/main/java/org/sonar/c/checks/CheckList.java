@@ -114,7 +114,8 @@ public final class CheckList {
         EscapeSequenceTerminationCheck.class,
         ElseMatchedWithIfCheck.class,
         EnumBitFieldConsistencyCheck.class,
-        FieldNamingConventionCheck.class
+        FieldNamingConventionCheck.class,
+        UnusedFunctionCheck.class
       ));
   }
 }
