@@ -97,6 +97,7 @@ public final class CheckList {
         NoPostfixOperatorCheck.class,
         NonPortableIncludeCheck.class,
         EscapeCharacterCheck.class,
+        PrintfBehaviourCheck.class,
         TooManyFieldsInStructCheck.class,
         ArrayBracketPositionCheck.class,
         SwitchNonCaseLabelCheck.class,
@@ -114,7 +115,6 @@ public final class CheckList {
         ElseMatchedWithIfCheck.class,
         EnumBitFieldConsistencyCheck.class,
         FieldNamingConventionCheck.class,
-        UnusedFunctionCheck.class
-      ));
+        UnusedFunctionCheck.class));
   }
 }

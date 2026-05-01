@@ -822,7 +822,12 @@ public enum CGrammar implements GrammarRuleKey {
                                 b.sequence("fwrite", b.nextNot(IDENTIFIER_PART)),
                                 b.sequence("fclose", b.nextNot(IDENTIFIER_PART)),
                                 b.sequence("printf", b.nextNot(IDENTIFIER_PART)),
-                                b.sequence("scanf", b.nextNot(IDENTIFIER_PART))));
+                                b.sequence("fprintf", b.nextNot(IDENTIFIER_PART)),
+                                b.sequence("sprintf", b.nextNot(IDENTIFIER_PART)),
+                                b.sequence("scanf", b.nextNot(IDENTIFIER_PART)),
+                                b.sequence("vprintf", b.nextNot(IDENTIFIER_PART)),
+                                b.sequence("vfprintf", b.nextNot(IDENTIFIER_PART)),
+                                b.sequence("vsprintf", b.nextNot(IDENTIFIER_PART))));
 
                 // -------------------------------------------------------------------------
                 // math.h predefined function names (full C99 / POSIX set)
