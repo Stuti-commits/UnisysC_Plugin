@@ -14,22 +14,22 @@
  * You should have received a copy of the Sonar Source-Available License
  * along with this program; if not, see https://sonarsource.com/license/ssal/
  */
-package org.sonar.c.grammar.expressions;
+package org.sonar.c.grammar.statements;
 
 import org.junit.jupiter.api.Test;
 import org.sonar.c.CGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class NonAssignmentExpressionTest {
+public class CompoundStatementTest {
 
-  private LexerlessGrammar g = CGrammar.createGrammar();
+  private final LexerlessGrammar g = CGrammar.createGrammar();
 
   @Test
   public void test() {
-    Assertions.assertThat(g.rule(CGrammar.NON_ASSIGNMENT_EXPR))
-      .matches("a")
-      .matches("a ? b : c");
+    Assertions.assertThat(g.rule(CGrammar.BLOCK))
+      .matches("{ }")
+      .matches("{ ; ; }");
   }
 
 }

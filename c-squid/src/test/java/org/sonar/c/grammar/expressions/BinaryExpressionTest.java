@@ -37,17 +37,14 @@ public class BinaryExpressionTest {
   public void additive() {
     Assertions.assertThat(g.rule(CGrammar.ADDITIVE_EXPRESSION))
       .matches("a + b")
-      .matches("a - b")
-      // ActionScript 2:
-      .matches("a add b");
+      .matches("a - b");
   }
 
   @Test
   public void shift() {
     Assertions.assertThat(g.rule(CGrammar.SHIFT_EXPRESSION))
       .matches("a << b")
-      .matches("a >> b")
-      .matches("a >>> b");
+      .matches("a >> b");
   }
 
   @Test
@@ -56,29 +53,14 @@ public class BinaryExpressionTest {
       .matches("a <= b")
       .matches("a >= b")
       .matches("a < b")
-      .matches("a > b")
-      .matches("a in b")
-      .matches("a instanceof b")
-      .matches("a is b")
-      .matches("a as b")
-      // ActionScript 2:
-      .matches("a lt b")
-      .matches("a gt b")
-      .matches("a le b")
-      .matches("a ge b");
+      .matches("a > b");
   }
 
   @Test
   public void equality() {
     Assertions.assertThat(g.rule(CGrammar.EQUALITY_EXPRESSION))
-      .matches("a !== b")
-      .matches("a === b")
       .matches("a == b")
-      .matches("a != b")
-      // ActionScript 2:
-      .matches("a <> b")
-      .matches("a eq b")
-      .matches("a ne b");
+      .matches("a != b");
   }
 
   @Test
@@ -89,19 +71,17 @@ public class BinaryExpressionTest {
     Assertions.assertThat(g.rule(CGrammar.EXCLUSIVE_OR_EXPRESSION))
       .matches("a ^ b");
 
-    Assertions.assertThat(g.rule(CGrammar.BITEWISE_OR_EXPR))
+    Assertions.assertThat(g.rule(CGrammar.INCLUSIVE_OR_EXPRESSION))
       .matches("a | b");
   }
 
   @Test
   public void logical() {
     Assertions.assertThat(g.rule(CGrammar.LOGICAL_AND_EXPRESSION))
-      .matches("a && b")
-      .matches("a and b");
+      .matches("a && b");
 
     Assertions.assertThat(g.rule(CGrammar.LOGICAL_OR_EXPRESSION))
-      .matches("a || b")
-      .matches("a or b");
+      .matches("a || b");
   }
 
 }

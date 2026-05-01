@@ -28,23 +28,13 @@ public class PostfixExpressionTest {
   @Test
   public void postfixExpression() {
     Assertions.assertThat(g.rule(CGrammar.POSTFIX_EXPRESSION))
-      .matches("new a()")
-      .matches("new a")
-
-      .matches("super().f.c.a")
-      .matches("super.field")
-      .matches("super().field")
-      .matches("super()")
-      .matches("super")
-
-      .matches("a ().a")
-
-      .matches("a++")
-      .notMatches("a\n++")
-
-      .matches("a--")
-      .notMatches("a\n--")
-
-      .matches("a..n..z");
+    .matches("x")
+    .matches("arr[1]")
+    .matches("printf()")
+    .matches("add(a, b, c)")
+    .matches("ptr.x")
+    .matches("ptr->x")
+    .matches("x++")
+    .matches("x--");
   }
 }

@@ -14,21 +14,21 @@
  * You should have received a copy of the Sonar Source-Available License
  * along with this program; if not, see https://sonarsource.com/license/ssal/
  */
-package org.sonar.c.grammar.xml;
+package org.sonar.c.grammar.definitions;
 
 import org.junit.jupiter.api.Test;
 import org.sonar.c.CGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class AttributeTest {
+public class VariableDeclarationTest {
 
   private final LexerlessGrammar g = CGrammar.createGrammar();
 
   @Test
   public void test() {
-    Assertions.assertThat(g.rule(CGrammar.XML_ATTRIBUTE))
-      .matches(" attr={a,b, c}")
-      .matches(" attr=\"value\"");
+    Assertions.assertThat(g.rule(CGrammar.DECLARATION))
+        .matches("int a;")
+        .matches("int a = 1;");
   }
 }

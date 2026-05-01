@@ -30,27 +30,11 @@ public class IdentifierTest {
     Assertions.assertThat(g.rule(CGrammar.IDENTIFIER))
       .matches("identifier")
 
-      .matches("dynamic")
-      .matches("each")
-      .matches("final")
-      .matches("get")
-      .matches("include")
-      .matches("namespace")
-      .matches("override")
-      .matches("set")
-      .matches("static")
-      .matches("native")
-
       .notMatches("for")
       .matches("for27")
+      .matches("Test_Func")
+      .matches("_");
 
-      .matches("_")
-      .matches("$")
-      // unicode escape sequence
-      .matches("\\u1234")
-
-      // "as" is not keyword in ActionScript 2:
-      .matches("as");
   }
 
 }

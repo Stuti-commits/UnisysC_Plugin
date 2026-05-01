@@ -617,6 +617,7 @@ public enum CGrammar implements GrammarRuleKey {
                 b.rule(LITERAL_ELEMENT).is(ASSIGNMENT_EXPRESSION);
 
                 // Assignement expressions
+                b.rule(EXPRESSION).is(ASSIGNMENT_EXPRESSION, b.zeroOrMore(COMMA, ASSIGNMENT_EXPRESSION));
                 b.rule(ASSIGNMENT_EXPRESSION).is(b.firstOf(
                                 b.sequence(UNARY_EXPR, ASSIGNMENT_OPERATOR, ASSIGNMENT_EXPRESSION), CONDITIONAL_EXPR));
                 b.rule(ASSIGNMENT_EXPR_NO_IN).is(b.firstOf(
@@ -967,7 +968,7 @@ public enum CGrammar implements GrammarRuleKey {
                                 b.sequence(/* No line break */ SPACING_NO_LB, NEXT_NOT_LB, LIST_EXPRESSION, EOS),
                                 EOS_NO_LB));
 
-                b.rule(EXPRESSION).is(ASSIGNMENT_EXPRESSION, b.zeroOrMore(COMMA, ASSIGNMENT_EXPRESSION));
+                
         }
 
         private static void directives(LexerlessGrammarBuilder b) {

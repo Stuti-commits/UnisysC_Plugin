@@ -28,10 +28,11 @@ public class ExpressionStatementTest {
   @Test
   public void test() {
     Assertions.assertThat(g.rule(CGrammar.EXPRESSION_STATEMENT))
+        .matches(";")
         .matches("a = 1;")
         .matches("func();")
         .matches("a++, b--;")
-        // .notMatches("if (x) y;")
+        .notMatches("if (x) y;")
         .notMatches("int x = 1;");
   }
 

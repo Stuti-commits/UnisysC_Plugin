@@ -28,14 +28,12 @@ public class PrimaryExpressionTest {
   @Test
   public void string() {
     Assertions.assertThat(g.rule(CGrammar.PRIMARY_EXPRESSION))
-        .matches("\"Sonar source\"");
-  }
-
-  @Test
-  public void emptyArrayInitialiser() {
-    Assertions.assertThat(g.rule(CGrammar.PRIMARY_EXPRESSION))
-        .matches("[]")
-        .matches("[   ]");
+        .matches("\"Sonar source\"")
+        .matches("identifier")
+        .matches("01")
+        .matches("2")
+        .matches("2.3")
+        .matches("(5 + 2)");
   }
 
 }

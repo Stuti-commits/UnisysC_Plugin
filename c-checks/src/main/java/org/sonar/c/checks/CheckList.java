@@ -41,7 +41,6 @@ public final class CheckList {
         NonEmptyCaseWithoutBreakCheck.class,
         FunctionSinglePointOfExitCheck.class,
         FunctionWithTooManyParametersCheck.class,
-        FieldNameCheck.class,
         EmptyStatementCheck.class,
         TooManyReturnCheck.class,
         CollapsibleIfStatementCheck.class,

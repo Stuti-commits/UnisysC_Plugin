@@ -14,23 +14,22 @@
  * You should have received a copy of the Sonar Source-Available License
  * along with this program; if not, see https://sonarsource.com/license/ssal/
  */
-package org.sonar.c.grammar.xml;
+package org.sonar.c.grammar.expressions;
 
 import org.junit.jupiter.api.Test;
 import org.sonar.c.CGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.tests.Assertions;
 
-public class XmlTextTest {
+public class ArgumentExpressionTest {
 
   private final LexerlessGrammar g = CGrammar.createGrammar();
 
   @Test
   public void test() {
-    Assertions.assertThat(g.rule(CGrammar.XML_TEXT))
-      .notMatches("")
-      .matches("Good text")
-      .notMatches("Wrong {text")
-      .notMatches(" Another wrong text<");
+    Assertions.assertThat(g.rule(CGrammar.ARGUMENT_EXPRESSION_LIST))
+      .matches("a")
+      .matches("a, b, c");
   }
+
 }
