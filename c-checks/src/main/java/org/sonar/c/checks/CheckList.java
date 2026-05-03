@@ -117,7 +117,7 @@ public final class CheckList {
         FieldNamingConventionCheck.class,
         UnusedFunctionCheck.class,
         NoBitwiseInBooleanContextCheck.class,
-      TypeAndVarSeparateDeclarationCheck.class
-    ));
+        TypeAndVarSeparateDeclarationCheck.class,
+        LineSplicingCheck.class));
   }
 }
