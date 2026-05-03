@@ -93,7 +93,7 @@ public class CoberturaSensorTest {
     DefaultSensorDescriptor descriptor = new DefaultSensorDescriptor();
     sensor.describe(descriptor);
     assertThat(descriptor.name()).isEqualTo("Unisys C Cobertura");
-    assertThat(descriptor.languages()).containsOnly("unisys_c");
+    assertThat(descriptor.languages()).containsOnly("unisysc");
   }
 
   @Test

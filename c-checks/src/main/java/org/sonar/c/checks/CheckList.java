@@ -22,7 +22,7 @@ import java.util.List;
 
 public final class CheckList {
 
-  public static final String REPOSITORY_KEY = "unisys_c";
+  public static final String REPOSITORY_KEY = "unisysc";
 
   public static final String SONAR_WAY_PROFILE = "Sonar way";
 

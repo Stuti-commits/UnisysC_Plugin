@@ -22,60 +22,76 @@ import java.util.List;
 import org.sonar.c.CGrammar;
 
 public class Function {
-
-  private Function() {
-  }
-
-  public static String getName(AstNode functionDef) {
-    Preconditions.checkState(functionDef.is(CGrammar.FUNCTION_DEF));
-    return functionDef.getFirstChild(CGrammar.FUNCTION_NAME).getFirstChild(CGrammar.IDENTIFIER).getTokenValue();
-  }
-
-  public static boolean isEmptyConstructor(AstNode functionDef, String className) {
-    Preconditions.checkState(functionDef.is(CGrammar.FUNCTION_DEF));
-    AstNode functionBlock = functionDef.getFirstChild(CGrammar.FUNCTION_COMMON).getFirstChild(CGrammar.BLOCK);
-
-    return isConstructor(functionDef, className)
-        && (functionBlock == null || functionBlock.getFirstChild(CGrammar.DIRECTIVES).getChildren().isEmpty());
-  }
-
-  public static boolean isConstructor(AstNode functionDef, String className) {
-    Preconditions.checkState(functionDef.is(CGrammar.FUNCTION_DEF));
-    return functionDef.getFirstChild(CGrammar.FUNCTION_NAME).getNumberOfChildren() == 1
-        && functionDef.getFirstChild(CGrammar.FUNCTION_NAME).getFirstChild().getTokenValue().equals(className);
-  }
-
-  public static List<AstNode> getParametersIdentifiers(AstNode functionDef) {
-    Preconditions.checkState(functionDef.is(CGrammar.FUNCTION_DEF));
-    List<AstNode> paramIdentifier = new ArrayList<>();
-    AstNode parameters = functionDef
-        .getFirstChild(CGrammar.FUNCTION_COMMON)
-        .getFirstChild(CGrammar.FUNCTION_SIGNATURE)
-        .getFirstChild(CGrammar.PARAMETERS);
-
-    if (parameters != null) {
-      for (AstNode parameter : parameters.getChildren(CGrammar.PARAMETER, CGrammar.REST_PARAMETERS)) {
-        if (parameter.getFirstChild(CGrammar.TYPED_IDENTIFIER) != null) {
-          paramIdentifier.add(parameter.getFirstChild(CGrammar.TYPED_IDENTIFIER).getFirstChild(CGrammar.IDENTIFIER));
-        }
-      }
+    private Function() {
     }
-    return paramIdentifier;
-  }
 
-  public static boolean isOverriding(AstNode functionDef) {
-    Preconditions.checkState(functionDef.is(CGrammar.FUNCTION_DEF));
-    AstNode attributesNode = functionDef.getPreviousAstNode();
-
-    if (attributesNode != null && attributesNode.is(CGrammar.ATTRIBUTES)) {
-
-      for (AstNode attribute : attributesNode.getChildren()) {
-        if (attribute.getFirstChild().is(CGrammar.ATTRIBUTE_EXPR)
-            && attribute.getFirstChild().getNumberOfChildren() == 1) {
-          return true;
+    public static String getName(AstNode functionDef) {
+        Preconditions.checkState(functionDef.is(CGrammar.FUNCTION_DEF));
+        AstNode directDeclarator = getDirectDeclarator(functionDef);
+        if (directDeclarator == null) {
+            return "";
         }
-      }
+        AstNode identifier = directDeclarator.getFirstChild(CGrammar.IDENTIFIER);
+        return identifier != null ? identifier.getTokenValue() : "";
     }
-    return false;
-  }
+
+    public static boolean isEmptyConstructor(AstNode functionDef, String className) {
+        return false;
+    }
+
+    public static boolean isConstructor(AstNode functionDef, String className) {
+        return false;
+    }
+
+    public static List<AstNode> getParametersIdentifiers(AstNode functionDef) {
+        Preconditions.checkState(functionDef.is(CGrammar.FUNCTION_DEF));
+        List<AstNode> paramIdentifiers = new ArrayList<>();
+
+        AstNode directDeclarator = getDirectDeclarator(functionDef);
+        if (directDeclarator == null) {
+            return paramIdentifiers;
+        }
+
+        AstNode paramTypeList = directDeclarator.getFirstChild(CGrammar.PARAMETER_TYPE_LIST);
+        if (paramTypeList == null) {
+            return paramIdentifiers; 
+        }
+
+        AstNode paramList = paramTypeList.getFirstChild(CGrammar.PARAMETER_LIST);
+        if (paramList == null) {
+            return paramIdentifiers;
+        }
+
+        for (AstNode paramDecl : paramList.getChildren(CGrammar.PARAMETER_DECLARATION)) {
+            AstNode declarator = paramDecl.getFirstChild(CGrammar.DECLARATOR);
+            if (declarator == null) {
+                continue; 
+            }
+
+            AstNode directParamDeclarator = declarator.getFirstChild(CGrammar.DIRECT_DECLARATOR);
+            if (directParamDeclarator == null) {
+                continue;
+            }
+
+            AstNode identifier = directParamDeclarator.getFirstChild(CGrammar.IDENTIFIER);
+            if (identifier != null) {
+                paramIdentifiers.add(identifier);
+            }
+        }
+
+        return paramIdentifiers;
+    }
+
+    public static boolean isOverriding(AstNode functionDef) {
+        return false;
+    }
+
+
+    private static AstNode getDirectDeclarator(AstNode functionDef) {
+        AstNode declarator = functionDef.getFirstChild(CGrammar.DECLARATOR);
+        if (declarator == null) {
+            return null;
+        }
+        return declarator.getFirstChild(CGrammar.DIRECT_DECLARATOR);
+    }
 }

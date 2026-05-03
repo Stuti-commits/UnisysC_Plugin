@@ -4,7 +4,7 @@
 
   <parent>
     <groupId>org.sonarsource.c</groupId>
-    <artifactId>C</artifactId>
+    <artifactId>unisysc</artifactId>
     <version>1.0.0</version>
   </parent>
 
@@ -133,7 +133,7 @@
           by products to detect compatibility. We keep LTS -->
           <pluginClass>org.sonar.plugins.c.CPlugin</pluginClass>
           <pluginApiMinVersion>9.9</pluginApiMinVersion>
-          <requiredForLanguages>c</requiredForLanguages>
+          <requiredForLanguages>unisysc</requiredForLanguages>
         </configuration>
       </plugin>
     </plugins>

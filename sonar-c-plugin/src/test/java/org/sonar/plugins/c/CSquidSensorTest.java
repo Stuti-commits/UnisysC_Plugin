@@ -136,7 +136,7 @@ public class CSquidSensorTest {
     DefaultSensorDescriptor descriptor = new DefaultSensorDescriptor();
     sensor.describe(descriptor);
     assertThat(descriptor.name()).isEqualTo("C");
-    assertThat(descriptor.languages()).containsOnly("unisys_c");
+    assertThat(descriptor.languages()).containsOnly("unisysc");
   }
 
   @Test
@@ -144,7 +144,7 @@ public class CSquidSensorTest {
     DefaultSensorDescriptor descriptor = new DefaultSensorDescriptor();
     createSensor(SonarRuntimeImpl.forSonarLint(Version.create(6, 5))).describe(descriptor);
     assertThat(descriptor.name()).isEqualTo("C");
-    assertThat(descriptor.languages()).containsOnly("unisys_c");
+    assertThat(descriptor.languages()).containsOnly("unisysc");
   }
 
   @Test
@@ -154,7 +154,7 @@ public class CSquidSensorTest {
     createSensor(SonarRuntimeImpl.forSonarQube(Version.create(9, 3), SonarQubeSide.SCANNER, SonarEdition.DEVELOPER))
         .describe(descriptor);
     assertThat(descriptor.name()).isEqualTo("C");
-    assertThat(descriptor.languages()).containsOnly("unisys_c");
+    assertThat(descriptor.languages()).containsOnly("unisysc");
     verify(descriptor).processesFilesIndependently();
   }
 

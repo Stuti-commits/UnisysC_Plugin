@@ -28,9 +28,9 @@ import org.sonar.plugins.c.CPlugin;
 public class C extends AbstractLanguage {
 
   public static final String NAME = "Unisys C";
-  public static final String KEY = "unisys_c";
+  public static final String KEY = "unisysc";
 
-  public static final String DEFAULT_FILE_SUFFIXES = "ccc_m, ccc, CCC_m, CCC";
+  public static final String DEFAULT_FILE_SUFFIXES = "ccc_m,ccc,CCC_m,CCC";
 
   private final Configuration config;
 
