@@ -1,0 +1,22 @@
+<h2>Why is this an issue?</h2>
+<p>
+Escape sequences in string literals must be clearly terminated to avoid ambiguity and unintended behavior.
+If an octal or hexadecimal escape sequence is followed by additional characters, it may be misinterpreted.
+</p>
+
+<h3>Noncompliant code example</h3>
+<pre>
+const char *s1 = "\1234";   // Noncompliant - \123 is not terminated
+const char *s2 = "\x41g";   // Noncompliant - \x41 is not terminated
+</pre>
+
+<h3>Compliant solution</h3>
+<pre>
+const char *s3 = "\123";        // OK - properly terminated
+const char *s4 = "\x41\x67";    // OK - terminated by another escape
+</pre>
+
+<h3>Limitations</h3>
+<p>
+Unicode escape sequences (<code>\u</code> and <code>\U</code>) are not checked due to limitations in the current grammar support.
+</p>

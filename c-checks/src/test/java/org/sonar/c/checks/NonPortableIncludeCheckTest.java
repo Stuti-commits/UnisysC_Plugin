@@ -26,8 +26,7 @@ public class NonPortableIncludeCheckTest {
     @Test
     public void test() {
         CVerifier.verify(
-            new File("src/test/resources/checks/NonPortableInclude.ccc_m"),
-            check
-        );
+                new File("src/test/resources/checks/NonPortableInclude.ccc_m"),
+                check);
     }
 }

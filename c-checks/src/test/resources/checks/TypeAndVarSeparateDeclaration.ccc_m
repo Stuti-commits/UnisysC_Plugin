@@ -1,0 +1,32 @@
+struct MyStruct {
+    int a;
+};
+struct MyStruct s_var;                  // OK
+
+enum Color {
+    RED,
+    BLUE
+};
+enum Color my_color;                    // OK
+
+typedef struct {
+    int b;
+} TypedefStruct;                        // OK
+
+struct InlineStruct {
+    int c;
+} inline_s_var;                         // Noncompliant
+
+enum InlineColor {
+    GREEN,
+    YELLOW
+} inline_c_var;                         // Noncompliant
+
+union MyUnion {
+    int d;
+    float e;
+} union_var1, union_var2;               // Noncompliant
+
+struct {
+    int f;
+} anonymous_s_var;                      // Noncompliant

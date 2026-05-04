@@ -16,7 +16,6 @@
  */
 package org.sonar.c.grammar.expressions;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.sonar.c.CGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
@@ -26,15 +25,10 @@ public class FunctionExpressionTest {
 
   private final LexerlessGrammar g = CGrammar.createGrammar();
 
-  // currently disabling it but required when we will use getchar() and putchar()
-  @Disabled
   @Test
   public void test() {
     Assertions.assertThat(g.rule(CGrammar.FUNCTION_DEF))
-        .matches("function name ()")
-        .matches("function name () {}")
-        .matches("function get name () {}")
-        .matches("function set name () {}");
+        .matches("void name () {}");
   }
 
 }

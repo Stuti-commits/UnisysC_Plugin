@@ -1,0 +1,27 @@
+// This comment ends with backslash \
+// Noncompliant@-1
+int x = 0;
+
+// Config path: C:\system\config\
+// Noncompliant@-1
+int y = 0;
+
+// Pattern: \d+\
+// Noncompliant@-1
+int z = 0;
+
+// Server path: \\server\share\
+// Noncompliant@-1
+int a = 0;
+
+bool isSpecialCharacter(char c)
+{
+    // Characters considered special: [ ] \
+    // Noncompliant@-1
+    return 91 <= c && c <= 93;
+}
+
+const char *path = "C:\\system\\config\\";  // OK - string literal, not a comment
+
+// Double backslash at end \\
+int h = 0;  // OK - even number of backslashes, no splice

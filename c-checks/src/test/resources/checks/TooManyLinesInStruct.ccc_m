@@ -1,0 +1,24 @@
+struct Student {        // Noncompliant
+    int id, age;
+    float salary;
+    double height, weight;
+    unsigned int marks1, marks2, marks3;
+};
+
+struct Student {        // OK
+    int id, age;
+    float salary;
+};
+
+union Data {        // Noncompliant
+    int i;
+    float f;
+    char str[20];
+    long l1, l2, l3;
+};
+
+
+union Data {        // OK
+    int i;
+    float f;
+};

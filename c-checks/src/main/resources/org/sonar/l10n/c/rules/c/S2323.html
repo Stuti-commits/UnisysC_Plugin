@@ -1,0 +1,37 @@
+<h2>Why is this an issue?</h2>
+<p>
+    When a line of source code ends with a backslash (<code>\</code>), the compiler merges it with the next line during
+    translation phase 2 — a process known as <em>line-splicing</em>.
+    When this occurs inside a <code>//</code> single-line comment, the following line of code is silently treated as
+    part of the comment and never executed, leading to unintended code removal and potentially undefined behavior.
+</p>
+
+<h3>Noncompliant code example</h3>
+<pre>
+bool isSpecialCharacter(char c)
+{
+    // Characters considered special: [ ] \
+    return 91 <= c && c <= 93;   // Noncompliant - return statement is part of the comment
+}
+</pre>
+
+<h3>Compliant solution</h3>
+<pre>
+bool isSpecialCharacter(char c)
+{
+    // Characters considered special: [ ] (backslash)
+    return 91 <= c && c <= 93;   // OK - no line-splicing in comment
+}
+
+/* Alternative: use block comments when content may contain backslashes
+   Path: C:\system\config
+*/
+</pre>
+
+<h3>Limitations</h3>
+<p>
+    Note that compilers may also strip trailing whitespace between a backslash and the newline character, meaning
+    trailing spaces do not reliably disable line-splicing. This behavior is standard-compliant since C++23.
+    The companion rule <a href='/coding_rules#rule_key=c%3AS1916'>S1916</a> detects trailing whitespace after
+    <code>\</code> and should be enabled alongside this rule.
+</p>

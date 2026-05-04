@@ -1,0 +1,4 @@
+const char *s1 = "\1234";        // Noncompliant
+
+const char *s2 = "\x41g";        // Noncompliant
+const char *s4 = "\x41\x67";     // OK

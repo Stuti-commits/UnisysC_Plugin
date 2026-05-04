@@ -1,0 +1,62 @@
+<h2>Why is this an issue?</h2>
+<p>
+    When an enumeration (enum) is used to initialize a bit field, the enum values must fit within the bit field's size. If an enum value is too large for the bit field, it will be truncated, leading to data loss and unexpected behavior.
+</p>
+<p>
+    This can cause:
+    <ul>
+        <li>Silent data loss due to truncation</li>
+        <li>Values not matching their original enum members</li>
+        <li>Logic errors and unexpected program behavior</li>
+        <li>Difficult-to-debug issues</li>
+        <li>Portability problems across different platforms</li>
+    </ul>
+</p>
+<p>
+    The bit field size must be sufficient to hold all possible enum values without truncation.
+</p>
+<p>
+    <h3>Example:</h3>
+    <pre>
+    enum Color {
+        RED = 0,
+        GREEN = 1,
+        BLUE = 2,
+        YELLOW = 3
+    };
+    
+    enum Status {
+        IDLE = 0,
+        RUNNING = 1,
+        STOPPED = 2,
+        ERROR = 3,
+        CRITICAL = 4,
+        FATAL = 5,
+        UNKNOWN = 6,
+        SUSPENDED = 7,
+        WAITING = 8
+    };
+    
+    struct Config {
+        // Noncompliant - bit field too small for Status enum
+        // WAITING (8) requires 4 bits, but only 3 bits allocated
+        enum Status status : 3;  // Can only hold values 0-7
+        
+        // Noncompliant - truncation will occur
+        enum Status error_code : 2;  // Can only hold values 0-3
+    };
+    
+    // Compliant - bit field size matches enum range
+    struct ConfigFixed {
+        enum Status status : 4;     // Can hold values 0-15 (sufficient for 0-8)
+        enum Color color : 2;       // Can hold values 0-3 (sufficient for enum)
+    };
+    
+    // Compliant - using appropriate bit field sizes
+    struct Flags {
+        enum Color primary : 2;     // 4 values (0-3)
+        enum Color secondary : 2;   // 4 values (0-3)
+        unsigned int reserved : 4;  // Remaining bits
+    };
+</pre>
+</p>

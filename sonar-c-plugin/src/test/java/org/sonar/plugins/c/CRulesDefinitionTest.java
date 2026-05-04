@@ -35,10 +35,10 @@ public class CRulesDefinitionTest {
     CRulesDefinition rulesDefinition = new CRulesDefinition(sonarRuntime);
     RulesDefinition.Context context = new RulesDefinition.Context();
     rulesDefinition.define(context);
-    RulesDefinition.Repository repository = context.repository("unisys_c");
+    RulesDefinition.Repository repository = context.repository("unisysc");
 
     assertThat(repository.name()).isEqualTo("Unisys_C_Analyzer");
-    assertThat(repository.language()).isEqualTo("unisys_c");
+    assertThat(repository.language()).isEqualTo("unisysc");
     assertThat(repository.rules()).hasSize(CheckList.getChecks().size());
 
     Rule functionComplexityRule = repository.rule("S1541");

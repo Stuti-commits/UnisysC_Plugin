@@ -18,14 +18,13 @@ package org.sonar.c.checks;
 
 import java.io.File;
 import org.junit.jupiter.api.Test;
-import org.sonar.c.checks.LineLengthCheck;
 
 public class LineLengthCheckTest {
 
   @Test
   public void test() {
     LineLengthCheck check = new LineLengthCheck();
-    check.maximumLineLength = 100;
+    check.maximumLineLength = 72;
     CVerifier.verify(new File("src/test/resources/checks/LineLength.ccc_m"), check);
   }
 

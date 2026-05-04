@@ -1,0 +1,23 @@
+{
+  "title": "The \"'\" or \"\\\"\" or \"\\\\\" characters and the \"/*\" or \"//\" character sequences shall not occur in a \"header file\" name",
+  "type": "BUG",
+  "code": {
+    "impacts": {
+      "RELIABILITY": "MEDIUM"
+    },
+    "attribute": "LOGICAL"
+  },
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "pitfall"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-M23_208",
+  "sqKey": "M23_208",
+  "scope": "All",
+  "quickfix": "unknown"
+}

@@ -1,0 +1,20 @@
+void main() {
+    int x;
+    printf("%d", 1.2); // Noncompliant
+    printf("%f", 1.2); // OK    
+    printf("%d %d", 1);      // Noncompliant
+    printf("%d %d", 1, 2);   // OK
+    printf("%0$d", 1);   // Noncompliant
+    printf("%1$d", 1);   // OK
+    printf("%1$d %d", 1, 2);   // Noncompliant
+    printf("%1$d %2$d", 1, 2); // OK
+    printf("%d %d", 1, 2);     // OK
+    printf("%*d", 1.1, 2);   // Noncompliant
+    printf("%*d", 5, 2);     // OK
+    printf("ab\0cd");   // Noncompliant
+    printf("abcd");     // OK
+    printf("%+p", (void*)&x);   // Noncompliant
+    printf("%p", (void*)&x);    // OK
+    printf("%vd", x);   // Noncompliant
+    printf("%d", x);    // OK
+}   

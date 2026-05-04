@@ -1,0 +1,23 @@
+{
+  "title": "Unused functions should be removed",
+  "type": "CODE_SMELL",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "MEDIUM"
+    },
+    "attribute": "CLEAR"
+  },
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "unused"
+  ],
+  "defaultSeverity": "MAJOR",
+  "ruleSpecification": "RSPEC-1144",
+  "sqKey": "S1144",
+  "scope": "Main",
+  "quickfix": "unknown"
+}

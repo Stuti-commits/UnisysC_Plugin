@@ -1,0 +1,52 @@
+<h2>Why is this an issue?</h2>
+<p>
+    The <code>printf</code> family of functions does not perform type checking on its arguments at compile time.
+    Instead, it relies entirely on the format string provided by the programmer. If the format specifiers
+    do not match the corresponding arguments, it can lead to undefined behavior, crashes, or incorrect output.
+</p>
+
+<p>
+    Common issues include mismatched types, incorrect number of arguments, invalid format specifiers,
+    and improper use of positional arguments. Since these errors are only detected at runtime,
+    they can be difficult to debug and may compromise program reliability.
+</p>
+
+<p>
+    Additionally, certain combinations of flags and specifiers are not allowed and may result in undefined behavior.
+    Format strings containing null characters or invalid specifiers can also cause unexpected results.
+</p>
+
+<pre>
+#include &lt;stdio.h&gt;
+
+void test() {
+    printf("%d", 1.2);          /* Noncompliant: expects int, got double */
+    printf("%d %d", 1);         /* Noncompliant: missing argument */
+    printf("%0$d", 1);          /* Noncompliant: argument index starts from 1 */
+    printf("%1$d %d", 1, 2);    /* Noncompliant: mixing positional and non-positional */
+    printf("%*d", 1.1, 2);      /* Noncompliant: width must be integer */
+    printf("ab\0cd");           /* Noncompliant: contains null character */
+
+    int x;
+    printf("%+p", (void*)&x);   /* Noncompliant: invalid flag for pointer */
+    printf("%vd", x);           /* Noncompliant: invalid specifier */
+}
+</pre>
+
+<h3>How to fix it</h3>
+<p>
+    Ensure that each format specifier matches the type of its corresponding argument.
+    The number of format specifiers must match the number of arguments provided.
+    Only valid specifiers and flag combinations should be used, and positional arguments
+    should not be mixed with non-positional ones.
+</p>
+
+<pre>
+#include &lt;stdio.h&gt;
+
+void test() {
+    printf("%f", 1.2);      /* Compliant: correct type */
+    printf("%d", 1);        /* Compliant: correct argument count */
+    printf("%1$d", 1);      /* Compliant: correct positional usage */
+}
+</pre>

@@ -27,8 +27,7 @@ public class ArgumentsTest {
 
   @Test
   public void test() {
-    Assertions.assertThat(g.rule(CGrammar.ARGUMENTS))
-      .matches("( )")
+    Assertions.assertThat(g.rule(CGrammar.ARGUMENT_EXPRESSION_LIST))
       .matches("(a, b, c)");
   }
 

@@ -1,5 +1,4 @@
 void foo() {
-// Noncompliant@+1 {{Split this 101 characters long line (which is greater than 100 authorized).}}
-  alert("This line contains                                                         101 characters");
+  // Noncompliant@+1
+  printf("This line is exactly 73 characters long and no more than that");
 }
-lfng

@@ -22,7 +22,7 @@ import java.util.List;
 
 public final class CheckList {
 
-  public static final String REPOSITORY_KEY = "unisys_c";
+  public static final String REPOSITORY_KEY = "unisysc";
 
   public static final String SONAR_WAY_PROFILE = "Sonar way";
 
@@ -41,7 +41,6 @@ public final class CheckList {
         NonEmptyCaseWithoutBreakCheck.class,
         FunctionSinglePointOfExitCheck.class,
         FunctionWithTooManyParametersCheck.class,
-        FieldNameCheck.class,
         EmptyStatementCheck.class,
         TooManyReturnCheck.class,
         CollapsibleIfStatementCheck.class,
@@ -96,8 +95,29 @@ public final class CheckList {
         NoNestedSwitchLabelCheck.class,
         ForLoopExpressionCheck.class,
         NoPostfixOperatorCheck.class,
-        NonPortableIncludeCheck.class
-      ));
+        NonPortableIncludeCheck.class,
+        EscapeCharacterCheck.class,
+        PrintfBehaviourCheck.class,
+        TooManyFieldsInStructCheck.class,
+        ArrayBracketPositionCheck.class,
+        SwitchNonCaseLabelCheck.class,
+        RedundantPointerOperatorCheck.class,
+        TooManyCaseCheck.class,
+        ExplicitZeroComparisonCheck.class,
+        ConstPointerLocalVarCheck.class,
+        SingleLineBodyIndentationCheck.class,
+        ConditionalsStartOnNewLineCheck.class,
+        RepeatedUnaryPrefixOperatorCheck.class,
+        IdentifierLengthCheck.class,
+        XorNotExponentiationCheck.class,
+        IncludeHeaderNameCheck.class,
+        EscapeSequenceTerminationCheck.class,
+        ElseMatchedWithIfCheck.class,
+        EnumBitFieldConsistencyCheck.class,
+        FieldNamingConventionCheck.class,
+        UnusedFunctionCheck.class,
+        NoBitwiseInBooleanContextCheck.class,
+        TypeAndVarSeparateDeclarationCheck.class,
+        LineSplicingCheck.class));
   }
-
 }

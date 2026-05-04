@@ -23,8 +23,8 @@ import org.sonar.plugins.c.core.C;
 
 public class CPlugin implements Plugin {
 
-  public static final String FILE_SUFFIXES_KEY = "sonar.c.file.suffixes";
-  public static final String COBERTURA_REPORT_PATHS = "sonar.c.cobertura.reportPaths";
+  public static final String FILE_SUFFIXES_KEY = "sonar.unisysc.file.suffixes";
+  public static final String COBERTURA_REPORT_PATHS = "sonar.unisysc.cobertura.reportPaths";
 
   @Override
   public void define(Context context) {

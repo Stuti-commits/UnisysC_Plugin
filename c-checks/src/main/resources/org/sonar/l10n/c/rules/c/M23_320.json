@@ -1,0 +1,23 @@
+{
+  "title": "Octal escape sequences, hexadecimal escape sequences and universal character names shall be terminated",
+  "type": "CODE_SMELL",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "HIGH"
+    },
+    "attribute": "CLEAR"
+  },
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "pitfall"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-M23_320",
+  "sqKey": "M23_320",
+  "scope": "All",
+  "quickfix": "unknown"
+}
