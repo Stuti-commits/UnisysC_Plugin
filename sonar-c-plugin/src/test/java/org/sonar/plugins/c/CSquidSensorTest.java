@@ -97,10 +97,10 @@ public class CSquidSensorTest {
     String componentKey = "key:SmallFile.ccc_m";
     assertThat(tester.measure(componentKey, CoreMetrics.NCLOC).value()).isEqualTo(15);
     assertThat(tester.measure(componentKey, CoreMetrics.COMMENT_LINES).value()).isEqualTo(2);
-    assertThat(tester.measure(componentKey, CoreMetrics.STATEMENTS).value()).isEqualTo(4);
+    assertThat(tester.measure(componentKey, CoreMetrics.STATEMENTS).value()).isEqualTo(5);
     assertThat(tester.measure(componentKey, CoreMetrics.FUNCTIONS).value()).isEqualTo(3);
-    assertThat(tester.measure(componentKey, CoreMetrics.COMPLEXITY).value()).isEqualTo(3);
-    assertThat(tester.measure(componentKey, CoreMetrics.EXECUTABLE_LINES_DATA).value()).isEqualTo("4=1;9=1;10=1;16=1;");
+    assertThat(tester.measure(componentKey, CoreMetrics.COMPLEXITY).value()).isEqualTo(4);
+    assertThat(tester.measure(componentKey, CoreMetrics.EXECUTABLE_LINES_DATA).value()).isEqualTo("4=1;9=1;10=1;16=1;17=1;");
 
     assertThat(tester.cpdTokens(componentKey)).hasSize(15);
   }

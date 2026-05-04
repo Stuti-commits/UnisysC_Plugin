@@ -21,7 +21,6 @@ import java.util.List;
 
 import org.sonar.c.CCheck;
 import org.sonar.c.CGrammar;
-import org.sonar.c.CPunctuator;
 import org.sonar.check.Rule;
 
 import com.sonar.sslr.api.AstNode;

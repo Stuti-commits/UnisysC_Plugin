@@ -18,7 +18,6 @@ package org.sonar.c.checks;
 
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
-import com.sonar.sslr.api.Token;
 import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;

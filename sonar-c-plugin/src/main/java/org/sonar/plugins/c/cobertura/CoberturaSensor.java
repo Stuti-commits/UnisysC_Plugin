@@ -34,7 +34,7 @@ public class CoberturaSensor implements Sensor {
   @Override
   public void describe(SensorDescriptor descriptor) {
     descriptor
-        .name("C Cobertura")
+        .name("Unisys C Cobertura")
         .onlyOnFileType(InputFile.Type.MAIN)
         .onlyOnLanguage(C.KEY);
   }
