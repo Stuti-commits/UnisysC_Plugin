@@ -18,12 +18,9 @@ package org.sonar.c.checks;
 
 import java.util.Collections;
 import java.util.List;
-
 import org.sonar.c.CCheck;
 import org.sonar.c.CGrammar;
-import org.sonar.c.CPunctuator;
 import org.sonar.check.Rule;
-
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
 
@@ -53,9 +50,8 @@ public class NoUnaryMinusOnUnsignedCheck extends CCheck {
 
         if (isUnsignedOperand(unaryExpr, operand)) {
             addIssue(
-                "The built-in unary '-' operator should not be applied to an expression of unsigned type.",
-                operatorNode
-            );
+                    "The built-in unary '-' operator should not be applied to an expression of unsigned type.",
+                    operatorNode);
         }
     }
 
@@ -87,13 +83,12 @@ public class NoUnaryMinusOnUnsignedCheck extends CCheck {
     private boolean isUnsignedLiteral(String token) {
         String upper = token.toUpperCase();
         return upper.endsWith("U")
-            || upper.endsWith("UL")
-            || upper.endsWith("ULL")
-            || upper.endsWith("LU")
-            || upper.endsWith("LLU");
+                || upper.endsWith("UL")
+                || upper.endsWith("ULL")
+                || upper.endsWith("LU")
+                || upper.endsWith("LLU");
     }
 
-    
     private boolean isVariableDeclaredUnsigned(AstNode startNode, String varName) {
         AstNode scopeRoot = startNode.getParent();
         while (scopeRoot != null
@@ -112,7 +107,6 @@ public class NoUnaryMinusOnUnsignedCheck extends CCheck {
         }
         return false;
     }
-
 
     private boolean declarationDefinesName(AstNode decl, String varName) {
         for (AstNode dd : decl.getDescendants(CGrammar.DIRECT_DECLARATOR)) {

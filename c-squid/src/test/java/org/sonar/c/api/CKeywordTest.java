@@ -18,14 +18,13 @@ package org.sonar.c.api;
 
 import org.junit.jupiter.api.Test;
 import org.sonar.c.CKeyword;
-
 import static org.fest.assertions.Assertions.assertThat;
 
 public class CKeywordTest {
 
   @Test
   public void test() {
-    assertThat(CKeyword.values().length).isEqualTo(79);
+    assertThat(CKeyword.values().length).isEqualTo(51);
     assertThat(CKeyword.keywordValues().length).isEqualTo(CKeyword.values().length);
   }
 

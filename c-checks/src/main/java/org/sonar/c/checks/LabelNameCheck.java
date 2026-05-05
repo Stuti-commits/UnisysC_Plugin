@@ -18,7 +18,6 @@ package org.sonar.c.checks;
 
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
-import com.sonar.sslr.api.Token;
 import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
@@ -36,10 +35,7 @@ public class LabelNameCheck extends CCheck {
   private static final String DEFAULT = "^[A-Z][A-Z0-9_]*$";
   private Pattern pattern = null;
 
-  @RuleProperty(
-    key = "format",
-    description = "Regular expression used to check the label names against",
-    defaultValue = DEFAULT)
+  @RuleProperty(key = "format", description = "Regular expression used to check the label names against", defaultValue = DEFAULT)
   String format = DEFAULT;
 
   @Override

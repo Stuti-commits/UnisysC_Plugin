@@ -294,7 +294,6 @@ public enum CGrammar implements GrammarRuleKey {
         EXPRESSION_STATEMENT,
         EXPRESSION,
         LABELED_STATEMENT,
-        METADATA_STATEMENT,
         SUB_STATEMENT,
         EMPTY_STATEMENT,
         VARIABLE_DECLARATION_STATEMENT,
@@ -785,9 +784,6 @@ public enum CGrammar implements GrammarRuleKey {
 
                 b.rule(EXPRESSION_STATEMENT).is(b.firstOf(SEMICOLON, b.sequence(EXPRESSION, SEMICOLON)));
 
-                // Not in spec:
-                b.rule(METADATA_STATEMENT).is(LBRAKET, ASSIGNMENT_EXPRESSION, RBRAKET);
-
                 b.rule(VARIABLE_DECLARATION_STATEMENT).is(VARIABLE_DEF, EOS);
 
                 b.rule(EMPTY_STATEMENT).is(SEMICOLON);
@@ -813,7 +809,6 @@ public enum CGrammar implements GrammarRuleKey {
                                 b.sequence(/* No line break */ SPACING_NO_LB, NEXT_NOT_LB, LIST_EXPRESSION, EOS),
                                 EOS_NO_LB));
 
-                
         }
 
         private static void directives(LexerlessGrammarBuilder b) {
@@ -823,8 +818,7 @@ public enum CGrammar implements GrammarRuleKey {
                                 STATEMENT,
                                 b.sequence(ATTRIBUTES, /* No line break */ SPACING_NO_LB, NEXT_NOT_LB,
                                                 ANNOTABLE_DIRECTIVE),
-                                b.sequence(INCLUDE_DIRECTIVE, /* No line break */ EOS_NO_LB)
-                                ));
+                                b.sequence(INCLUDE_DIRECTIVE, /* No line break */ EOS_NO_LB)));
 
                 b.rule(ANNOTABLE_DIRECTIVE).is(b.firstOf(
                                 VARIABLE_DECLARATION_STATEMENT,
@@ -838,7 +832,6 @@ public enum CGrammar implements GrammarRuleKey {
                                 b.sequence(/* hack: */b.nextNot(NAMESPACE), ATTRIBUTE_EXPR),
                                 b.sequence(LBRAKET, ASSIGNMENT_EXPRESSION, RBRAKET)));
                 b.rule(ATTRIBUTE_EXPR).is(IDENTIFIER);
-
 
                 b.rule(INCLUDE_DIRECTIVE).is(HASH, INCLUDE, SPACING_NO_LB, NEXT_NOT_LB,
                                 b.firstOf(STRING, b.sequence(LT, b.regexp("[^>\\r\\n]++"), GT)));
@@ -974,13 +967,11 @@ public enum CGrammar implements GrammarRuleKey {
 
                 b.rule(TYPE_EXPRESSION_LIST).is(TYPE_EXPR, b.zeroOrMore(b.sequence(COMMA, TYPE_EXPR)));
 
-
                 b.rule(PROGRAM).is(
                                 b.zeroOrMore(INCLUDE_DIRECTIVE),
                                 b.zeroOrMore(EXTERNAL_DEFINITION), SPACING,
                                 b.token(GenericTokenType.EOF, b.endOfInput()));
         }
-
 
         private static void keywords(LexerlessGrammarBuilder b) {
                 for (CKeyword k : CKeyword.values()) {

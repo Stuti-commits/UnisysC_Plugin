@@ -17,8 +17,6 @@
 package org.sonar.c.toolkit;
 
 import org.junit.jupiter.api.Test;
-import org.sonar.c.toolkit.CToolkit;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CToolkitTest {

@@ -84,6 +84,6 @@ public class CCheckTest {
   }
 
   private CVisitorContext context() {
-    return TestVisitorContext.create(new File("src/test/resources/org/sonar/c/ccheck.as"));
+    return TestVisitorContext.create(new File("src/test/resources/org/sonar/c/ccheck.ccc_m"));
   }
 }
