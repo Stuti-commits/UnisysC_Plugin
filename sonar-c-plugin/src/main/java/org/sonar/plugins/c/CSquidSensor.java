@@ -172,7 +172,6 @@ public class CSquidSensor implements Sensor {
     FileMetrics metrics = new FileMetrics(visitorContext);
     saveMeasure(context, inputFile, CoreMetrics.NCLOC, metrics.linesOfCode().size());
     saveMeasure(context, inputFile, CoreMetrics.COMMENT_LINES, metrics.commentLines().size());
-    saveMeasure(context, inputFile, CoreMetrics.CLASSES, metrics.numberOfClasses());
     saveMeasure(context, inputFile, CoreMetrics.FUNCTIONS, metrics.numberOfFunctions());
     saveMeasure(context, inputFile, CoreMetrics.STATEMENTS, metrics.numberOfStatements());
     context.<String>newMeasure().on(inputFile).forMetric(CoreMetrics.EXECUTABLE_LINES_DATA).withValue(metrics.executableLines()).save();

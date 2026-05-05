@@ -35,8 +35,8 @@ import org.sonar.api.batch.sensor.cpd.NewCpdTokens;
 import org.sonar.api.batch.sensor.highlighting.NewHighlighting;
 import org.sonar.api.batch.sensor.highlighting.TypeOfText;
 import org.sonar.c.CVisitor;
-import org.sonar.c.api.CKeyword;
-import org.sonar.c.api.CPunctuator;
+import org.sonar.c.CKeyword;
+import org.sonar.c.CPunctuator;
 import org.sonar.c.api.CTokenType;
 
 public class CTokensVisitor extends CVisitor {

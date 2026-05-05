@@ -77,7 +77,6 @@ CVerifier.verify(new File("src/test/resources/checks/MyCheck.ccc_m"), new MyChec
 
 The grammar in `CGrammar.java` defines all Unisys C constructs. Key entry points:
 - `PROGRAM` - Root rule
-- `CLASS_DEF`, `INTERFACE_DEF` - Type definitions
 - `FUNCTION_DEF` - Function declarations
 - `STATEMENT` - All statement types
 - `ASSIGNMENT_EXPRESSION` - Expression hierarchy root

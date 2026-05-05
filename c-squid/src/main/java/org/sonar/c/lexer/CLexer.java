@@ -24,8 +24,6 @@ import com.sonar.sslr.impl.channel.PunctuatorChannel;
 import com.sonar.sslr.impl.channel.UnknownCharacterChannel;
 import java.nio.charset.Charset;
 
-import org.sonar.c.api.CKeyword;
-import org.sonar.c.api.CPunctuator;
 import org.sonar.c.api.CTokenType;
 import org.sonar.sslr.channel.Channel;
 import org.sonar.sslr.channel.CodeReader;

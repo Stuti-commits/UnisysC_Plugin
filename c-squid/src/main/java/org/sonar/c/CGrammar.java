@@ -21,12 +21,10 @@ import org.sonar.sslr.grammar.GrammarRuleKey;
 import org.sonar.sslr.grammar.LexerlessGrammarBuilder;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
-import static org.sonar.c.CKeyword.AS;
 import static org.sonar.c.CKeyword.ASM;
 import static org.sonar.c.CKeyword.AUTO;
 import static org.sonar.c.CKeyword.BREAK;
 import static org.sonar.c.CKeyword.CASE;
-import static org.sonar.c.CKeyword.CLASS;
 import static org.sonar.c.CKeyword.CONST;
 import static org.sonar.c.CKeyword.CONTINUE;
 import static org.sonar.c.CKeyword.DEFAULT;
@@ -36,12 +34,9 @@ import static org.sonar.c.CKeyword.ENUM;
 import static org.sonar.c.CKeyword.FOR;
 import static org.sonar.c.CKeyword.GOTO;
 import static org.sonar.c.CKeyword.IF;
-import static org.sonar.c.CKeyword.IN;
 import static org.sonar.c.CKeyword.INCLUDE;
 import static org.sonar.c.CKeyword.INLINE;
-import static org.sonar.c.CKeyword.INSTANCEOF;
 import static org.sonar.c.CKeyword.IS;
-import static org.sonar.c.CKeyword.NAMESPACE;
 import static org.sonar.c.CKeyword.REGISTER;
 import static org.sonar.c.CKeyword.RETURN;
 import static org.sonar.c.CKeyword.STATIC;
@@ -276,7 +271,6 @@ public enum CGrammar implements GrammarRuleKey {
         PARAMETER,
         REST_PARAMETERS,
         // Class
-        CLASS_DEF,
         CLASS_NAME,
         CLASS_IDENTIFIERS,
         TYPE_EXPRESSION_LIST,
@@ -606,7 +600,7 @@ public enum CGrammar implements GrammarRuleKey {
                                 b.sequence(LE, SHIFT_EXPRESSION),
                                 b.sequence(GE, SHIFT_EXPRESSION)))).skipIfOneChild();
 
-                b.rule(RELATIONAL_OPERATOR).is(b.firstOf(LE, GE, LT, GT, IN, INSTANCEOF, IS, AS,
+                b.rule(RELATIONAL_OPERATOR).is(b.firstOf(LE, GE, LT, GT, IS, 
                                 /* Action Script 2: */ word(b, "le"), word(b, "ge"), word(b, "lt"), word(b, "gt")));
 
                 b.rule(EQUALITY_EXPRESSION).is(RELATIONAL_EXPRESSION, b.zeroOrMore(b.firstOf(
@@ -825,14 +819,13 @@ public enum CGrammar implements GrammarRuleKey {
 
                 b.rule(ANNOTABLE_DIRECTIVE).is(b.firstOf(
                                 VARIABLE_DECLARATION_STATEMENT,
-                                FUNCTION_DEF,
-                                CLASS_DEF));
+                                FUNCTION_DEF));
 
                 b.rule(DIRECTIVES).is(b.zeroOrMore(DIRECTIVE));
 
                 b.rule(ATTRIBUTES).is(b.oneOrMore(ATTRIBUTE));
                 b.rule(ATTRIBUTE).is(b.firstOf(
-                                b.sequence(/* hack: */b.nextNot(NAMESPACE), ATTRIBUTE_EXPR),
+                                ATTRIBUTE_EXPR,
                                 b.sequence(LBRAKET, ASSIGNMENT_EXPRESSION, RBRAKET)));
                 b.rule(ATTRIBUTE_EXPR).is(IDENTIFIER);
 
@@ -965,7 +958,6 @@ public enum CGrammar implements GrammarRuleKey {
 
                 b.rule(REST_PARAMETERS).is(b.firstOf(b.sequence(TRIPLE_DOTS, TYPED_IDENTIFIER), TRIPLE_DOTS));
 
-                b.rule(CLASS_DEF).is(CLASS, CLASS_NAME, BLOCK);
                 b.rule(CLASS_NAME).is(CLASS_IDENTIFIERS);
                 b.rule(CLASS_IDENTIFIERS).is(IDENTIFIER, b.zeroOrMore(b.sequence(DOT, IDENTIFIER)));
 

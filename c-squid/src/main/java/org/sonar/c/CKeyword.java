@@ -25,16 +25,11 @@ import org.sonar.sslr.grammar.GrammarRuleKey;
 
 public enum CKeyword implements GrammarRuleKey {
 
-  /**
-   * "as" is not keyword in ActionScript 2, so we treat it as syntactic keyword
-   */
-  AS(true),
   ASM,
   AUTO,
   BREAK,
   CASE,
   CHAR,
-  CLASS,
   CONST,
   CONTINUE,
   DEFAULT,
@@ -43,16 +38,13 @@ public enum CKeyword implements GrammarRuleKey {
   ELSE,
   ENUM,
   EXTERN,
-  FALSE,
   __FAR,
   FLOAT,
   FOR,
   FUNCTION,
   GOTO,
   IF,
-  IN,
   INLINE,
-  INSTANCEOF,
   INT,
   IS,
   LONG,
@@ -71,18 +63,15 @@ public enum CKeyword implements GrammarRuleKey {
   UNSIGNED,
   __USER_LOCK__,
   __USER_UNLOCK__,
-  VAR,
   VOID,
   VOLATILE,
   WHILE,
 
-  NAMESPACE(true),
   INCLUDE(true),
   // "native" strangely appears in both the "keywords" and "syntactic keywords" lists of the language spec
   // It seems that "native" is accepted as a valid identifier by the compiler and should be considered as a "syntactic keyword"
-  STATIC(true),
-  XML(true);
-
+  STATIC(true);
+ 
   private final boolean syntactic;
 
   CKeyword() {

@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.sonar.c.api.CKeyword;
+import org.sonar.c.CKeyword;
 import org.sonar.c.parser.CParser;
 import org.sonar.colorizer.CDocTokenizer;
 import org.sonar.colorizer.CppDocTokenizer;
