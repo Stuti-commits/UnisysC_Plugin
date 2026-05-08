@@ -21,14 +21,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
 import org.sonar.c.CGrammar;
 import org.sonar.c.CVisitorContext;
 
 public class FileMetrics {
 
   private final int numberOfStatements;
-  private final int numberOfClasses;
   private final int numberOfFunctions;
   private final FileLinesVisitor fileLinesVisitor = new FileLinesVisitor();
   private final String executableLines;
@@ -40,7 +38,7 @@ public class FileMetrics {
         CGrammar.VARIABLE_DECLARATION_STATEMENT,
         CGrammar.EXPRESSION_STATEMENT,
         CGrammar.CONTROL_STATEMENT,
-        CGrammar.ITERATION_STATEMENT, 
+        CGrammar.ITERATION_STATEMENT,
         CGrammar.JUMP_STATEMENT,
         CGrammar.EMPTY_STATEMENT);
 
@@ -55,7 +53,6 @@ public class FileMetrics {
     executableLines = sb.toString();
 
     numberOfStatements = statements.size();
-    numberOfClasses = rootTree.getDescendants(CGrammar.CLASS_DEF).size();
     numberOfFunctions = rootTree.getDescendants(CGrammar.FUNCTION_DEF).size();
     fileLinesVisitor.scanFile(context);
   }
@@ -70,10 +67,6 @@ public class FileMetrics {
 
   public Set<Integer> nosonarLines() {
     return fileLinesVisitor.noSonarLines();
-  }
-
-  public int numberOfClasses() {
-    return numberOfClasses;
   }
 
   public int numberOfFunctions() {

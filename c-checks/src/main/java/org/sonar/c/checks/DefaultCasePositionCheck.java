@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.sonar.c.CCheck;
 import org.sonar.c.CGrammar;
-import org.sonar.c.api.CKeyword;
+import org.sonar.c.CKeyword;
 import org.sonar.check.Rule;
 
 @Rule(key = "S4524")
@@ -68,13 +68,13 @@ public class DefaultCasePositionCheck extends CCheck {
   }
 
   private boolean isCaseLabel(AstNode node) {
-    return node.hasDirectChildren(CKeyword.CASE) || 
-           (node.getToken() != null && "case".equals(node.getToken().getValue()));
+    return node.hasDirectChildren(CKeyword.CASE) ||
+        (node.getToken() != null && "case".equals(node.getToken().getValue()));
   }
 
   private boolean isDefaultLabel(AstNode node) {
-    return node.hasDirectChildren(CKeyword.DEFAULT) || 
-           (node.getToken() != null && "default".equals(node.getToken().getValue()));
+    return node.hasDirectChildren(CKeyword.DEFAULT) ||
+        (node.getToken() != null && "default".equals(node.getToken().getValue()));
   }
 
 }

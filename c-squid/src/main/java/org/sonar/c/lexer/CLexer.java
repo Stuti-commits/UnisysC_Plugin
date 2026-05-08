@@ -23,9 +23,6 @@ import com.sonar.sslr.impl.channel.IdentifierAndKeywordChannel;
 import com.sonar.sslr.impl.channel.PunctuatorChannel;
 import com.sonar.sslr.impl.channel.UnknownCharacterChannel;
 import java.nio.charset.Charset;
-
-import org.sonar.c.api.CKeyword;
-import org.sonar.c.api.CPunctuator;
 import org.sonar.c.api.CTokenType;
 import org.sonar.sslr.channel.Channel;
 import org.sonar.sslr.channel.CodeReader;
@@ -42,36 +39,37 @@ public final class CLexer {
 
   public static Lexer create(Charset charset) {
     return Lexer.builder()
-      .withCharset(charset)
+        .withCharset(charset)
 
-      .withFailIfNoChannelToConsumeOneCharacter(true)
+        .withFailIfNoChannelToConsumeOneCharacter(true)
 
-      .withChannel(new BomCharacterChannel())
-      .withChannel(new BlackHoleChannel("\\s++"))
+        .withChannel(new BomCharacterChannel())
+        .withChannel(new BlackHoleChannel("\\s++"))
 
-      // Comments
-      .withChannel(commentRegexp("//[^\\n\\r]*+"))
-      .withChannel(commentRegexp("/\\*[\\s\\S]*?\\*/"))
+        // Comments
+        .withChannel(commentRegexp("//[^\\n\\r]*+"))
+        .withChannel(commentRegexp("/\\*[\\s\\S]*?\\*/"))
 
-      // String Literals
-      .withChannel(regexp(GenericTokenType.LITERAL, "\"([^\"\\\\]*+(\\\\[\\s\\S])?+)*+\""))
-      .withChannel(regexp(GenericTokenType.LITERAL, "\'([^\'\\\\]*+(\\\\[\\s\\S])?+)*+\'"))
+        // String Literals
+        .withChannel(regexp(GenericTokenType.LITERAL, "\"([^\"\\\\]*+(\\\\[\\s\\S])?+)*+\""))
+        .withChannel(regexp(GenericTokenType.LITERAL, "\'([^\'\\\\]*+(\\\\[\\s\\S])?+)*+\'"))
 
-      // Regular Expression Literal
-      .withChannel(new CRegularExpressionLiteralChannel())
+        // Regular Expression Literal
+        .withChannel(new CRegularExpressionLiteralChannel())
 
-      // Numbers
-      .withChannel(regexp(CTokenType.NUMERIC_LITERAL, "0[xX][0-9a-fA-F]++"))
-      .withChannel(regexp(CTokenType.NUMERIC_LITERAL, "[0-9]++\\.([0-9]++)?+" + EXP + "?+"))
-      .withChannel(regexp(CTokenType.NUMERIC_LITERAL, "\\.[0-9]++" + EXP + "?+"))
-      .withChannel(regexp(CTokenType.NUMERIC_LITERAL, "[0-9]++" + EXP + "?+"))
+        // Numbers
+        .withChannel(regexp(CTokenType.NUMERIC_LITERAL, "0[xX][0-9a-fA-F]++"))
+        .withChannel(regexp(CTokenType.NUMERIC_LITERAL, "[0-9]++\\.([0-9]++)?+" + EXP + "?+"))
+        .withChannel(regexp(CTokenType.NUMERIC_LITERAL, "\\.[0-9]++" + EXP + "?+"))
+        .withChannel(regexp(CTokenType.NUMERIC_LITERAL, "[0-9]++" + EXP + "?+"))
 
-      .withChannel(new IdentifierAndKeywordChannel("\\p{javaJavaIdentifierStart}++\\p{javaJavaIdentifierPart}*+", true, CTokenType.values()))
-      .withChannel(new PunctuatorChannel(CTokenType.values()))
+        .withChannel(new IdentifierAndKeywordChannel("\\p{javaJavaIdentifierStart}++\\p{javaJavaIdentifierPart}*+",
+            true, CTokenType.values()))
+        .withChannel(new PunctuatorChannel(CTokenType.values()))
 
-      .withChannel(new UnknownCharacterChannel())
+        .withChannel(new UnknownCharacterChannel())
 
-      .build();
+        .build();
   }
 
   private static class BomCharacterChannel extends Channel<Lexer> {

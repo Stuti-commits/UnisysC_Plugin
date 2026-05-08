@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.sonar.c.api.CKeyword;
+import org.sonar.c.CKeyword;
 import org.sonar.c.parser.CParser;
 import org.sonar.colorizer.CDocTokenizer;
 import org.sonar.colorizer.CppDocTokenizer;
@@ -46,11 +46,11 @@ public final class CToolkit {
   // Visible for testing
   static List<Tokenizer> getTokenizers() {
     return Collections.unmodifiableList(Arrays.asList(
-      new StringTokenizer("<span class=\"s\">", SPAN_END_TAG),
-      new CDocTokenizer("<span class=\"cd\">", SPAN_END_TAG),
-      new JavadocTokenizer("<span class=\"cppd\">", SPAN_END_TAG),
-      new CppDocTokenizer("<span class=\"cppd\">", SPAN_END_TAG),
-      new KeywordsTokenizer("<span class=\"k\">", SPAN_END_TAG, CKeyword.keywordValues())));
+        new StringTokenizer("<span class=\"s\">", SPAN_END_TAG),
+        new CDocTokenizer("<span class=\"cd\">", SPAN_END_TAG),
+        new JavadocTokenizer("<span class=\"cppd\">", SPAN_END_TAG),
+        new CppDocTokenizer("<span class=\"cppd\">", SPAN_END_TAG),
+        new KeywordsTokenizer("<span class=\"k\">", SPAN_END_TAG, CKeyword.keywordValues())));
   }
 
 }

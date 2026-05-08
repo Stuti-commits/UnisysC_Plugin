@@ -50,7 +50,6 @@ public final class CheckList {
         LocalVarAndParameterNameCheck.class,
         EmptyNestedBlockCheck.class,
         FunctionNameCheck.class,
-        LocalVarShadowsFieldCheck.class,
         UnusedLocalVariableCheck.class,
         TooManyLinesInFunctionCheck.class,
         NestedSwitchCheck.class,
