@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.sonar.c.CCheck;
 import org.sonar.c.CGrammar;
+import org.sonar.c.CKeyword;
 import org.sonar.check.Rule;
 
 @Rule(key = "S1005")
@@ -32,15 +33,17 @@ public class FunctionSinglePointOfExitCheck extends CCheck {
 
   @Override
   public List<AstNodeType> subscribedTo() {
-    return Arrays.asList(CGrammar.FUNCTION_DEF, CGrammar.RETURN_STATEMENT);
+    return Arrays.asList(CGrammar.FUNCTION_DEF, CGrammar.JUMP_STATEMENT);
   }
 
   @Override
   public void visitNode(AstNode node) {
     if (node.is(CGrammar.FUNCTION_DEF)) {
       returnStatements = 0;
-    } else if (node.is(CGrammar.RETURN_STATEMENT)) {
-      returnStatements++;
+    } else if (node.is(CGrammar.JUMP_STATEMENT)) {
+      if (node.getFirstChild().is(CKeyword.RETURN)) {
+        returnStatements++;
+      }
     }
   }
 
@@ -52,15 +55,19 @@ public class FunctionSinglePointOfExitCheck extends CCheck {
   }
 
   private static boolean hasReturnAtEnd(AstNode functionDefinitionNode) {
-    AstNode lastDirectiveNode = functionDefinitionNode
-      .getFirstChild(CGrammar.FUNCTION_COMMON)
-      .getFirstChild(CGrammar.BLOCK)
-      .getFirstChild(CGrammar.DIRECTIVES)
-      .getLastChild();
-    if (lastDirectiveNode != null) {
-      AstNode statementNode = lastDirectiveNode.getFirstChild(CGrammar.STATEMENT);
-      if (statementNode != null && statementNode.getFirstChild().is(CGrammar.RETURN_STATEMENT)) {
-        return true;
+    AstNode functionBody = functionDefinitionNode.getFirstChild(CGrammar.FUNCTION_BODY);
+    if (functionBody != null) {
+      AstNode compoundStatement = functionBody.getFirstChild(CGrammar.COMPOUND_STATEMENT);
+      if (compoundStatement != null) {
+        AstNode statementList = compoundStatement.getFirstChild(CGrammar.STATEMENT_LIST);
+        if (statementList != null) {
+          AstNode lastStatement = statementList.getLastChild();
+          if (lastStatement != null && lastStatement.getFirstChild().is(CGrammar.JUMP_STATEMENT)) {
+            if (lastStatement.getFirstChild().getFirstChild().is(CKeyword.RETURN)) {
+              return true;
+            }
+          }
+        }
       }
     }
     return false;
