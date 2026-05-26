@@ -24,18 +24,18 @@
 </ul>
 
 <h3>Noncompliant Code Example</h3>
-
+<p>The below code is noncompliant because incrementation is happening inside the loop as well as in the update expression.</p>
 <pre>
 for (int i = 0; i &lt; 10; i++) {
     i++; // Noncompliant
 }
 </pre>
-
+<p>The below code is noncompliant because the loop condition is modifying the loop variable.</p>
 <pre>
 for (int i = 0; i++ &lt; 10; i++) { // Noncompliant
 }
 </pre>
-
+<p>The below code is noncompliant because the loop control variable is being updated in the loop body, which can lead to confusion and maintenance issues.</p>
 <pre>
 for (int i = 0, j = 0; i &lt; 10; i += j) { // Noncompliant
     j = i + 1;
