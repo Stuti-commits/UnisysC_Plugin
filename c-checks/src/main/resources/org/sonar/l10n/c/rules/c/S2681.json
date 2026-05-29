@@ -1,0 +1,24 @@
+{
+  "title": "Multiline blocks should be enclosed in curly braces",
+  "type": "CODE_SMELL",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "MEDIUM"
+    },
+    "attribute": "FORMATTED"
+  },
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "cwe",
+    "cert"
+  ],
+  "defaultSeverity": "MAJOR",
+  "ruleSpecification": "RSPEC-2681",
+  "sqKey": "S2681",
+  "scope": "MAIN",
+  "quickfix": "infeasible"
+}

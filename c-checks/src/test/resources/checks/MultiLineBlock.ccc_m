@@ -1,0 +1,30 @@
+void test(void) {
+  int condition = 1;
+  int i = 0;
+  int value = 0;
+
+  if (condition) // Noncompliant
+    value = 1;
+    value = 2;
+
+  if (condition) value = 3; value = 4; // Noncompliant
+
+  if (condition) // Noncompliant
+    value = 5;
+    value = 6;
+
+  if (condition); value = 7; // Noncompliant
+
+  for (i = 0; i < 3; i++) // Noncompliant
+    value = i;
+    value = value + 1;
+
+  while (condition) // Noncompliant
+    value = 8;
+    value = 9;
+
+  if (condition) {
+    value = 10;
+    value = 11;
+  }
+}

@@ -118,6 +118,7 @@ public final class CheckList {
         NoBitwiseInBooleanContextCheck.class,
         TypeAndVarSeparateDeclarationCheck.class,
         LineSplicingCheck.class,
-        ShadowVariablesCheck.class));
+        ShadowVariablesCheck.class,
+        MultiLineBlockCheck.class));
   }
 }

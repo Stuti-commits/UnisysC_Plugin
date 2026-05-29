@@ -1,0 +1,30 @@
+<h2>Why is this an issue?</h2>
+<p>Having inconsistent indentation and omitting curly braces from a control structure, such as an <code>if</code> statement or <code>for</code> loop, is misleading and can introduce bugs.</p>
+<p>This rule raises an issue when the indentation of the lines after a control structure indicates an intent to include those lines in the block, but the omission of curly braces means the lines will be unconditionally executed once.</p>
+
+<h3>Noncompliant code examples</h3>
+<pre>
+if (condition)
+  firstActionInBlock();
+  secondAction();  // Noncompliant: secondAction is executed unconditionally
+</pre>
+<pre>
+if (condition) firstActionInBlock(); secondAction();  // Noncompliant: secondAction is executed unconditionally
+</pre>
+<pre>
+if (condition) firstActionInBlock();
+  secondAction();  // Noncompliant: secondAction is executed unconditionally
+</pre>
+<pre>
+if (condition); secondAction();  // Noncompliant: secondAction is executed unconditionally
+</pre>
+<pre>
+for (int i = 0; i &lt; array.length; i++)
+  str = array[i];
+  doTheThing(str);  // Noncompliant: executed only on the last element
+</pre>
+
+<h2>Resources</h2>
+<ul>
+  <li>CWE - <a href="https://cwe.mitre.org/data/definitions/483">CWE-483 - Incorrect Block Delimitation</a></li>
+</ul>
