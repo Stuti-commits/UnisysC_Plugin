@@ -69,7 +69,11 @@ public class ForLoopExpressionCheck extends CCheck {
             if (child.is(CPunctuator.RPARENTHESIS)) {
                 continue;
             }
-            if (child.is(CGrammar.EXPRESSION)) {
+            if (child.is(CGrammar.FOR_INITIALISER)
+                || child.is(CGrammar.LIST_EXPRESSION)
+                || child.is(CGrammar.LIST_EXPRESSION_NO_IN)
+                || child.is(CGrammar.VARIABLE_DEF_NO_IN)
+                || child.is(CGrammar.EXPRESSION)) {
                 if (semicolonCount == 0) {
                     initExpr = child;
                 } else if (semicolonCount == 1) {
@@ -78,7 +82,7 @@ public class ForLoopExpressionCheck extends CCheck {
                     updateExpr = child;
                 }
             }
-            if (child.is(CGrammar.STATEMENT)) {
+            if (child.is(CGrammar.SUB_STATEMENT) || child.is(CGrammar.STATEMENT) || child.is(CGrammar.COMPOUND_STATEMENT)) {
                 bodyStmt = child;
             }
         }
@@ -128,7 +132,7 @@ public class ForLoopExpressionCheck extends CCheck {
     }
 
     private boolean hasCommaOperator(AstNode expression) {
-        return expression.hasDirectChildren(CPunctuator.COMMA);
+        return expression.hasDescendant(CPunctuator.COMMA);
     }
 
     private String extractCounterName(AstNode expression) {
