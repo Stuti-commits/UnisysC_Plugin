@@ -23,8 +23,16 @@ void test(void) {
     value = 8;
     value = 9;
 
-  if (condition) {
+  if (condition) {  // OK
     value = 10;
-    value = 11;
+    value = 11;  
+  }
+  for (i = 0; i < 3; i++) { // OK
+    value = i;
+    value = value + 1;
+  }
+  while (condition) { // OK
+    value = 8;
+    value = 9;
   }
 }
