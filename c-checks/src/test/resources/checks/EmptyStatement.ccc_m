@@ -1,8 +1,11 @@
 void doSomething() {
-  ;                                           /* Noncompliant {{Remove this empty statement.}} */
+  ; // Noncompliant
 }
 
 void doSomethingElse() {
-  printf("Hello, world!");;                   /* Noncompliant */
-  for (int i = 0; i < 3; i++);               /* Noncompliant */
+  int i;
+  printf("Hello, world!");; // Noncompliant
+  for (i = 0; i < 3; i++); // Noncompliant
 }
+
+void doSomething(){}  // OK

@@ -18,7 +18,7 @@ package org.sonar.c.checks;
 
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.AstNodeType;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 import org.sonar.c.CCheck;
@@ -30,11 +30,13 @@ public class EmptyStatementCheck extends CCheck {
 
   @Override
   public List<AstNodeType> subscribedTo() {
-    return Collections.singletonList(CGrammar.EMPTY_STATEMENT);
+    return Arrays.asList(CGrammar.EMPTY_STATEMENT, CGrammar.EXPRESSION_STATEMENT);
   }
 
   @Override
   public void visitNode(AstNode astNode) {
-    addIssue("Remove this empty statement.", astNode);
+    if (astNode.is(CGrammar.EMPTY_STATEMENT) || !astNode.hasDescendant(CGrammar.EXPRESSION)) {
+      addIssue("Remove this empty statement.", astNode);
+    }
   }
 }
