@@ -1,0 +1,54 @@
+<h2>Why is this an issue?</h2>
+<p>Variable shadowing happens when a variable declared in a specific scope has the same name as a variable in an outer scope.</p>
+<p>This can lead to three main problems:</p>
+<ul>
+  <li>Confusion: the same name can refer to different variables in different parts of the scope, making the code harder to read and understand.</li>
+  <li>Unintended behavior: you might accidentally use the wrong variable, leading to hard-to-detect bugs.</li>
+  <li>Maintenance issues: if the inner variable is removed or renamed, the code's behavior may change unexpectedly because the outer variable is now being used.</li>
+</ul>
+<p>To avoid these problems, rename the shadowing variable, the shadowed variable, or both so that each identifier is unique and meaningful.</p>
+
+<h3>Noncompliant code example</h3>
+<pre>
+void f(int x, bool b) {
+  int y = 4;
+  if (b) {
+    int x = 7; // Noncompliant: the parameter "x" is shadowed.
+    int y = 9; // Noncompliant: the local variable "y" is shadowed.
+  }
+}
+</pre>
+
+<h3>Compliant solution</h3>
+<pre>
+void f(int x, bool b) {
+  int y = 4;
+  if (b) {
+    int innerX = 7;
+    int innerY = 9;
+  }
+}
+</pre>
+
+<h3>Exceptions</h3>
+<p>Variables used in a member initializer list are not reported by this rule because shadowing in that context is a common and intentional pattern.</p>
+
+<h3>Caveats</h3>
+<p>Variables introduced in the condition of an <code>if</code> statement can remain in scope for the optional <code>else</code> branch. This can make shadowing harder to spot, especially in <code>else if</code> chains.</p>
+<p>This rule also reports some cases where an identifier is inaccessible according to the strict language rules, because the resulting code is still confusing and fragile.</p>
+
+<h2>Resources</h2>
+<h3>External coding guidelines</h3>
+<ul>
+  <li>MISRA C:2004, 5.2 - Identifiers in an inner scope shall not use the same name as an identifier in an outer scope, and therefore hide that identifier</li>
+  <li>MISRA C++:2008, 2-10-2 - Identifiers declared in an inner scope shall not hide an identifier declared in an outer scope</li>
+  <li>MISRA C:2012, 5.3 - An identifier declared in an inner scope shall not hide an identifier declared in an outer scope</li>
+</ul>
+<h3>Standards</h3>
+<ul>
+  <li>CERT - <a href="https://wiki.sei.cmu.edu/confluence/display/c/DCL01-C.+Do+not+reuse+variable+names+in+subscopes">DCL01-C. Do not reuse variable names in subscopes</a></li>
+</ul>
+<h3>Related rules</h3>
+<ul>
+  <li>S2387 - Child class fields should not shadow parent class fields</li>
+</ul>

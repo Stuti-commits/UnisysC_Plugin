@@ -9,7 +9,7 @@ void test() {
 
   for (i = 0; i++ < 10; i++) {     //Noncompliant
   }
-
+  int j;
   for (i = 0, j = 0; i < 10; i += j) {     //Noncompliant
     j = i + 1;
   }

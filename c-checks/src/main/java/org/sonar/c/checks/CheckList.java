@@ -117,6 +117,7 @@ public final class CheckList {
         UnusedFunctionCheck.class,
         NoBitwiseInBooleanContextCheck.class,
         TypeAndVarSeparateDeclarationCheck.class,
-        LineSplicingCheck.class));
+        LineSplicingCheck.class,
+        ShadowVariablesCheck.class));
   }
 }

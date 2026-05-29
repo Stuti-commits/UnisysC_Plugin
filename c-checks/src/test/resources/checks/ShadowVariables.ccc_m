@@ -1,0 +1,18 @@
+int globalValue;
+
+void shadow(int parameter) {
+  int localValue;
+
+  {
+    int globalValue; // Noncompliant
+    int parameter;   // Noncompliant
+    int localValue;  // Noncompliant
+  }
+}
+
+void noShadow(int value) {
+  int otherValue;        // OK
+  {
+    int differentValue;  // OK
+  }
+}
