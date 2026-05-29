@@ -18,14 +18,13 @@ package org.sonar.c.checks;
 
 import java.io.File;
 import org.junit.jupiter.api.Test;
-import org.sonar.c.checks.LocalVarAndParameterNameCheck;
 
 public class LocalVarAndParameterNameCheckTest {
 
   private LocalVarAndParameterNameCheck check = new LocalVarAndParameterNameCheck();
 
   @Test
-  public void defaults(){
+  public void defaults() {
     CVerifier.verify(new File("src/test/resources/checks/LocalVarAndParameterName.ccc_m"), check);
   }
 }

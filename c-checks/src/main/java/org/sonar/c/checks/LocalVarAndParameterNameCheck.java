@@ -27,7 +27,6 @@ import javax.annotation.Nullable;
 import org.sonar.c.CCheck;
 import org.sonar.c.CGrammar;
 import org.sonar.c.checks.utils.Function;
-import org.sonar.c.checks.utils.Variable;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 
@@ -62,31 +61,47 @@ public class LocalVarAndParameterNameCheck extends CCheck {
   public void visitNode(AstNode astNode) {
     checkFunctionParametersName(astNode);
 
-    if (astNode.getFirstChild(CGrammar.FUNCTION_COMMON).getFirstChild(CGrammar.BLOCK) != null) {
-      checkLocalVariableName(astNode.getFirstChild(CGrammar.FUNCTION_COMMON)
-        .getFirstChild(CGrammar.BLOCK)
-        .getFirstChild(CGrammar.DIRECTIVES)
-        .getChildren(CGrammar.DIRECTIVE));
-    }
-  }
-
-  private void checkLocalVariableName(List<AstNode> functionDirectives) {
-    for (AstNode directive : functionDirectives) {
-
-      if (Variable.isVariable(directive)) {
-        AstNode variableDeclStatement = directive
-          .getFirstChild(CGrammar.ANNOTABLE_DIRECTIVE)
-          .getFirstChild(CGrammar.VARIABLE_DECLARATION_STATEMENT);
-
-        checkVariableDeclStatement(variableDeclStatement);
+    AstNode functionBody = astNode.getFirstChild(CGrammar.FUNCTION_BODY);
+    if (functionBody != null) {
+      AstNode compoundStatement = functionBody.getFirstChild(CGrammar.COMPOUND_STATEMENT);
+      if (compoundStatement != null) {
+        AstNode declarationList = compoundStatement.getFirstChild(CGrammar.DECLARATION_LIST);
+        if (declarationList != null) {
+          checkLocalVariableName(declarationList.getChildren(CGrammar.DECLARATION));
+        }
       }
     }
   }
 
-  private void checkVariableDeclStatement(AstNode variableDeclStatement) {
-    for (AstNode identifier : Variable.getDeclaredIdentifiers(variableDeclStatement)) {
-      String varName = identifier.getTokenValue();
+  private void checkLocalVariableName(List<AstNode> declarations) {
+    for (AstNode declaration : declarations) {
+      checkDeclaration(declaration);
+    }
+  }
 
+  private void checkDeclaration(AstNode declaration) {
+    AstNode initDeclaratorList = declaration.getFirstChild(CGrammar.INIT_DECLARATOR_LIST);
+    if (initDeclaratorList == null) {
+      return;
+    }
+
+    for (AstNode initDeclarator : initDeclaratorList.getChildren(CGrammar.INIT_DECLARATOR)) {
+      AstNode declarator = initDeclarator.getFirstChild(CGrammar.DECLARATOR);
+      if (declarator == null) {
+        continue;
+      }
+
+      AstNode directDeclarator = declarator.getFirstChild(CGrammar.DIRECT_DECLARATOR);
+      if (directDeclarator == null) {
+        continue;
+      }
+
+      AstNode identifier = directDeclarator.getFirstChild(CGrammar.IDENTIFIER);
+      if (identifier == null) {
+        continue;
+      }
+
+      String varName = identifier.getTokenValue();
       if (!pattern.matcher(varName).matches()) {
         addIssue(MessageFormat.format(MESSAGE, varName, format), identifier);
       }

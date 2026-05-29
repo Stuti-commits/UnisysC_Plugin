@@ -1,0 +1,14 @@
+void doSomething(int PARAM)  // Noncompliant
+{
+  int LOCAL;                 // Noncompliant
+}
+
+void doSomething(int param)  // OK
+{
+  int local;                 // OK
+  doSomething(local);
+}
+
+void doSomething(int param)  // OK
+{
+}
