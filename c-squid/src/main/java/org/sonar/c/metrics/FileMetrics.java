@@ -35,7 +35,6 @@ public class FileMetrics {
     AstNode rootTree = context.rootTree();
     Objects.requireNonNull(rootTree, "Cannot compute metrics without a root tree");
     List<AstNode> statements = rootTree.getDescendants(
-        CGrammar.VARIABLE_DECLARATION_STATEMENT,
         CGrammar.EXPRESSION_STATEMENT,
         CGrammar.CONTROL_STATEMENT,
         CGrammar.ITERATION_STATEMENT,

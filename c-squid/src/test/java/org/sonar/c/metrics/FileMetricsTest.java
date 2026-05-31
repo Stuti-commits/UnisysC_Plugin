@@ -18,7 +18,6 @@ package org.sonar.c.metrics;
 
 import java.io.File;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.sonar.c.TestVisitorContext;
 import static org.fest.assertions.Assertions.assertThat;

@@ -17,7 +17,6 @@
 package org.sonar.c.checks.utils;
 
 import org.junit.jupiter.api.Test;
-import org.sonar.c.checks.utils.Preconditions;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;

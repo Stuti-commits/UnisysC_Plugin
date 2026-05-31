@@ -16,7 +16,6 @@
  */
 package org.sonar.c.grammar.directives;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.sonar.c.CGrammar;

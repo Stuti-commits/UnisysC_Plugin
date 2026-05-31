@@ -36,7 +36,6 @@ import static org.sonar.c.CKeyword.GOTO;
 import static org.sonar.c.CKeyword.IF;
 import static org.sonar.c.CKeyword.INCLUDE;
 import static org.sonar.c.CKeyword.INLINE;
-import static org.sonar.c.CKeyword.IS;
 import static org.sonar.c.CKeyword.REGISTER;
 import static org.sonar.c.CKeyword.RETURN;
 import static org.sonar.c.CKeyword.STATIC;
@@ -600,8 +599,7 @@ public enum CGrammar implements GrammarRuleKey {
                                 b.sequence(LE, SHIFT_EXPRESSION),
                                 b.sequence(GE, SHIFT_EXPRESSION)))).skipIfOneChild();
 
-                b.rule(RELATIONAL_OPERATOR).is(b.firstOf(LE, GE, LT, GT, IS,
-                                /* Action Script 2: */ word(b, "le"), word(b, "ge"), word(b, "lt"), word(b, "gt")));
+                b.rule(RELATIONAL_OPERATOR).is(b.firstOf(LE, GE, LT, GT));
 
                 b.rule(EQUALITY_EXPRESSION).is(RELATIONAL_EXPRESSION, b.zeroOrMore(b.firstOf(
                                 b.sequence(EQUAL2, RELATIONAL_EXPRESSION),

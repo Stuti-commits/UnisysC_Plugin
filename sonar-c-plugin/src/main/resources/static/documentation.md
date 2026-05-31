@@ -1,5 +1,5 @@
 ---
-title: C
+title: Unisys C
 key: c
 ---
 
@@ -8,7 +8,7 @@ key: c
 <!-- /static -->
 
 ## Language-Specific Properties
-Discover and update the C-specific [properties](/analysis/analysis-parameters/) in: <!-- sonarcloud -->Project <!-- /sonarcloud -->[**Administration > General Settings > Unisys C**](/#sonarqube-admin#/admin/settings?category=c)
+Discover and update the Unisys C-specific [properties](/analysis/analysis-parameters/) in: <!-- sonarcloud -->Project <!-- /sonarcloud -->[**Administration > General Settings > Unisys C**](/#sonarqube-admin#/admin/settings?category=c)
 
 ## Related Pages
 
