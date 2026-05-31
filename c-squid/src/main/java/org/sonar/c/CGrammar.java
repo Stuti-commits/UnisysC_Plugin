@@ -205,11 +205,9 @@ public enum CGrammar implements GrammarRuleKey {
         CONDITIONAL_EXPR,
         POSTFIX_EXPRESSION,
         // Identifiers
-        QUALIFIED_IDENTIFIER,
         IDENTIFIER,
         IDENTIFIER_PART,
         // Call expression
-        ARGUMENTS,
         ARGUMENT_EXPRESSION_LIST,
         // Unary expression
         UNARY_EXPR,
@@ -232,11 +230,7 @@ public enum CGrammar implements GrammarRuleKey {
         LOGICAL_OR_OPERATOR,
         // Assignment expression
         ASSIGNMENT_EXPRESSION,
-        ASSIGNMENT_EXPR_NO_IN,
         ASSIGNMENT_OPERATOR,
-        // List expression
-        LIST_EXPRESSION,
-        LIST_EXPRESSION_NO_IN,
         // XML Initialiser
         KEYWORDS,
         REGULAR_EXPRESSION,
@@ -267,9 +261,6 @@ public enum CGrammar implements GrammarRuleKey {
         PARAMETERS,
         PARAMETER,
         REST_PARAMETERS,
-        // Class
-        CLASS_NAME,
-        CLASS_IDENTIFIERS,
         // Program
         PROGRAM,
         // </editor-fold>
@@ -390,9 +381,7 @@ public enum CGrammar implements GrammarRuleKey {
         private static void literals(LexerlessGrammarBuilder b) {
                 b.rule(STRING).is(SPACING, b.regexp(STRING_REGEXP));
 
-                b.rule(STRING_CONSTANT).is(SPACING, b.firstOf(
-                                b.sequence("L\"", S_CHAR_SEQUENCE, "\""),
-                                b.sequence("\"", S_CHAR_SEQUENCE, "\"")));
+                b.rule(STRING_CONSTANT).is(SPACING, b.sequence("\"", S_CHAR_SEQUENCE, "\""));
 
                 b.rule(S_CHAR_SEQUENCE).is(b.zeroOrMore(S_CHAR));
 
@@ -417,10 +406,7 @@ public enum CGrammar implements GrammarRuleKey {
 
                 b.rule(C_CHAR_SEQUENCE).is(b.oneOrMore(C_CHAR));
 
-                b.rule(CHARACTER_CONSTANT).is(SPACING, b.firstOf(
-                                b.sequence("L'", C_CHAR_SEQUENCE, "'"), // wide char: L'x'
-                                b.sequence("'", C_CHAR_SEQUENCE, "'") // normal char: 'x'
-                ));
+                b.rule(CHARACTER_CONSTANT).is(SPACING, b.sequence("'", C_CHAR_SEQUENCE, "'")); // normal char: 'x');
 
                 b.rule(DIGIT).is(b.regexp("[0-9]"));
 
@@ -495,9 +481,6 @@ public enum CGrammar implements GrammarRuleKey {
                 b.rule(EXPRESSION).is(ASSIGNMENT_EXPRESSION, b.zeroOrMore(COMMA, ASSIGNMENT_EXPRESSION));
                 b.rule(ASSIGNMENT_EXPRESSION).is(b.firstOf(
                                 b.sequence(UNARY_EXPR, ASSIGNMENT_OPERATOR, ASSIGNMENT_EXPRESSION), CONDITIONAL_EXPR));
-                b.rule(ASSIGNMENT_EXPR_NO_IN).is(b.firstOf(
-                                b.sequence(POSTFIX_EXPRESSION, ASSIGNMENT_OPERATOR, ASSIGNMENT_EXPR_NO_IN),
-                                CONDITIONAL_EXPR));
                 b.rule(ASSIGNMENT_OPERATOR).is(b.firstOf(
                                 EQUAL1,
                                 STAR_EQU,
@@ -519,9 +502,6 @@ public enum CGrammar implements GrammarRuleKey {
                                                 b.sequence(DOT, IDENTIFIER),
                                                 b.sequence(ARROW, IDENTIFIER), DOUBLE_PLUS, DOUBLE_MINUS)))
                                 .skipIfOneChild();
-
-                // Call expresions
-                b.rule(ARGUMENTS).is(LPARENTHESIS, b.optional(LIST_EXPRESSION), RPARENTHESIS);
 
                 b.rule(ARGUMENT_EXPRESSION_LIST).is(
                                 b.sequence(ASSIGNMENT_EXPRESSION,
@@ -585,7 +565,7 @@ public enum CGrammar implements GrammarRuleKey {
                                 b.sequence(PLUS, MULTIPLICATIVE_EXPRESSION),
                                 b.sequence(MINUS, MULTIPLICATIVE_EXPRESSION)))).skipIfOneChild();
 
-                b.rule(ADDITIVE_OPERATOR).is(b.firstOf(PLUS, MINUS, /* Action Script 2: */ word(b, "add")));
+                b.rule(ADDITIVE_OPERATOR).is(b.firstOf(PLUS, MINUS));
                 b.rule(SHIFT_EXPRESSION).is(ADDITIVE_EXPRESSION, b.zeroOrMore(b.firstOf(
                                 b.sequence(SL, ADDITIVE_EXPRESSION),
                                 b.sequence(SR, ADDITIVE_EXPRESSION)))).skipIfOneChild();
@@ -614,36 +594,25 @@ public enum CGrammar implements GrammarRuleKey {
                                 .skipIfOneChild();
                 b.rule(INCLUSIVE_OR_EXPRESSION).is(EXCLUSIVE_OR_EXPRESSION, b.zeroOrMore(OR, EXCLUSIVE_OR_EXPRESSION));
 
-                b.rule(BITEWISE_OR_EXPR).is(EXCLUSIVE_OR_EXPRESSION, b.zeroOrMore(OR, EXCLUSIVE_OR_EXPRESSION))
-                                .skipIfOneChild();
+         /*       b.rule(BITEWISE_OR_EXPR).is(EXCLUSIVE_OR_EXPRESSION, b.zeroOrMore(OR, EXCLUSIVE_OR_EXPRESSION))
+                                .skipIfOneChild();*/
 
                 b.rule(LOGICAL_AND_EXPRESSION)
                                 .is(INCLUSIVE_OR_EXPRESSION, b.zeroOrMore(b.sequence(ANDAND, INCLUSIVE_OR_EXPRESSION)))
                                 .skipIfOneChild();
 
-                b.rule(LOGICAL_AND_OPERATOR).is(b.firstOf(
-                                ANDAND,
-                                /* ActionScript 2: */
-                                b.sequence(SPACING, "and", b.nextNot(IDENTIFIER_PART))));
+                b.rule(LOGICAL_AND_OPERATOR).is(ANDAND);
 
                 b.rule(LOGICAL_OR_EXPRESSION)
                                 .is(LOGICAL_AND_EXPRESSION, b.zeroOrMore(b.sequence(OROR, LOGICAL_AND_EXPRESSION)))
                                 .skipIfOneChild();
 
-                b.rule(LOGICAL_OR_OPERATOR).is(b.firstOf(
-                                OROR,
-                                /* ActionScript 2: */
-                                b.sequence(SPACING, "or", b.nextNot(IDENTIFIER_PART))));
+                b.rule(LOGICAL_OR_OPERATOR).is(OROR);
 
                 // Conditional expression
                 b.rule(CONDITIONAL_EXPR)
                                 .is(LOGICAL_OR_EXPRESSION, b.optional(QUERY, EXPRESSION, COLON, CONDITIONAL_EXPR))
                                 .skipIfOneChild();
-
-                b.rule(LIST_EXPRESSION).is(ASSIGNMENT_EXPRESSION,
-                                b.zeroOrMore(b.sequence(COMMA, ASSIGNMENT_EXPRESSION)));
-                b.rule(LIST_EXPRESSION_NO_IN).is(ASSIGNMENT_EXPR_NO_IN,
-                                b.zeroOrMore(b.sequence(COMMA, ASSIGNMENT_EXPR_NO_IN)));
 
                 b.rule(STDIO_FUNCTION_NAME).is(SPACING, b.firstOf(
                                 b.sequence("fopen", b.nextNot(IDENTIFIER_PART)),
@@ -782,15 +751,15 @@ public enum CGrammar implements GrammarRuleKey {
                 // the following if, switch, do, while and for statements are replaced by
                 // control and iteration statements
                 b.rule(CASE_ELEMENT).is(b.oneOrMore(CASE_LABEL), b.zeroOrMore(DIRECTIVE));
-                b.rule(CASE_LABEL).is(b.firstOf(DEFAULT, b.sequence(CASE, LIST_EXPRESSION)), COLON);
+                b.rule(CASE_LABEL).is(b.firstOf(DEFAULT, b.sequence(CASE, EXPRESSION)), COLON);
 
                 b.rule(FOR_STATEMENT).is(FOR, LPARENTHESIS, b.optional(FOR_INITIALISER), SEMICOLON,
-                                b.optional(LIST_EXPRESSION), SEMICOLON, b.optional(LIST_EXPRESSION), RPARENTHESIS,
+                                b.optional(EXPRESSION), SEMICOLON, b.optional(EXPRESSION), RPARENTHESIS,
                                 SUB_STATEMENT);
-                b.rule(FOR_INITIALISER).is(b.firstOf(LIST_EXPRESSION, VARIABLE_DEF_NO_IN));
+                b.rule(FOR_INITIALISER).is(EXPRESSION /*, VARIABLE_DEF_NO_IN*/);
 
                 b.rule(RETURN_STATEMENT).is(RETURN, b.firstOf(
-                                b.sequence(/* No line break */ SPACING_NO_LB, NEXT_NOT_LB, LIST_EXPRESSION, EOS),
+                                b.sequence(/* No line break */ SPACING_NO_LB, NEXT_NOT_LB, EXPRESSION, EOS),
                                 EOS_NO_LB));
 
         }
@@ -937,13 +906,10 @@ public enum CGrammar implements GrammarRuleKey {
                 b.rule(PARAMETERS).is(b.firstOf(b.sequence(PARAMETER, b.zeroOrMore(COMMA, PARAMETER),
                                 b.optional(COMMA, REST_PARAMETERS)), REST_PARAMETERS));
 
-                b.rule(PARAMETER).is(b.firstOf(b.sequence(TYPED_IDENTIFIER, EQUAL1, ASSIGNMENT_EXPRESSION),
-                                TYPED_IDENTIFIER));
+                b.rule(PARAMETER).is(b.firstOf(b.sequence(IDENTIFIER, EQUAL1, ASSIGNMENT_EXPRESSION),
+                                IDENTIFIER));
 
                 b.rule(REST_PARAMETERS).is(b.firstOf(b.sequence(TRIPLE_DOTS, TYPED_IDENTIFIER), TRIPLE_DOTS));
-
-                b.rule(CLASS_NAME).is(CLASS_IDENTIFIERS);
-                b.rule(CLASS_IDENTIFIERS).is(IDENTIFIER, b.zeroOrMore(b.sequence(DOT, IDENTIFIER)));
 
                 b.rule(PROGRAM).is(
                                 b.zeroOrMore(INCLUDE_DIRECTIVE),

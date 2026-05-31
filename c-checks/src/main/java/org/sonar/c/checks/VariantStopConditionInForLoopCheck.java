@@ -97,7 +97,7 @@ public class VariantStopConditionInForLoopCheck extends CCheck {
 
     if (semicolonNode != null) {
       AstNode stopConditionExpr = semicolonNode.getNextAstNode();
-      return stopConditionExpr.is(CGrammar.LIST_EXPRESSION) ? stopConditionExpr : null;
+      return stopConditionExpr.is(CGrammar.EXPRESSION) ? stopConditionExpr : null;
     }
     return null;
   }
@@ -144,7 +144,7 @@ public class VariantStopConditionInForLoopCheck extends CCheck {
   }
 
   private static void getCountersFromListExpression(Set<String> counters, AstNode initialiserExpr) {
-    for (AstNode assignmentExpr : initialiserExpr.getChildren(CGrammar.ASSIGNMENT_EXPR_NO_IN)) {
+    for (AstNode assignmentExpr : initialiserExpr.getChildren(CGrammar.ASSIGNMENT_EXPRESSION)) {
       AstNode exprFirstChild = assignmentExpr.getFirstChild();
 
       if (assignmentExpr.hasDirectChildren(CGrammar.ASSIGNMENT_OPERATOR)) {

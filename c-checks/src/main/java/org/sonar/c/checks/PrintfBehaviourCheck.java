@@ -282,9 +282,9 @@ public class PrintfBehaviourCheck extends CCheck {
             return toExpressionTexts(argumentExpressionList.getChildren(CGrammar.ASSIGNMENT_EXPRESSION));
         }
 
-        AstNode arguments = findFirstDescendant(callNode, CGrammar.ARGUMENTS);
+        AstNode arguments = findFirstDescendant(callNode, CGrammar.ARGUMENT_EXPRESSION_LIST );
         if (arguments != null) {
-            AstNode listExpression = arguments.getFirstChild(CGrammar.LIST_EXPRESSION);
+            AstNode listExpression = arguments.getFirstChild(CGrammar.EXPRESSION);
             if (listExpression != null) {
                 return toExpressionTexts(listExpression.getChildren(CGrammar.ASSIGNMENT_EXPRESSION));
             }

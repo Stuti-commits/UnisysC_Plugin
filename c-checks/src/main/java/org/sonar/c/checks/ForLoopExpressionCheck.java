@@ -70,8 +70,7 @@ public class ForLoopExpressionCheck extends CCheck {
                 continue;
             }
             if (child.is(CGrammar.FOR_INITIALISER)
-                || child.is(CGrammar.LIST_EXPRESSION)
-                || child.is(CGrammar.LIST_EXPRESSION_NO_IN)
+                || child.is(CGrammar.EXPRESSION)
                 || child.is(CGrammar.VARIABLE_DEF_NO_IN)
                 || child.is(CGrammar.EXPRESSION)) {
                 if (semicolonCount == 0) {
