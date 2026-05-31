@@ -31,7 +31,7 @@ public final class Variable {
     Preconditions.checkState(varDeclStatement.is(CGrammar.VARIABLE_DECLARATION_STATEMENT));
     return varDeclStatement
         .getFirstChild(CGrammar.VARIABLE_DEF)
-        .getFirstChild(CGrammar.VARIABLE_BINDING_LIST)
+        .getFirstChild(CGrammar.IDENTIFIER_LIST)
         .getFirstChild(CGrammar.VARIABLE_BINDING)
         .getFirstChild(CGrammar.IDENTIFIER).getTokenValue();
   }
@@ -74,10 +74,10 @@ public final class Variable {
     if (varDeclStatement.is(CGrammar.VARIABLE_DECLARATION_STATEMENT)) {
       AstNode varBindingList = varDeclStatement
           .getFirstChild(CGrammar.VARIABLE_DEF)
-          .getFirstChild(CGrammar.VARIABLE_BINDING_LIST);
+          .getFirstChild(CGrammar.IDENTIFIER_LIST);
 
       for (AstNode varBinding : varBindingList.getChildren(CGrammar.VARIABLE_BINDING)) {
-        identifiers.add(varBinding.getFirstChild(CGrammar.TYPED_IDENTIFIER).getFirstChild(CGrammar.IDENTIFIER));
+        identifiers.add(varBinding.getFirstChild(CGrammar.IDENTIFIER));
       }
     }
     return identifiers;

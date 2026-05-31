@@ -247,12 +247,7 @@ public enum CGrammar implements GrammarRuleKey {
         VARIABLE_DEF,
         VARIABLE_DEF_NO_IN,
         VARIABLE_DEF_KIND,
-        VARIABLE_BINDING_LIST,
-        VARIABLE_BINDING_LIST_NO_IN,
         VARIABLE_BINDING,
-        VARIABLE_BINDING_NO_IN,
-        TYPED_IDENTIFIER,
-        TYPED_IDENTIFIER_NO_IN,
         // Function
         FUNCTION_DEF,
         FUNCTION_NAME,
@@ -825,20 +820,12 @@ public enum CGrammar implements GrammarRuleKey {
                 b.rule(IDENTIFIER_LIST).is(IDENTIFIER, b.zeroOrMore(b.sequence(COMMA, IDENTIFIER)));
 
                 // existing in flex -
-                b.rule(VARIABLE_DEF).is(TYPE_SPECIFIER, VARIABLE_BINDING_LIST, EOS);
-                b.rule(VARIABLE_DEF_NO_IN).is(VARIABLE_DEF_KIND, VARIABLE_BINDING_LIST_NO_IN);
+                b.rule(VARIABLE_DEF).is(TYPE_SPECIFIER, IDENTIFIER_LIST, EOS);
+                b.rule(VARIABLE_DEF_NO_IN).is(VARIABLE_DEF_KIND, IDENTIFIER_LIST);
 
                 b.rule(VARIABLE_DEF_KIND).is(CONST);
 
-                b.rule(VARIABLE_BINDING_LIST).is(VARIABLE_BINDING, b.zeroOrMore(COMMA, VARIABLE_BINDING));
-                b.rule(VARIABLE_BINDING_LIST_NO_IN).is(VARIABLE_BINDING_NO_IN,
-                                b.zeroOrMore(COMMA, VARIABLE_BINDING_NO_IN));
-
-                b.rule(VARIABLE_BINDING).is(TYPED_IDENTIFIER);
-                b.rule(VARIABLE_BINDING_NO_IN).is(TYPED_IDENTIFIER_NO_IN);
-
-                b.rule(TYPED_IDENTIFIER).is(IDENTIFIER);
-                b.rule(TYPED_IDENTIFIER_NO_IN).is(IDENTIFIER);
+                b.rule(VARIABLE_BINDING).is(IDENTIFIER);
 
                 b.rule(EXTERNAL_DEFINITION).is(b.firstOf(FUNCTION_DEF, LINKAGE_SPECIFICATION, DECLARATION));
 
@@ -909,7 +896,7 @@ public enum CGrammar implements GrammarRuleKey {
                 b.rule(PARAMETER).is(b.firstOf(b.sequence(IDENTIFIER, EQUAL1, ASSIGNMENT_EXPRESSION),
                                 IDENTIFIER));
 
-                b.rule(REST_PARAMETERS).is(b.firstOf(b.sequence(TRIPLE_DOTS, TYPED_IDENTIFIER), TRIPLE_DOTS));
+                b.rule(REST_PARAMETERS).is(b.firstOf(b.sequence(TRIPLE_DOTS, IDENTIFIER), TRIPLE_DOTS));
 
                 b.rule(PROGRAM).is(
                                 b.zeroOrMore(INCLUDE_DIRECTIVE),

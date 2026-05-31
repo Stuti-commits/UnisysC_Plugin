@@ -62,9 +62,9 @@ public class ShadowVariablesCheck extends CCheck {
     } else if (node.is(CGrammar.DECLARATION)) {
       declareFromDeclaration(node);
     } else if (node.is(CGrammar.VARIABLE_DEF)) {
-      declareFromVariableDef(node, CGrammar.VARIABLE_BINDING_LIST);
+      declareFromVariableDef(node, CGrammar.IDENTIFIER_LIST);
     } else if (node.is(CGrammar.VARIABLE_DEF_NO_IN)) {
-      declareFromVariableDef(node, CGrammar.VARIABLE_BINDING_LIST_NO_IN);
+      declareFromVariableDef(node, CGrammar.IDENTIFIER_LIST);
     }
 
     for (AstNode child : node.getChildren()) {
@@ -156,15 +156,7 @@ public class ShadowVariablesCheck extends CCheck {
     }
 
     for (AstNode binding : bindingList.getChildren(CGrammar.VARIABLE_BINDING)) {
-      AstNode typedIdentifier = binding.getFirstChild(CGrammar.TYPED_IDENTIFIER);
-      if (typedIdentifier == null) {
-        typedIdentifier = binding.getFirstChild(CGrammar.TYPED_IDENTIFIER_NO_IN);
-      }
-      if (typedIdentifier == null) {
-        continue;
-      }
-
-      AstNode identifier = typedIdentifier.getFirstChild(CGrammar.IDENTIFIER);
+      AstNode identifier = binding.getFirstChild(CGrammar.IDENTIFIER);
       if (identifier != null) {
         declare(identifier);
       }

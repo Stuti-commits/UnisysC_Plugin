@@ -158,8 +158,8 @@ public class VariantStopConditionInForLoopCheck extends CCheck {
   }
 
   private static void getCountersFromVariableDef(Set<String> counters, AstNode initialiserExpr) {
-    for (AstNode variableBinding : initialiserExpr.getFirstChild(CGrammar.VARIABLE_BINDING_LIST_NO_IN).getChildren(CGrammar.VARIABLE_BINDING_NO_IN)) {
-      counters.add(Expression.exprToString(variableBinding.getFirstChild(CGrammar.TYPED_IDENTIFIER_NO_IN).getFirstChild(CGrammar.IDENTIFIER)));
+    for (AstNode variableBinding : initialiserExpr.getFirstChild(CGrammar.IDENTIFIER_LIST).getChildren(CGrammar.IDENTIFIER)) {
+      counters.add(Expression.exprToString(variableBinding.getFirstChild(CGrammar.IDENTIFIER)));
     }
   }
 
