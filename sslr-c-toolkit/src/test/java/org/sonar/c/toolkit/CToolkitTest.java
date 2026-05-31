@@ -14,6 +14,7 @@
  * You should have received a copy of the Sonar Source-Available License
  * along with this program; if not, see https://sonarsource.com/license/ssal/
  */
+
 package org.sonar.c.toolkit;
 
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CToolkitTest {
 
+  /**
+   * Tests that CToolkit.getTokenizers() returns exactly 5 tokenizers,
+   * ensuring the expected number of tokenizers are registered.
+   */
   @Test
   public void test() {
     assertThat(CToolkit.getTokenizers()).hasSize(5);
