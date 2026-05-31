@@ -237,8 +237,6 @@ public enum CGrammar implements GrammarRuleKey {
         // List expression
         LIST_EXPRESSION,
         LIST_EXPRESSION_NO_IN,
-        // Type expression
-        TYPE_EXPR,
         // XML Initialiser
         KEYWORDS,
         REGULAR_EXPRESSION,
@@ -272,7 +270,6 @@ public enum CGrammar implements GrammarRuleKey {
         // Class
         CLASS_NAME,
         CLASS_IDENTIFIERS,
-        TYPE_EXPRESSION_LIST,
         // Program
         PROGRAM,
         // </editor-fold>
@@ -648,8 +645,6 @@ public enum CGrammar implements GrammarRuleKey {
                 b.rule(LIST_EXPRESSION_NO_IN).is(ASSIGNMENT_EXPR_NO_IN,
                                 b.zeroOrMore(b.sequence(COMMA, ASSIGNMENT_EXPR_NO_IN)));
 
-                b.rule(TYPE_EXPR).is(STAR);
-
                 b.rule(STDIO_FUNCTION_NAME).is(SPACING, b.firstOf(
                                 b.sequence("fopen", b.nextNot(IDENTIFIER_PART)),
                                 b.sequence("fread", b.nextNot(IDENTIFIER_PART)),
@@ -873,9 +868,8 @@ public enum CGrammar implements GrammarRuleKey {
                 b.rule(VARIABLE_BINDING).is(TYPED_IDENTIFIER);
                 b.rule(VARIABLE_BINDING_NO_IN).is(TYPED_IDENTIFIER_NO_IN);
 
-                b.rule(TYPED_IDENTIFIER).is(b.firstOf(b.sequence(IDENTIFIER, COLON, TYPE_EXPR), IDENTIFIER));
-                b.rule(TYPED_IDENTIFIER_NO_IN)
-                                .is(b.firstOf(b.sequence(IDENTIFIER, COLON), IDENTIFIER));
+                b.rule(TYPED_IDENTIFIER).is(IDENTIFIER);
+                b.rule(TYPED_IDENTIFIER_NO_IN).is(IDENTIFIER);
 
                 b.rule(EXTERNAL_DEFINITION).is(b.firstOf(FUNCTION_DEF, LINKAGE_SPECIFICATION, DECLARATION));
 
@@ -950,8 +944,6 @@ public enum CGrammar implements GrammarRuleKey {
 
                 b.rule(CLASS_NAME).is(CLASS_IDENTIFIERS);
                 b.rule(CLASS_IDENTIFIERS).is(IDENTIFIER, b.zeroOrMore(b.sequence(DOT, IDENTIFIER)));
-
-                b.rule(TYPE_EXPRESSION_LIST).is(TYPE_EXPR, b.zeroOrMore(b.sequence(COMMA, TYPE_EXPR)));
 
                 b.rule(PROGRAM).is(
                                 b.zeroOrMore(INCLUDE_DIRECTIVE),

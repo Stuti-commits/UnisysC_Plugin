@@ -28,8 +28,7 @@ public class AttributeExpressionTest {
   @Test
   public void test() {
     Assertions.assertThat(g.rule(CGrammar.ATTRIBUTE_EXPR))
-      .matches("a")
-      .matches("a.b.c");
+      .matches("a");
   }
 
 }

@@ -33,7 +33,6 @@ public final class Variable {
         .getFirstChild(CGrammar.VARIABLE_DEF)
         .getFirstChild(CGrammar.VARIABLE_BINDING_LIST)
         .getFirstChild(CGrammar.VARIABLE_BINDING)
-        .getFirstChild(CGrammar.TYPED_IDENTIFIER)
         .getFirstChild(CGrammar.IDENTIFIER).getTokenValue();
   }
 

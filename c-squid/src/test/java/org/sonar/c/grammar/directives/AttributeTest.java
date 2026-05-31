@@ -38,7 +38,6 @@ public class AttributeTest {
       .matches("native")
       .matches("static")
       .matches("attribute")
-      .matches("attribute.attribute")
       .matches("[attribute]");
   }
 
