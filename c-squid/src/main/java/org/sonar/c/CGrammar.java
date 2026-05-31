@@ -106,6 +106,7 @@ import static org.sonar.c.CPunctuator.TRIPLE_DOTS;
 import static org.sonar.c.CPunctuator.XOR;
 import static org.sonar.c.CPunctuator.XOR_EQU;
 
+import java.security.Policy.Parameters;
 import java.util.List;
 
 public enum CGrammar implements GrammarRuleKey {
@@ -222,7 +223,6 @@ public enum CGrammar implements GrammarRuleKey {
         EQUALITY_EXPRESSION,
         EQUALITY_OPERATOR,
         EXCLUSIVE_OR_EXPRESSION,
-        BITEWISE_OR_EXPR,
         INCLUSIVE_OR_EXPRESSION,
         LOGICAL_AND_EXPRESSION,
         LOGICAL_AND_OPERATOR,
@@ -250,9 +250,6 @@ public enum CGrammar implements GrammarRuleKey {
         VARIABLE_BINDING,
         // Function
         FUNCTION_DEF,
-        FUNCTION_NAME,
-        FUNCTION_COMMON,
-        FUNCTION_SIGNATURE,
         PARAMETERS,
         PARAMETER,
         REST_PARAMETERS,
@@ -589,9 +586,6 @@ public enum CGrammar implements GrammarRuleKey {
                                 .skipIfOneChild();
                 b.rule(INCLUSIVE_OR_EXPRESSION).is(EXCLUSIVE_OR_EXPRESSION, b.zeroOrMore(OR, EXCLUSIVE_OR_EXPRESSION));
 
-         /*       b.rule(BITEWISE_OR_EXPR).is(EXCLUSIVE_OR_EXPRESSION, b.zeroOrMore(OR, EXCLUSIVE_OR_EXPRESSION))
-                                .skipIfOneChild();*/
-
                 b.rule(LOGICAL_AND_EXPRESSION)
                                 .is(INCLUSIVE_OR_EXPRESSION, b.zeroOrMore(b.sequence(ANDAND, INCLUSIVE_OR_EXPRESSION)))
                                 .skipIfOneChild();
@@ -882,14 +876,6 @@ public enum CGrammar implements GrammarRuleKey {
 
                 b.rule(TYPEDEF_NAME).is(IDENTIFIER);
 
-                b.rule(FUNCTION_NAME).is(IDENTIFIER);
-
-                b.rule(FUNCTION_COMMON).is(b.firstOf(
-                                b.sequence(FUNCTION_SIGNATURE, BLOCK),
-                                b.sequence(FUNCTION_SIGNATURE, EOS)));
-
-                b.rule(FUNCTION_SIGNATURE).is(b.sequence(LPARENTHESIS, b.optional(PARAMETERS), RPARENTHESIS));
-
                 b.rule(PARAMETERS).is(b.firstOf(b.sequence(PARAMETER, b.zeroOrMore(COMMA, PARAMETER),
                                 b.optional(COMMA, REST_PARAMETERS)), REST_PARAMETERS));
 
@@ -926,10 +912,6 @@ public enum CGrammar implements GrammarRuleKey {
                         }
                         b.rule(p).is(SPACING, p.getValue());
                 }
-        }
-
-        private static Object word(LexerlessGrammarBuilder b, String word) {
-                return b.sequence(SPACING, word, b.nextNot(IDENTIFIER_PART));
         }
 
 }
