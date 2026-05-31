@@ -16,10 +16,10 @@ mvn clean install -DskipTests
 mvn clean install
 
 # Run unit tests for a specific module
-mvn test -pl flex-checks
+mvn test -pl c-checks
 
 # Run a single test class
-mvn test -pl flex-checks -Dtest=EmptyStatementCheckTest
+mvn test -pl c-checks -Dtest=EmptyStatementCheckTest
 
 ## Module Structure
 
@@ -46,7 +46,7 @@ Checks are AST visitors that subscribe to specific grammar nodes:
 public class MyCheck extends CVisitor implements CCheck {
   @Override
   public List<AstNodeType> subscribedTo() {
-    return Collections.singletonList(CGrammar.IF_STATEMENT);
+    return Collections.singletonList(CGrammar.FOR_STATEMENT);
   }
 
   @Override
@@ -58,9 +58,11 @@ public class MyCheck extends CVisitor implements CCheck {
 ```
 
 Test files use comment annotations for expected issues:
-```actionscript
+```Unisys C
 if (true) { } // Noncompliant {{Expected message}}
 ```
+
+`CVerifier` is a utility for running and verifying check tests by comparing actual issues with expected annotations in test files. See [CVerifier documentation](https://github.com/SonarSource/sslr/blob/master/sslr-testing/src/main/java/org/sonar/sslr/utils/CVerifier.java) for details.
 
 Testing uses `CVerifier`:
 ```java

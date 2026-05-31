@@ -23,7 +23,7 @@ import org.sonar.api.resources.AbstractLanguage;
 import org.sonar.plugins.c.CPlugin;
 
 /**
- * Class that actually represents ActionScript, the language of Unisys C.
+ * Class that actually represents the Unisys C language.
  */
 public class C extends AbstractLanguage {
 

@@ -25,7 +25,7 @@ public class CPunctuatorTest {
 
   @Test
   public void test() {
-    assertThat(CPunctuator.values().length).isEqualTo(56);
+    assertThat(CPunctuator.values().length).isEqualTo(51);
   }
 
 }

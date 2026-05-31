@@ -1,5 +1,5 @@
 {
-  "title": "Flex parser failure",
+  "title": "Unisys C parser failure",
   "type": "CODE_SMELL",
   "status": "ready",
   "remediation": {

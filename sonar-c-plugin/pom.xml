@@ -12,7 +12,7 @@
   <packaging>sonar-plugin</packaging>
 
   <name>Unisys C analyzer :: SonarQube Plugin</name>
-  <description>Code Quality and Security for c / ActionScript</description>
+  <description>Code Quality and Security for Unisys C</description>
   <url>http://redirect.sonarsource.com/plugins/c.html</url>
 
 

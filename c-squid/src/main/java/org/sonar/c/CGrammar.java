@@ -54,7 +54,6 @@ import static org.sonar.c.CKeyword.INT;
 import static org.sonar.c.CKeyword.FLOAT;
 import static org.sonar.c.CKeyword.DOUBLE;
 import static org.sonar.c.CKeyword.SIGNED;
-import static org.sonar.c.CKeyword.SIZEOF;
 import static org.sonar.c.CKeyword.UNSIGNED;
 import static org.sonar.c.CKeyword.LONG;
 import static org.sonar.c.CKeyword.SHORT;
@@ -96,6 +95,7 @@ import static org.sonar.c.CPunctuator.RBRAKET;
 import static org.sonar.c.CPunctuator.RCURLYBRACE;
 import static org.sonar.c.CPunctuator.RPARENTHESIS;
 import static org.sonar.c.CPunctuator.SEMICOLON;
+import static org.sonar.c.CPunctuator.SIZEOF;
 import static org.sonar.c.CPunctuator.SL;
 import static org.sonar.c.CPunctuator.SL_EQU;
 import static org.sonar.c.CPunctuator.SR;
@@ -609,11 +609,8 @@ public enum CGrammar implements GrammarRuleKey {
 
                 b.rule(EQUALITY_OPERATOR).is(b.firstOf(
                                 EQUAL2,
-                                NOTEQUAL1,
-                                /* ActionScript 2: */
-                                b.sequence(SPACING, "<>"),
-                                word(b, "eq"),
-                                word(b, "ne")));
+                                NOTEQUAL1
+                        ));
 
                 b.rule(AND_EXPRESSION).is(EQUALITY_EXPRESSION, b.zeroOrMore(b.sequence(AND, EQUALITY_EXPRESSION)))
                                 .skipIfOneChild();
