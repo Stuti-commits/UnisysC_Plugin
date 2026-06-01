@@ -38,25 +38,20 @@ public final class Variable {
 
   public static boolean isVariable(AstNode directive) {
     Preconditions.checkState(directive.is(CGrammar.DIRECTIVE));
-    if (directive.getFirstChild(CGrammar.ANNOTABLE_DIRECTIVE) != null) {
-      AstNode variableDecStmt = directive.getFirstChild(CGrammar.ANNOTABLE_DIRECTIVE)
-          .getFirstChild(CGrammar.VARIABLE_DECLARATION_STATEMENT);
-
-      if (variableDecStmt != null) {
-        return variableDecStmt
-            .getFirstChild(CGrammar.VARIABLE_DEF)
-            .getFirstChild(CGrammar.VARIABLE_DEF_KIND)
-            .getFirstChild().is(CKeyword.CONST);
-      }
+    AstNode variableDecStmt = directive.getFirstChild(CGrammar.VARIABLE_DECLARATION_STATEMENT);
+  
+    if (variableDecStmt != null) {
+      return variableDecStmt
+          .getFirstChild(CGrammar.VARIABLE_DEF)
+          .getFirstChild(CGrammar.VARIABLE_DEF_KIND)
+          .getFirstChild().is(CGrammar.IDENTIFIER);
     }
     return false;
   }
 
   public static boolean isConst(AstNode directive) {
     Preconditions.checkState(directive.is(CGrammar.DIRECTIVE));
-    if (directive.getFirstChild(CGrammar.ANNOTABLE_DIRECTIVE) != null) {
-      AstNode variableDecStmt = directive.getFirstChild(CGrammar.ANNOTABLE_DIRECTIVE)
-          .getFirstChild(CGrammar.VARIABLE_DECLARATION_STATEMENT);
+    AstNode variableDecStmt = directive.getFirstChild(CGrammar.VARIABLE_DECLARATION_STATEMENT);
 
       if (variableDecStmt != null) {
         return variableDecStmt
@@ -64,7 +59,6 @@ public final class Variable {
             .getFirstChild(CGrammar.VARIABLE_DEF_KIND)
             .getFirstChild().is(CKeyword.CONST);
       }
-    }
     return false;
   }
 
