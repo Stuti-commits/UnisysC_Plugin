@@ -161,7 +161,6 @@ public enum CGrammar implements GrammarRuleKey {
         TYPE_SPECIFIER_LIST,
         UNARY_OPERATOR,
 
-        // existing flex -
         WHITESPACE,
         SPACING,
         SPACING_NO_LB,
@@ -283,12 +282,7 @@ public enum CGrammar implements GrammarRuleKey {
         // <editor-fold defaultstate="collapsed" desc="Directives">
         DIRECTIVES,
         DIRECTIVE,
-        ANNOTABLE_DIRECTIVE,
-        INCLUDE_DIRECTIVE,
-        ATTRIBUTES,
-        ATTRIBUTE,
-        // this one
-        ATTRIBUTE_EXPR;
+        INCLUDE_DIRECTIVE;
         // </editor-fold>
 
         private static final String UNICODE_LETTER = "\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}";
@@ -696,7 +690,6 @@ public enum CGrammar implements GrammarRuleKey {
                                 b.optional(STATEMENT_LIST),
                                 RCURLYBRACE);
 
-                // existing rules in flex -
                 b.rule(STATEMENT).is(b.firstOf(
                                 LABELED_STATEMENT,
                                 COMPOUND_STATEMENT,
@@ -756,22 +749,10 @@ public enum CGrammar implements GrammarRuleKey {
         private static void directives(LexerlessGrammarBuilder b) {
                 b.rule(DIRECTIVE).is(b.firstOf(
                                 EMPTY_STATEMENT,
-                                ANNOTABLE_DIRECTIVE,
                                 STATEMENT,
-                                b.sequence(ATTRIBUTES, /* No line break */ SPACING_NO_LB, NEXT_NOT_LB,
-                                                ANNOTABLE_DIRECTIVE),
                                 b.sequence(INCLUDE_DIRECTIVE, /* No line break */ EOS_NO_LB)));
 
-                b.rule(ANNOTABLE_DIRECTIVE).is(b.firstOf(
-                                VARIABLE_DECLARATION_STATEMENT,
-                                FUNCTION_DEF));
-
                 b.rule(DIRECTIVES).is(b.zeroOrMore(DIRECTIVE));
-
-                b.rule(ATTRIBUTES).is(b.oneOrMore(ATTRIBUTE));
-                b.rule(ATTRIBUTE).is(b.firstOf(ATTRIBUTE_EXPR,
-                                b.sequence(LBRAKET, ASSIGNMENT_EXPRESSION, RBRAKET)));
-                b.rule(ATTRIBUTE_EXPR).is(IDENTIFIER);
 
                 b.rule(INCLUDE_DIRECTIVE).is(HASH, INCLUDE, SPACING_NO_LB, NEXT_NOT_LB,
                                 b.firstOf(STRING, b.sequence(LT, b.regexp("[^>\\r\\n]++"), GT)));
@@ -813,7 +794,6 @@ public enum CGrammar implements GrammarRuleKey {
 
                 b.rule(IDENTIFIER_LIST).is(IDENTIFIER, b.zeroOrMore(b.sequence(COMMA, IDENTIFIER)));
 
-                // existing in flex -
                 b.rule(VARIABLE_DEF).is(TYPE_SPECIFIER, IDENTIFIER_LIST, EOS);
                 b.rule(VARIABLE_DEF_NO_IN).is(VARIABLE_DEF_KIND, IDENTIFIER_LIST);
 
