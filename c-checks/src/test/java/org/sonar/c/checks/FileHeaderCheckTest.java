@@ -51,7 +51,7 @@ public class FileHeaderCheckTest {
     assertNoIssue(createCheck("// copyright 2005", true), FILE1);
     assertNoIssue(createCheck("// copyright 2005", false), FILE1);
 
-    File FILE1_WIN = new File("src/test/resources/checks/headercheck/file1_win.c");
+    File FILE1_WIN = new File("src/test/resources/checks/headercheck/file1_win.ccc_m");
     assertHasIssue(createCheck("// copyright", false), FILE1_WIN);
     assertHasIssue(createCheck("// copyright", true), FILE1_WIN);
     assertNoIssue(createCheck("// copyright 2005", true), FILE1_WIN);

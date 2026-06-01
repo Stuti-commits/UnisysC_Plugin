@@ -1,5 +1,6 @@
 // Noncompliant@0 {{message!}}
-function sayHello() {
-  var looooooooooong;
-  alert("Hello World!");
+#include <stdio.h>
+void sayHello() {
+  int looooooooooong;
+  printf("Hello World!");
 }
