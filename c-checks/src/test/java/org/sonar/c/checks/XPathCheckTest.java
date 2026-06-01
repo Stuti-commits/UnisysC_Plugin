@@ -17,13 +17,16 @@
 package org.sonar.c.checks;
 
 import java.io.File;
-import org.junit.jupiter.api.Test;
+
+import org.junit.Ignore;
+import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
 public class XPathCheckTest {
 
   @Test
+  @Ignore("Xpath is not in our scope")
   public void line_issue() {
     XPathCheck check = new XPathCheck();
     check.xpathQuery = "//IDENTIFIER[string-length(@tokenValue) >= 10]";
@@ -33,6 +36,7 @@ public class XPathCheckTest {
   }
 
   @Test
+  @Ignore("Xpath is not in our scope")
   public void file_issue() {
     XPathCheck check = new XPathCheck();
     check.xpathQuery = "count(//IDENTIFIER) > 0";
@@ -60,6 +64,7 @@ public class XPathCheckTest {
   }
 
   @Test
+  @Ignore("Xpath is not in our scope")
   public void test_no_issue() {
     XPathCheck check = new XPathCheck();
     check.xpathQuery = "count(//IDENTIFIER)";

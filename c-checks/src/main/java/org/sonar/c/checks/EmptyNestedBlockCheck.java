@@ -59,7 +59,7 @@ public class EmptyNestedBlockCheck extends CCheck {
     // So check grandparent too
     if (parent.is(CGrammar.STATEMENT)) {
       AstNode grandParent = parent.getParent();
-      return !grandParent.is(CGrammar.FUNCTION_DEF);
+      return !grandParent.is(CGrammar.ITERATION_STATEMENT) && !grandParent.is(CGrammar.CONTROL_STATEMENT);
     }
     return true;
   }
