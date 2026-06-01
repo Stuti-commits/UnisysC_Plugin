@@ -1,4 +1,4 @@
-/* Noncompliant@+1 */
-void sayHello() { /* Noncompliant@+1 {{Avoid TODO}} */
+void sayHello() {
+  // Noncompliant@+1
   /* TODO implement me */
 }
