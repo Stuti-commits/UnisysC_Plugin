@@ -1,15 +1,15 @@
 void testfunction{
   int i;
-  for (i = 0; i < 42; i++) {}     // Noncompliant
+  for (i = 0; i < 42; i++) {} // Noncompliant
 
-  for (i = 0; i < 42; i++);       // OK
+  for (i = 0; i < 42; i++);
 
-  if (myVar == 4)  // OK
+  if (myVar == 4)
   {
     // Do nothing because of X and Y
   }
 
-  switch (a) {                // OK
+  switch (a) {
     case 1:
       break;
     default:
@@ -17,11 +17,12 @@ void testfunction{
   }
 }
 
-void f()      // OK
+void f()
 {
   doSomething();
 }
 
-void emptyFunction()      // OK
+void emptyFunction()
 {
+  // This is intentionally empty
 }
