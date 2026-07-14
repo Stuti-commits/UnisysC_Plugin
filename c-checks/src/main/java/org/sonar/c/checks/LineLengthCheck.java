@@ -30,7 +30,7 @@ import org.sonar.check.RuleProperty;
 @Rule(key = "S103")
 public class LineLengthCheck extends CCheck {
 
-  private static final int DEFAULT_MAXIMUM_LINE_LENHGTH = 80;
+  private static final int DEFAULT_MAXIMUM_LINE_LENHGTH = 72;
 
   @RuleProperty(key = "maximumLineLength", description = "The maximum authorized line length.", defaultValue = ""
       + DEFAULT_MAXIMUM_LINE_LENHGTH)
